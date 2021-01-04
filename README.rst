@@ -30,9 +30,6 @@ This package uses pydantic_ to wrap QuantLib_ to provide a set of Typed class fa
 
 The pydantic models are auto-generated from the QuantLib SWIG bindings, code available on request.
 
-Example
---------
-
 In the following example we construct a European Option.
 
 .. code-block:: python
@@ -45,8 +42,15 @@ In the following example we construct a European Option.
 
     european_option = pql.VanillaOption(payoff=payoff, exercise=european_exercise)
 
+The European Option can be converted to the usual QuantLib_ object for computation as seen in this fuller example_.
 
-The European Option can be, printed:
+.. code-block:: python
+
+    >>> european_option.to_quantlib()
+    <QuantLib.QuantLib.VanillaOption; proxy of <Swig Object of type 'ext::shared_ptr< VanillaOption > *' at 0x7f6559ddabd0> >
+
+
+It can also be, printed:
 
 .. code-block:: python
 
@@ -60,13 +64,12 @@ It can be converted to JSON
     >>> european_option.json()
     '{"payoff": {"type": -1, "strike": 40.0}, "exercise": {"date": {"d": 4.0, "m": 1.0, "y": 2022.0}}}'
 
-It can be converted to the usual QuantLib_ object for computation as seen in this fuller example_.
+It can also be loaded from JSON.
 
 .. code-block:: python
 
-    >>> european_option.to_quantlib()
-    <QuantLib.QuantLib.VanillaOption; proxy of <Swig Object of type 'ext::shared_ptr< VanillaOption > *' at 0x7f6559ddabd0> >
-
+    >>> json_repr = '{"payoff": {"type": -1, "strike": 40.0}, "exercise": {"date": {"d": 4.0, "m": 1.0, "y": 2022.0}}}'
+    >>> pql.VanillaOption.parse_obj(json.loads(json_repr))
 
 
 Credits
