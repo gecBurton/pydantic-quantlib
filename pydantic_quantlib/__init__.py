@@ -66,90 +66,28 @@ class Compounding(Enum):
 
 
 class ActualActualConvention(Enum):
-    None_0 = 0
-    None_1 = 1
+    ISMA = 0
+    Bond = 1
+    ISDA = 2
+    Historical = 3
+    Actual365 = 4
+    AFB = 5
+    Euro = 6
 
 
 class CallabilityPriceType(Enum):
-    None_0 = 0
-    None_1 = 1
+    Clean = 1
+    Dirty = 0
 
 
 class CallabilityType(Enum):
-    None_0 = 0
-    None_1 = 1
+    Call = 0
+    Put = 1
 
 
 class VanillaSwapType(Enum):
-    None_0 = 0
-    None_1 = 1
-
-
-class Market(Enum):
-    None_0 = 0
-    None_1 = 1
-    None_2 = 2
-    None_3 = 3
-
-
-class SwigSwigPtrPyObject(BaseModel):
-    pass
-
-
-class SwigSwigVarPyObject(BaseModel):
-    pass
-
-
-class SwigStopIteration(BaseModel):
-    pass
-
-
-class StdBadCast(BaseModel):
-    pass
-
-
-class StdBadException(BaseModel):
-    pass
-
-
-class StdDomainError(BaseModel):
-    pass
-
-
-class StdException(BaseModel):
-    pass
-
-
-class StdInvalidArgument(BaseModel):
-    pass
-
-
-class StdLengthError(BaseModel):
-    pass
-
-
-class StdLogicError(BaseModel):
-    pass
-
-
-class StdOutOfRange(BaseModel):
-    pass
-
-
-class StdOverflowError(BaseModel):
-    pass
-
-
-class StdRangeError(BaseModel):
-    pass
-
-
-class StdRuntimeError(BaseModel):
-    pass
-
-
-class StdUnderflowError(BaseModel):
-    pass
+    Payer = 1
+    Receiver = -1
 
 
 class Period(BaseModel):
@@ -163,20 +101,34 @@ class Date(BaseModel):
     y: conint(ge=1900, le=2999)  # type: ignore
 
 
-class DateParser(BaseModel):
-    pass
+class IMM(Enum):
+    F = 1
+    G = 2
+    H = 3
+    J = 4
+    K = 5
+    M = 6
+    N = 7
+    Q = 8
+    U = 9
+    V = 10
+    X = 11
+    Z = 12
 
 
-class PeriodParser(BaseModel):
-    pass
-
-
-class IMM(BaseModel):
-    pass
-
-
-class ASX(BaseModel):
-    pass
+class ASX(Enum):
+    F = 1
+    G = 2
+    H = 3
+    J = 4
+    K = 5
+    M = 6
+    N = 7
+    Q = 8
+    U = 9
+    V = 10
+    X = 11
+    Z = 12
 
 
 class EuropeanExercise(BaseModel):
@@ -198,25 +150,9 @@ class SwingExercise(BaseModel):
     dates: List[Date]
 
 
-class Observable(BaseModel):
-    pass
-
-
 class Array(BaseModel):
     n: Optional[int] = None
     fill: Optional[float] = None
-
-
-class DefaultLexicographicalViewColumn(BaseModel):
-    pass
-
-
-class DefaultLexicographicalView(BaseModel):
-    pass
-
-
-class MatrixRow(BaseModel):
-    pass
 
 
 class Matrix(BaseModel):
@@ -225,8 +161,9 @@ class Matrix(BaseModel):
     fill: Optional[float] = None
 
 
-class SalvagingAlgorithm(BaseModel):
-    pass
+class SalvagingAlgorithm(Enum):
+    NoAlgorithm = 0
+    Spectral = 1
 
 
 class SVD(BaseModel):
@@ -265,28 +202,118 @@ class Calendar(BaseModel):
     pass
 
 
+class CzechMarket(Enum):
+    Republic_PSE = 0
+
+
+class FranceMarket(Enum):
+    Exchange = 1
+    Settlement = 0
+
+
+class HongKongMarket(Enum):
+    HKEx = 0
+
+
+class GermanyMarket(Enum):
+    Eurex = 3
+    FrankfurtStockExchange = 1
+    Settlement = 0
+    Xetra = 2
+
+
+class IcelandMarket(Enum):
+    ICEX = 0
+
+
+class IndiaMarket(Enum):
+    NSE = 0
+
+
+class IndonesiaMarket(Enum):
+    JSX = 1
+
+
+class IsraelMarket(Enum):
+    Settlement = 0
+    TASE = 1
+
+
+class ItalyMarket(Enum):
+    Exchange = 1
+    Settlement = 0
+
+
+class MexicoMarket(Enum):
+    BMV = 0
+
+
+class RussiaMarket(Enum):
+    MOEX = 1
+    Settlement = 0
+
+
+class SaudiArabiaMarket(Enum):
+    Tadawul = 0
+
+
+class SingaporeMarket(Enum):
+    SGX = 0
+
+
+class SlovakiaMarket(Enum):
+    BSSE = 0
+
+
+class TaiwanMarket(Enum):
+    TSEC = 0
+
+
+class UkraineMarket(Enum):
+    USE = 0
+
+
+class ArgentinaMarket(Enum):
+    Merval = 0
+
+
 class Argentina(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[ArgentinaMarket] = None
 
 
 class Australia(BaseModel):
     pass
 
 
+class BrazilMarket(Enum):
+    Exchange = 1
+    Settlement = 0
+
+
 class Brazil(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[BrazilMarket] = None
+
+
+class CanadaMarket(Enum):
+    Settlement = 0
+    TSX = 1
 
 
 class Canada(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[CanadaMarket] = None
+
+
+class ChinaMarket(Enum):
+    IB = 1
+    SSE = 0
 
 
 class China(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[ChinaMarket] = None
 
 
 class CzechRepublic(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[CzechMarket] = None
 
 
 class Denmark(BaseModel):
@@ -298,15 +325,15 @@ class Finland(BaseModel):
 
 
 class France(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[FranceMarket] = None
 
 
 class Germany(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[GermanyMarket] = None
 
 
 class HongKong(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[HongKongMarket] = None
 
 
 class Hungary(BaseModel):
@@ -314,23 +341,23 @@ class Hungary(BaseModel):
 
 
 class Iceland(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[IcelandMarket] = None
 
 
 class India(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[IndiaMarket] = None
 
 
 class Indonesia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[IndonesiaMarket] = None
 
 
 class Israel(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[IsraelMarket] = None
 
 
 class Italy(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[ItalyMarket] = None
 
 
 class Japan(BaseModel):
@@ -338,7 +365,7 @@ class Japan(BaseModel):
 
 
 class Mexico(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[MexicoMarket] = None
 
 
 class NewZealand(BaseModel):
@@ -354,7 +381,7 @@ class Poland(BaseModel):
 
 
 class Russia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[RussiaMarket] = None
 
 
 class Romania(BaseModel):
@@ -362,23 +389,28 @@ class Romania(BaseModel):
 
 
 class SaudiArabia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[SaudiArabiaMarket] = None
 
 
 class Singapore(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[SingaporeMarket] = None
 
 
 class Slovakia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[SlovakiaMarket] = None
 
 
 class SouthAfrica(BaseModel):
     pass
 
 
+class SouthKoreaMarket(Enum):
+    KRX = 1
+    Settlement = 0
+
+
 class SouthKorea(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[SouthKoreaMarket] = None
 
 
 class Sweden(BaseModel):
@@ -390,7 +422,7 @@ class Switzerland(BaseModel):
 
 
 class Taiwan(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[TaiwanMarket] = None
 
 
 class TARGET(BaseModel):
@@ -406,15 +438,30 @@ class Turkey(BaseModel):
 
 
 class Ukraine(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[UkraineMarket] = None
+
+
+class UnitedKingdomMarket(Enum):
+    Exchange = 1
+    Metals = 2
+    Settlement = 0
 
 
 class UnitedKingdom(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[UnitedKingdomMarket] = None
+
+
+class UnitedStatesMarket(Enum):
+    FederalReserve = 5
+    GovernmentBond = 2
+    LiborImpact = 4
+    NERC = 3
+    NYSE = 1
+    Settlement = 0
 
 
 class UnitedStates(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[UnitedStatesMarket] = None
 
 
 class NullCalendar(BaseModel):
@@ -962,10 +1009,10 @@ class FlatForward(BaseModel):
 
 
 class IntervalPrice(BaseModel):
-    arg_0: float
-    arg_1: float
-    arg_2: float
-    arg_3: float
+    Close = 1
+    High = 2
+    Low = 3
+    Open = 0
 
 
 class IndexManager(BaseModel):
@@ -1697,7 +1744,8 @@ class BlackVarianceCurve(BaseModel):
 
 
 class BlackVarianceSurface(BaseModel):
-    pass
+    ConstantExtrapolation = 0
+    InterpolatorDefaultExtrapolation = 1
 
 
 class LocalConstantVol(BaseModel):
@@ -1972,8 +2020,16 @@ class CompositeInstrument(BaseModel):
     pass
 
 
-class DateGeneration(BaseModel):
-    pass
+class DateGeneration(Enum):
+    Backward = 0
+    CDS = 7
+    CDS2015 = 8
+    Forward = 1
+    OldCDS = 6
+    ThirdWednesday = 3
+    Twentieth = 4
+    TwentiethIMM = 5
+    Zero = 2
 
 
 class Schedule(BaseModel):
@@ -2175,7 +2231,10 @@ class CappedFlooredCmsSpreadCoupon(BaseModel):
 
 
 class LinearTsrPricerSettings(BaseModel):
-    pass
+    BSStdDevs = 3
+    PriceThreshold = 2
+    RateBound = 0
+    VegaRatio = 1
 
 
 class CmsSpreadCouponPricer(BaseModel):
@@ -2346,8 +2405,14 @@ class BinomialJoshi4VanillaEngine(BaseModel):
     steps: int
 
 
-class LsmBasisSystem(BaseModel):
-    pass
+class LsmBasisSystem(Enum):
+    Chebyshev = 5
+    Chebyshev2nd = 6
+    Hermite = 2
+    Hyperbolic = 3
+    Laguerre = 1
+    Legendre = 4
+    Monomial = 0
 
 
 class FDAmericanEngine(BaseModel):
@@ -2449,8 +2514,9 @@ class BlackCalculator(BaseModel):
     discount: Optional[float] = None
 
 
-class Average(BaseModel):
-    pass
+class Average(Enum):
+    Arithmetic = 0
+    Geometric = 1
 
 
 class AnalyticContinuousGeometricAveragePriceAsianEngine(BaseModel):
@@ -2823,8 +2889,10 @@ class YearOnYearInflationSwapHelper(BaseModel):
     pass
 
 
-class YoYInflationCapFloor(BaseModel):
-    pass
+class YoYInflationCapFloor(Enum):
+    Cap = 0
+    Collar = 2
+    Floor = 1
 
 
 class YoYInflationCap(BaseModel):
@@ -3048,7 +3116,9 @@ class BondFunctions(BaseModel):
 
 
 class CapFloor(BaseModel):
-    pass
+    Cap = 0
+    Collar = 2
+    Floor = 1
 
 
 class Cap(BaseModel):
@@ -4076,7 +4146,9 @@ class HestonSLVMCModel(BaseModel):
 
 
 class FdmHestonGreensFct(BaseModel):
-    pass
+    Gaussian = 1
+    SemiAnalytical = 2
+    ZeroCorrelation = 0
 
 
 class HestonSLVFokkerPlanckFdmParams(BaseModel):
@@ -4243,23 +4315,32 @@ class MonotonicCubicInterpolatedZeroCurve(BaseModel):
 
 
 class Gaussian1dNonstandardSwaptionEngineProbabilities(BaseModel):
-    __root__: Any
+    Digital = 2
+    Naive = 1
+    NoProb = 0
 
 
-class CmsMarketCalibrationCalibrationType(BaseModel):
-    __root__: Any
+class CmsMarketCalibrationCalibrationType(Enum):
+    OnForwardCmsPrice = 2
+    OnPrice = 1
+    OnSpread = 0
 
 
-class GFunctionFactoryYieldCurveModel(BaseModel):
-    __root__: Any
+class GFunctionFactoryYieldCurveModel(Enum):
+    ExactYield = 1
+    NonParallelShifts = 3
+    ParallelShifts = 2
+    Standard = 0
 
 
-class AnalyticPTDHestonEngineComplexLogFormula(BaseModel):
-    __root__: Any
+class AnalyticPTDHestonEngineComplexLogFormula(Enum):
+    AndersenPiterbarg = 1
+    Gatheral = 0
 
 
-class YearOnYearInflationSwapType(BaseModel):
-    __root__: Any
+class YearOnYearInflationSwapType(Enum):
+    Payer = 1
+    Receiver = -1
 
 
 class SettlementMethod(BaseModel):
@@ -4270,48 +4351,86 @@ class IsdaCdsEngineForwardsInCouponPeriod(BaseModel):
     __root__: Any
 
 
-class GJRGARCHProcessDiscretization(BaseModel):
-    __root__: Any
+class GJRGARCHProcessDiscretization(Enum):
+    FullTruncation = 1
+    PartialTruncation = 0
+    Reflection = 2
 
 
 class GaussianQuadrature(BaseModel):
     __root__: Any
 
 
-class Actual365FixedConvention(BaseModel):
-    __root__: Any
+class Actual365FixedConvention(Enum):
+    Standard = 0
+    Canadian = 1
+    NoLeap = 2
 
 
-class ExtendedOrnsteinUhlenbeckProcess(BaseModel):
-    __root__: Any
+class ExtendedOrnsteinUhlenbeckProcess(Enum):
+    GaussLobatto = 2
+    MidPoint = 0
+    Trapezodial = 1
 
 
-class AnalyticHestonEngineIntegrationAlgorithm(BaseModel):
-    __root__: Any
+class AnalyticHestonEngineIntegrationAlgorithm(Enum):
+    BroadieKayaExactSchemeLaguerre = 7
+    BroadieKayaExactSchemeLobatto = 6
+    BroadieKayaExactSchemeTrapezoidal = 8
+    FullTruncation = 1
+    NonCentralChiSquareVariance = 3
+    PartialTruncation = 0
+    QuadraticExponential = 4
+    QuadraticExponentialMartingale = 5
+    Reflection = 2
 
 
-class SobolRsgDirectionIntegers(BaseModel):
-    __root__: Any
+class SobolRsgDirectionIntegers(Enum):
+    Unit = 0
+    Jaeckel = 1
+    SobolLevitan = 2
+    SobolLevitanLemieux = 3
+    JoeKuoD5 = 4
+    JoeKuoD6 = 5
+    JoeKuoD7 = 6
+    Kuo = 7
+    Kuo2 = 8
+    Kuo3 = 9
 
 
-class FdBlackScholesVanillaEngineCashDividendModel(BaseModel):
-    __root__: Any
+class FdBlackScholesVanillaEngineCashDividendModel(Enum):
+    Escrowed = 1
+    Spot = 0
 
 
-class FdmSchemeDescFdmSchemeType(BaseModel):
-    __root__: Any
+class FdmSchemeDescFdmSchemeType(Enum):
+    CraigSneydType = 2
+    CrankNicolsonType = 8
+    DouglasType = 1
+    ExplicitEulerType = 5
+    HundsdorferType = 0
+    ImplicitEulerType = 4
+    MethodOfLinesType = 6
+    ModifiedCraigSneydType = 3
+    TrBDF2Type = 7
 
 
-class BarrierType(BaseModel):
-    __root__: Any
+class BarrierType(Enum):
+    DownIn = 0
+    DownOut = 2
+    UpIn = 1
+    UpOut = 3
 
 
 class FdmBoundaryConditionSet(BaseModel):
-    __root__: Any
+    Lower = 2
+    NoSide = 0
+    Upper = 1
 
 
-class OvernightIndexFutureNettingType(BaseModel):
-    __root__: Any
+class OvernightIndexFutureNettingType(Enum):
+    Averaging = 0
+    Compounding = 1
 
 
 class FdmDiscountDirichletBoundarySide(BaseModel):
@@ -4319,51 +4438,80 @@ class FdmDiscountDirichletBoundarySide(BaseModel):
 
 
 class DefaultBoundaryConditionSide(BaseModel):
-    __root__: Any
+    Lower = 2
+    NoSide = 0
+    Upper = 1
 
 
-class BlackCalibrationHelperCalibrationErrorType(BaseModel):
-    __root__: Any
+class BlackCalibrationHelperCalibrationErrorType(Enum):
+    ImpliedVolError = 2
+    PriceError = 1
+    RelativePriceError = 0
 
 
-class DeltaVolQuoteDeltaType(BaseModel):
-    __root__: Any
+class DeltaVolQuoteDeltaType(Enum):
+    AtmDeltaNeutral = 3
+    AtmFwd = 2
+    AtmGammaMax = 5
+    AtmNull = 0
+    AtmPutCall50 = 6
+    AtmSpot = 1
+    AtmVegaMax = 4
+    Fwd = 1
+    PaFwd = 3
+    PaSpot = 2
+    Spot = 0
 
 
-class Thirty360Convention(BaseModel):
-    __root__: Any
+class Thirty360Convention(Enum):
+    BondBasis = 1
+    EurobondBasis = 3
+    European = 2
+    Italian = 4
+    USA = 0
 
 
 class FdmDirichletBoundarySide(BaseModel):
     __root__: Any
 
 
-class PillarChoice(BaseModel):
-    __root__: Any
+class PillarChoice(Enum):
+    CustomDate = 2
+    LastRelevantDate = 1
+    MaturityDate = 0
 
 
-class SettlementType(BaseModel):
-    __root__: Any
+class SettlementType(Enum):
+    Physical = 0
+    Cash = 1
+    CollateralizedCashPrice = 2
+    ParYieldCurve = 3
 
 
-class AverageType(BaseModel):
-    __root__: Any
+class AverageType(Enum):
+    Arithmetic = 0
+    Geometric = 1
 
 
-class PositionType(BaseModel):
-    __root__: Any
+class PositionType(Enum):
+    Long = 0
+    Short = 1
 
 
-class OvernightIndexedSwapType(BaseModel):
-    __root__: Any
+class OvernightIndexedSwapType(Enum):
+    Payer = 1
+    Receiver = -1
 
 
-class ImplicitEulerSchemeSolverType(BaseModel):
-    __root__: Any
+class ImplicitEulerSchemeSolverType(Enum):
+    BiCGstab = 0
+    GMRES = 1
 
 
-class MirrorGaussianSimulatedAnnealingResetScheme(BaseModel):
-    __root__: Any
+class MirrorGaussianSimulatedAnnealingResetScheme(Enum):
+    NoResetScheme = 0
+    ResetToBestPoint = 1
+    ResetToOrigin = 2
 
 
 class AndreasenHugeVolatilityInterplCalibrationType(BaseModel):
@@ -4374,8 +4522,9 @@ class DiscountFactor(BaseModel):
     __root__: Any
 
 
-class FuturesType(BaseModel):
-    __root__: Any
+class FuturesType(Enum):
+    IMM = 0
+    ASX = 1
 
 
 class IsdaCdsEngineAccrualBias(BaseModel):
@@ -4390,76 +4539,113 @@ class Leg(BaseModel):
     __root__: Any
 
 
-class ProtectionSide(BaseModel):
-    __root__: Any
+class ProtectionSide(Enum):
+    Buyer = 0
+    Seller = 1
 
 
-class IsdaCdsEngineNumericalFix(BaseModel):
-    __root__: Any
+class IsdaCdsEngineNumericalFix(Enum):
+    Flat = 0
+    HalfDayBias = 0
+    NoBias = 1
+    NoFix = 0
+    Piecewise = 1
+    Taylor = 1
 
 
-class DoubleBarrierType(BaseModel):
-    __root__: Any
+class DoubleBarrierType(Enum):
+    KIKO = 2
+    KnockIn = 0
+    KnockOut = 1
+    KOKI = 3
 
 
 class AnalyticHestonEngineComplexLogFormula(BaseModel):
-    __root__: Any
+    AndersenPiterbarg = 2
+    AndersenPiterbargOptCV = 3
+    AsymptoticChF = 4
+    BranchCorrection = 1
+    Gatheral = 0
+    OptimalCV = 5
 
 
-class GaussianSimulatedAnnealingResetScheme(BaseModel):
-    __root__: Any
+class GaussianSimulatedAnnealingResetScheme(Enum):
+    NoResetScheme = 0
+    ResetToBestPoint = 1
+    ResetToOrigin = 2
 
 
-class JointCalendarRule(BaseModel):
-    __root__: Any
+class JointCalendarRule(Enum):
+    BusinessDays = 1
+    Holidays = 0
 
 
-class ZeroCouponInflationSwapType(BaseModel):
-    __root__: Any
+class ZeroCouponInflationSwapType(Enum):
+    Payer = 1
+    Receiver = -1
 
 
-class Gaussian1dSwaptionEngineProbabilities(BaseModel):
-    __root__: Any
+class Gaussian1dSwaptionEngineProbabilities(Enum):
+    Digital = 2
+    Naive = 1
+    NoProb = 0
 
 
 class VolatilityType(BaseModel):
     __root__: Any
 
 
-class Gaussian1dFloatFloatSwaptionEngineProbabilities(BaseModel):
-    __root__: Any
+class Gaussian1dFloatFloatSwaptionEngineProbabilities(Enum):
+    Digital = 2
+    Naive = 1
+    NoProb = 0
 
 
-class LogNormalSimulatedAnnealingResetScheme(BaseModel):
-    __root__: Any
+class LogNormalSimulatedAnnealingResetScheme(Enum):
+    NoResetScheme = 0
+    ResetToBestPoint = 1
+    ResetToOrigin = 2
 
 
-class CPIInterpolationType(BaseModel):
-    __root__: Any
+class CPIInterpolationType(Enum):
+    AsIndex = 0
+    Flat = 1
+    Linear = 2
 
 
-class ExerciseType(BaseModel):
-    __root__: Any
+class ExerciseType(Enum):
+    American = 0
+    Bermuda = 1
+    European = 2
 
 
-class CPISwapType(BaseModel):
-    __root__: Any
+class CPISwapType(Enum):
+    Payer = 1
+    Receiver = -1
 
 
 class AnalyticPTDHestonEngineIntegration(BaseModel):
     __root__: Any
 
 
-class FdmSquareRootFwdOpTransformationType(BaseModel):
-    __root__: Any
+class FdmSquareRootFwdOpTransformationType(Enum):
+    Log = 2
+    Plain = 0
+    Power = 1
 
 
-class AndreasenHugeVolatilityInterplInterpolationType(BaseModel):
-    __root__: Any
+class AndreasenHugeVolatilityInterplInterpolationType(Enum):
+    Put = -1
+    CallPut = 0
+    Call = 1
+    Linear = 1
+    CubicSpline = 2
 
 
-class SobolBrownianGeneratorOrdering(BaseModel):
-    __root__: Any
+class SobolBrownianGeneratorOrdering(Enum):
+    Diagonal = 2
+    Factors = 0
+    Steps = 1
 
 
 class Exercise(BaseModel):
@@ -6217,7 +6403,6 @@ CALENDAR = Union[
 ]
 QUOTE = Union[Quote, SimpleQuote, DerivedQuote, CompositeQuote, DeltaVolQuote]
 OBSERVABLE = Union[
-    Observable,
     QUOTE,
     TERMSTRUCTURE,
     INDEX,
@@ -6246,8 +6431,6 @@ BSMRNDCalculator.update_forward_refs()
 FDBermudanEngine.update_forward_refs()
 Ukraine.update_forward_refs()
 Bibor3M.update_forward_refs()
-AnalyticHestonEngineIntegrationAlgorithm.update_forward_refs()
-CmsMarketCalibrationCalibrationType.update_forward_refs()
 UniformRandomSequenceGenerator.update_forward_refs()
 TemperatureExponential.update_forward_refs()
 FdmHullWhiteOp.update_forward_refs()
@@ -6281,7 +6464,6 @@ UniformLowDiscrepancySequenceGenerator.update_forward_refs()
 ZeroSpreadedTermStructure.update_forward_refs()
 GbpLiborSwapIsdaFix.update_forward_refs()
 Euribor3M.update_forward_refs()
-BarrierType.update_forward_refs()
 Fdm3DimSolver.update_forward_refs()
 JamshidianSwaptionEngine.update_forward_refs()
 AnalyticCapFloorEngine.update_forward_refs()
@@ -6298,8 +6480,6 @@ CalibratedModelHandle.update_forward_refs()
 CeilingTruncation.update_forward_refs()
 StudentDistribution.update_forward_refs()
 SettlementMethod.update_forward_refs()
-JointCalendarRule.update_forward_refs()
-AndreasenHugeVolatilityInterplInterpolationType.update_forward_refs()
 OptionletStripper1.update_forward_refs()
 FdmDividendHandler.update_forward_refs()
 ExponentialSplinesFitting.update_forward_refs()
@@ -6330,7 +6510,6 @@ CubicBSplinesFitting.update_forward_refs()
 FdmCEV1dMesher.update_forward_refs()
 NonCentralCumulativeChiSquareDistribution.update_forward_refs()
 Germany.update_forward_refs()
-ZeroCouponInflationSwapType.update_forward_refs()
 HestonModelHelper.update_forward_refs()
 USDLibor.update_forward_refs()
 Euribor.update_forward_refs()
@@ -6346,7 +6525,6 @@ Swap.update_forward_refs()
 MaxBasketPayoff.update_forward_refs()
 MarkovFunctionalModelSettings.update_forward_refs()
 ConvertibleZeroCouponBond.update_forward_refs()
-FdBlackScholesVanillaEngineCashDividendModel.update_forward_refs()
 ExplicitEulerScheme.update_forward_refs()
 SwaptionVolCube1.update_forward_refs()
 EurLiborSwapIfrFix.update_forward_refs()
@@ -6363,7 +6541,6 @@ TreeCapFloorEngine.update_forward_refs()
 SwapSpreadIndex.update_forward_refs()
 EurLiborSwapIsdaFixB.update_forward_refs()
 FdmZabrOp.update_forward_refs()
-GFunctionFactoryYieldCurveModel.update_forward_refs()
 JuQuadraticApproximationEngine.update_forward_refs()
 India.update_forward_refs()
 CappedFlooredCoupon.update_forward_refs()
@@ -6374,7 +6551,6 @@ DiscountFactor.update_forward_refs()
 QuantoDoubleBarrierOption.update_forward_refs()
 GaussChebyshev2ndIntegration.update_forward_refs()
 DirichletBC.update_forward_refs()
-FuturesType.update_forward_refs()
 SegmentIntegral.update_forward_refs()
 FixedRateBondForward.update_forward_refs()
 BatesProcess.update_forward_refs()
@@ -6405,7 +6581,7 @@ Fdm1dMesher.update_forward_refs()
 DailyTenorLibor.update_forward_refs()
 FdmSchemeDesc.update_forward_refs()
 CmsMarketCalibration.update_forward_refs()
-AverageType.update_forward_refs()
+# AverageType.update_forward_refs()
 MethodOfLinesScheme.update_forward_refs()
 SpreadCdsHelper.update_forward_refs()
 Euribor3652M.update_forward_refs()
@@ -6416,11 +6592,11 @@ GaussHyperbolicIntegration.update_forward_refs()
 ZACPI.update_forward_refs()
 BinomialCRRVanillaEngine.update_forward_refs()
 HullWhite.update_forward_refs()
-PositionType.update_forward_refs()
+# PositionType.update_forward_refs()
 ConvexMonotone.update_forward_refs()
 FdmBlackScholesOp.update_forward_refs()
 Taiwan.update_forward_refs()
-YearOnYearInflationSwapType.update_forward_refs()
+# YearOnYearInflationSwapType.update_forward_refs()
 LognormalCmsSpreadPricer.update_forward_refs()
 EURLibor.update_forward_refs()
 AnalyticDigitalAmericanKOEngine.update_forward_refs()
@@ -6434,14 +6610,12 @@ ConvertibleFloatingRateBond.update_forward_refs()
 SaudiArabia.update_forward_refs()
 Libor.update_forward_refs()
 CallableFixedRateBond.update_forward_refs()
-DeltaVolQuoteDeltaType.update_forward_refs()
 Gaussian1dFloatFloatSwaptionEngine.update_forward_refs()
 HongKong.update_forward_refs()
 Euribor3651Y.update_forward_refs()
 ChfLiborSwapIsdaFix.update_forward_refs()
 FractionalDividend.update_forward_refs()
 DMinus.update_forward_refs()
-OvernightIndexedSwapType.update_forward_refs()
 FdG2SwaptionEngine.update_forward_refs()
 ExtOUWithJumpsProcess.update_forward_refs()
 USCPI.update_forward_refs()
@@ -6449,7 +6623,6 @@ GaussianRandomSequenceGenerator.update_forward_refs()
 Robor.update_forward_refs()
 CapFloorTermVolatilityStructureHandle.update_forward_refs()
 VanillaForwardPayoff.update_forward_refs()
-AnalyticPTDHestonEngineComplexLogFormula.update_forward_refs()
 ConstantSwaptionVolatility.update_forward_refs()
 EUHICP.update_forward_refs()
 Argentina.update_forward_refs()
@@ -6457,14 +6630,12 @@ BasketOption.update_forward_refs()
 BivariateCumulativeNormalDistributionWe04DP.update_forward_refs()
 AndreasenHugeLocalVolAdapter.update_forward_refs()
 DiscountingBondEngine.update_forward_refs()
-ExerciseType.update_forward_refs()
 FdmSquareRootFwdOp.update_forward_refs()
 NeumannBC.update_forward_refs()
 FdmQuantoHelper.update_forward_refs()
 Period.update_forward_refs()
 SwapIndex.update_forward_refs()
 BlackProcess.update_forward_refs()
-Gaussian1dSwaptionEngineProbabilities.update_forward_refs()
 FdmBatesOp.update_forward_refs()
 LocalVolTermStructureHandle.update_forward_refs()
 FlatForward.update_forward_refs()
@@ -6485,7 +6656,6 @@ Euribor3658M.update_forward_refs()
 YYZACPI.update_forward_refs()
 GJRGARCHProcess.update_forward_refs()
 GaussLobattoIntegral.update_forward_refs()
-SobolBrownianGeneratorOrdering.update_forward_refs()
 HullWhiteProcess.update_forward_refs()
 Bkbm2M.update_forward_refs()
 JpyLiborSwapIsdaFixAm.update_forward_refs()
@@ -6501,10 +6671,8 @@ FdmBoundaryConditionSet.update_forward_refs()
 ForwardRateAgreement.update_forward_refs()
 ForwardSpreadedTermStructure.update_forward_refs()
 Money.update_forward_refs()
-BlackCalibrationHelperCalibrationErrorType.update_forward_refs()
 Italy.update_forward_refs()
 VarianceGammaProcess.update_forward_refs()
-ProtectionSide.update_forward_refs()
 LogLinearInterpolatedZeroCurve.update_forward_refs()
 MonotonicCubicInterpolatedZeroCurve.update_forward_refs()
 Bibor1Y.update_forward_refs()
@@ -6519,7 +6687,6 @@ CappedFlooredCmsCoupon.update_forward_refs()
 ConstantParameter.update_forward_refs()
 SecondDerivativeOp.update_forward_refs()
 SafeBilinearInterpolation.update_forward_refs()
-GaussianSimulatedAnnealingResetScheme.update_forward_refs()
 ParkinsonSigma.update_forward_refs()
 SimpleCashFlow.update_forward_refs()
 COSHestonEngine.update_forward_refs()
@@ -6532,12 +6699,10 @@ CHFLibor.update_forward_refs()
 Euribor3656M.update_forward_refs()
 DefaultLogCubicInterpolatedZeroCurve.update_forward_refs()
 ZeroCouponBond.update_forward_refs()
-SettlementType.update_forward_refs()
 InverseCumulativePoisson.update_forward_refs()
 AndreasenHugeVolatilityAdapter.update_forward_refs()
 Cap.update_forward_refs()
 GarmanKlassSigma5.update_forward_refs()
-Actual365FixedConvention.update_forward_refs()
 FloatFloatSwaption.update_forward_refs()
 SafeForwardFlatInterpolation.update_forward_refs()
 InverseNonCentralCumulativeChiSquareDistribution.update_forward_refs()
@@ -6559,7 +6724,6 @@ OISRateHelper.update_forward_refs()
 SwapRateHelper.update_forward_refs()
 SamplerGaussian.update_forward_refs()
 FdmCEVOp.update_forward_refs()
-OvernightIndexFutureNettingType.update_forward_refs()
 Euribor3652W.update_forward_refs()
 CraigSneydScheme.update_forward_refs()
 PoissonDistribution.update_forward_refs()
@@ -6575,8 +6739,6 @@ GsrProcess.update_forward_refs()
 Euribor6M.update_forward_refs()
 Nzocr.update_forward_refs()
 YYEUHICPXT.update_forward_refs()
-DoubleBarrierType.update_forward_refs()
-CPIInterpolationType.update_forward_refs()
 Euribor1Y.update_forward_refs()
 BinomialJRVanillaEngine.update_forward_refs()
 IntegralCdsEngine.update_forward_refs()
@@ -6639,14 +6801,12 @@ GaussianLowDiscrepancySequenceGenerator.update_forward_refs()
 FdHestonDoubleBarrierEngine.update_forward_refs()
 Euribor9M.update_forward_refs()
 FdmHestonLocalVolatilityVarianceMesher.update_forward_refs()
-FdmSquareRootFwdOpTransformationType.update_forward_refs()
 Actual360.update_forward_refs()
 AmortizingFloatingRateBond.update_forward_refs()
 CallabilityPrice.update_forward_refs()
 InverseCumulativeNormal.update_forward_refs()
 StochasticProcessArray.update_forward_refs()
 SafeLinearInterpolation.update_forward_refs()
-Thirty360Convention.update_forward_refs()
 FdmOrnsteinUhlenbeckOp.update_forward_refs()
 Floor.update_forward_refs()
 AndreasenHugeVolatilityInterplCalibrationType.update_forward_refs()
@@ -6675,12 +6835,10 @@ BlackIborCouponPricer.update_forward_refs()
 FdmBlackScholesMesher.update_forward_refs()
 FdmHestonHullWhiteOp.update_forward_refs()
 AnalyticDiscreteGeometricAverageStrikeAsianEngine.update_forward_refs()
-GJRGARCHProcessDiscretization.update_forward_refs()
 HestonModelHandle.update_forward_refs()
 MTBrownianGeneratorFactory.update_forward_refs()
 SafeConvexMonotoneInterpolation.update_forward_refs()
 Bbsw6M.update_forward_refs()
-ExtendedOrnsteinUhlenbeckProcess.update_forward_refs()
 Slovakia.update_forward_refs()
 FDShoutEngine.update_forward_refs()
 Bibor2M.update_forward_refs()
@@ -6688,7 +6846,6 @@ MoroInverseCumulativeNormal.update_forward_refs()
 SafeKrugerLogCubic.update_forward_refs()
 BlackConstantVol.update_forward_refs()
 ZeroCurve.update_forward_refs()
-CPISwapType.update_forward_refs()
 AndreasenHugeVolatilityInterpl.update_forward_refs()
 AnalyticHestonEngineIntegration.update_forward_refs()
 AnalyticHestonEngineComplexLogFormula.update_forward_refs()
@@ -6719,13 +6876,10 @@ FixedRateBond.update_forward_refs()
 VannaVolgaBarrierEngine.update_forward_refs()
 Euribor3654M.update_forward_refs()
 SabrSmileSection.update_forward_refs()
-LogNormalSimulatedAnnealingResetScheme.update_forward_refs()
 KlugeExtOUProcess.update_forward_refs()
 LogNormalSimulatedAnnealing.update_forward_refs()
 DKKLibor.update_forward_refs()
 YoYInflationTermStructureHandle.update_forward_refs()
-Gaussian1dFloatFloatSwaptionEngineProbabilities.update_forward_refs()
-MirrorGaussianSimulatedAnnealingResetScheme.update_forward_refs()
 RebatedExercise.update_forward_refs()
 FlatHazardRate.update_forward_refs()
 HestonRNDCalculator.update_forward_refs()
@@ -6776,11 +6930,9 @@ G2ForwardProcess.update_forward_refs()
 UnitedKingdom.update_forward_refs()
 LevenbergMarquardt.update_forward_refs()
 Simplex.update_forward_refs()
-SobolRsgDirectionIntegers.update_forward_refs()
 AnalyticHaganPricer.update_forward_refs()
 CzechRepublic.update_forward_refs()
 ExponentialJump1dMesher.update_forward_refs()
-FdmSchemeDescFdmSchemeType.update_forward_refs()
 ZeroInflationTermStructureHandle.update_forward_refs()
 ActualActual.update_forward_refs()
 Brazil.update_forward_refs()
@@ -6792,7 +6944,6 @@ MakeVanillaSwap.update_forward_refs()
 SafeKrugerCubic.update_forward_refs()
 Bbsw2M.update_forward_refs()
 TreeCallableFixedRateBondEngine.update_forward_refs()
-PillarChoice.update_forward_refs()
 SimpsonIntegral.update_forward_refs()
 DPlusDMinus.update_forward_refs()
 CapFloorTermVolCurve.update_forward_refs()
@@ -6838,7 +6989,6 @@ Euribor2M.update_forward_refs()
 FRHICP.update_forward_refs()
 Bbsw1M.update_forward_refs()
 Bkbm4M.update_forward_refs()
-ImplicitEulerSchemeSolverType.update_forward_refs()
 GaussGegenbauerIntegration.update_forward_refs()
 EURLibor5M.update_forward_refs()
 Bkbm1M.update_forward_refs()
@@ -6872,7 +7022,6 @@ GBPLiborON.update_forward_refs()
 EURLibor1Y.update_forward_refs()
 FdSabrVanillaEngine.update_forward_refs()
 GarmanKlassSigma1.update_forward_refs()
-IsdaCdsEngineNumericalFix.update_forward_refs()
 Bibor.update_forward_refs()
 NonstandardSwap.update_forward_refs()
 SwaptionHelper.update_forward_refs()
