@@ -41,6 +41,9 @@ jobs:
             - name: Test with pytest
               run: |
                   pytest --cov=pydantic_quantlib
+            - name: Test with doctest
+              run: |
+                  pytest --doctest-modules pydantic_quantlib
             - name: Static typechecking with mypy
               run: |
                   mypy pydantic_quantlib tests
