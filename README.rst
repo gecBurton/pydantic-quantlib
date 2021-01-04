@@ -6,8 +6,8 @@ Pydantic QuantLib
 .. image:: https://img.shields.io/pypi/v/pydantic_quantlib.svg
         :target: https://pypi.python.org/pypi/pydantic_quantlib
 
-.. image:: https://img.shields.io/travis/gecBurton/pydantic_quantlib.svg
-        :target: https://travis-ci.com/gecBurton/pydantic_quantlib
+.. image:: https://github.com/gecBurton/inference_logic/workflows/PythonPackage/badge.svg
+        :target: https://github.com/gecBurton/inference_logic/workflows/PythonPackage/badge.svg
 
 .. image:: https://readthedocs.org/projects/pydantic-quantlib/badge/?version=latest
         :target: https://pydantic-quantlib.readthedocs.io/en/latest/?badge=latest
@@ -28,7 +28,7 @@ Features
 
 This package uses pydantic_ to wrap QuantLib_ to provide a set of Typed class factories.
 
-The pydantic models are auto-generated from the QuantLib SWIG bindings, code available on request.
+The pydantic models are auto-generated from the QuantLib SWIG bindings. The autogen code is available on request.
 
 In the following example we construct a European Option.
 
@@ -42,7 +42,7 @@ In the following example we construct a European Option.
 
     european_option = pql.VanillaOption(payoff=payoff, exercise=european_exercise)
 
-The European Option can be converted to the usual QuantLib_ object for computation as seen in this fuller example_.
+The option can be converted to the usual QuantLib_ object for computation as seen in this fuller example_.
 
 .. code-block:: python
 
@@ -50,21 +50,21 @@ The European Option can be converted to the usual QuantLib_ object for computati
     '<QuantLib.QuantLib.VanillaOption; proxy of <Swig Object of type 'ext::shared_ptr< VanillaOption > *' at 0x7f6559ddabd0> >'
 
 
-It can also be, printed:
+it can also be printed:
 
 .. code-block:: python
 
     >>> print(european_option)
     'PlainVanillaPayoff(type=<OptionType.Put: -1>, strike=40.0) exercise=EuropeanExercise(date=Date(d=4.0, m=1.0, y=2022.0))'
 
-It can be converted to JSON
+it can be converted to JSON:
 
 .. code-block:: python
 
     >>> european_option.json()
     '{"payoff": {"type": -1, "strike": 40.0}, "exercise": {"date": {"d": 4.0, "m": 1.0, "y": 2022.0}}}'
 
-It can also be loaded from JSON.
+and it can be loaded from JSON:
 
 .. code-block:: python
 
