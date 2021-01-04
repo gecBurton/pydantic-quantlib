@@ -36,7 +36,7 @@ In the following example we construct a European Option.
 
     import pydantic_quantlib as pql
 
-    payoff = pql.PlainVanillaPayoff(type=pql.OptionType.Put, strike=40)
+    payoff = pql.PlainVanillaPayoff(type=pql.enums.OptionType.Put, strike=40)
 
     european_exercise = pql.EuropeanExercise(date=pql.Date(d=4, m=1, y=2022))
 

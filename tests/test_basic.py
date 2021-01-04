@@ -15,7 +15,7 @@ todays_date = pql.Date(d=4, m=1, y=2021)
 settlement_date = pql.Date(d=6, m=1, y=2021)
 
 # options parameters
-option_type = pql.OptionType.Put
+option_type = pql.enums.OptionType.Put
 underlying = 36
 strike = 40
 dividend_yield = 0.00

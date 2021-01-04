@@ -11,172 +11,23 @@ __version__ = "0.1.0"
 #   timestamp: 2021-01-03T20:14:28+00:00
 
 
-from enum import Enum
 from typing import Any, List, Optional, Union
 
 from pydantic import Field, conint
 
+from . import enums
 from .core import BaseModel
-
-
-class TimeUnit(Enum):
-    Days = 0
-    Weeks = 1
-    Months = 2
-    Years = 3
-    Hours = 4
-    Minutes = 5
-    Seconds = 6
-    Milliseconds = 7
-
-
-class OptionType(Enum):
-    Call = 1
-    Put = -1
-
-
-class BusinessDayConvention(Enum):
-    Following = 0
-    ModifiedFollowing = 1
-    Preceding = 2
-    ModifiedPreceding = 3
-    Unadjusted = 4
-    HalfMonthModifiedFollowing = 5
-    Nearest = 6
-
-
-class DateGenerationRule(Enum):
-    Backward = 0
-    Forward = 1
-    Zero = 2
-    ThirdWednesday = 3
-    Twentieth = 4
-    TwentiethIMM = 5
-    OldCDS = 6
-    CDS = 7
-    CDS2015 = 8
-
-
-class Compounding(Enum):
-    Simple = 0
-    Compounded = 1
-    Continuous = 2
-    SimpleThenCompounded = 3
-    CompoundedThenSimple = 4
-
-
-class ActualActualConvention(Enum):
-    None_0 = 0
-    None_1 = 1
-
-
-class CallabilityPriceType(Enum):
-    None_0 = 0
-    None_1 = 1
-
-
-class CallabilityType(Enum):
-    None_0 = 0
-    None_1 = 1
-
-
-class VanillaSwapType(Enum):
-    None_0 = 0
-    None_1 = 1
-
-
-class Market(Enum):
-    None_0 = 0
-    None_1 = 1
-    None_2 = 2
-    None_3 = 3
-
-
-class SwigSwigPtrPyObject(BaseModel):
-    pass
-
-
-class SwigSwigVarPyObject(BaseModel):
-    pass
-
-
-class SwigStopIteration(BaseModel):
-    pass
-
-
-class StdBadCast(BaseModel):
-    pass
-
-
-class StdBadException(BaseModel):
-    pass
-
-
-class StdDomainError(BaseModel):
-    pass
-
-
-class StdException(BaseModel):
-    pass
-
-
-class StdInvalidArgument(BaseModel):
-    pass
-
-
-class StdLengthError(BaseModel):
-    pass
-
-
-class StdLogicError(BaseModel):
-    pass
-
-
-class StdOutOfRange(BaseModel):
-    pass
-
-
-class StdOverflowError(BaseModel):
-    pass
-
-
-class StdRangeError(BaseModel):
-    pass
-
-
-class StdRuntimeError(BaseModel):
-    pass
-
-
-class StdUnderflowError(BaseModel):
-    pass
 
 
 class Period(BaseModel):
     n: Optional[int] = None
-    units: Optional[TimeUnit] = None
+    units: Optional[enums.TimeUnit] = None
 
 
 class Date(BaseModel):
     d: conint(ge=1, le=31)  # type: ignore
     m: conint(ge=1, le=12)  # type: ignore
     y: conint(ge=1900, le=2999)  # type: ignore
-
-
-class DateParser(BaseModel):
-    pass
-
-
-class PeriodParser(BaseModel):
-    pass
-
-
-class IMM(BaseModel):
-    pass
-
-
-class ASX(BaseModel):
-    pass
 
 
 class EuropeanExercise(BaseModel):
@@ -198,35 +49,15 @@ class SwingExercise(BaseModel):
     dates: List[Date]
 
 
-class Observable(BaseModel):
-    pass
-
-
 class Array(BaseModel):
     n: Optional[int] = None
     fill: Optional[float] = None
-
-
-class DefaultLexicographicalViewColumn(BaseModel):
-    pass
-
-
-class DefaultLexicographicalView(BaseModel):
-    pass
-
-
-class MatrixRow(BaseModel):
-    pass
 
 
 class Matrix(BaseModel):
     rows: Optional[int] = None
     columns: Optional[int] = None
     fill: Optional[float] = None
-
-
-class SalvagingAlgorithm(BaseModel):
-    pass
 
 
 class SVD(BaseModel):
@@ -266,7 +97,7 @@ class Calendar(BaseModel):
 
 
 class Argentina(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.ArgentinaMarket] = None
 
 
 class Australia(BaseModel):
@@ -274,19 +105,19 @@ class Australia(BaseModel):
 
 
 class Brazil(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.BrazilMarket] = None
 
 
 class Canada(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.CanadaMarket] = None
 
 
 class China(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.ChinaMarket] = None
 
 
 class CzechRepublic(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.CzechMarket] = None
 
 
 class Denmark(BaseModel):
@@ -298,15 +129,15 @@ class Finland(BaseModel):
 
 
 class France(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.FranceMarket] = None
 
 
 class Germany(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.GermanyMarket] = None
 
 
 class HongKong(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.HongKongMarket] = None
 
 
 class Hungary(BaseModel):
@@ -314,23 +145,23 @@ class Hungary(BaseModel):
 
 
 class Iceland(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.IcelandMarket] = None
 
 
 class India(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.IndiaMarket] = None
 
 
 class Indonesia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.IndonesiaMarket] = None
 
 
 class Israel(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.IsraelMarket] = None
 
 
 class Italy(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.ItalyMarket] = None
 
 
 class Japan(BaseModel):
@@ -338,7 +169,7 @@ class Japan(BaseModel):
 
 
 class Mexico(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.MexicoMarket] = None
 
 
 class NewZealand(BaseModel):
@@ -354,7 +185,7 @@ class Poland(BaseModel):
 
 
 class Russia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.RussiaMarket] = None
 
 
 class Romania(BaseModel):
@@ -362,15 +193,15 @@ class Romania(BaseModel):
 
 
 class SaudiArabia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.SaudiArabiaMarket] = None
 
 
 class Singapore(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.SingaporeMarket] = None
 
 
 class Slovakia(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.SlovakiaMarket] = None
 
 
 class SouthAfrica(BaseModel):
@@ -378,7 +209,7 @@ class SouthAfrica(BaseModel):
 
 
 class SouthKorea(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.SouthKoreaMarket] = None
 
 
 class Sweden(BaseModel):
@@ -390,7 +221,7 @@ class Switzerland(BaseModel):
 
 
 class Taiwan(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.TaiwanMarket] = None
 
 
 class TARGET(BaseModel):
@@ -406,15 +237,15 @@ class Turkey(BaseModel):
 
 
 class Ukraine(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.UkraineMarket] = None
 
 
 class UnitedKingdom(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.UnitedKingdomMarket] = None
 
 
 class UnitedStates(BaseModel):
-    m: Optional[Market] = None
+    m: Optional[enums.UnitedStatesMarket] = None
 
 
 class NullCalendar(BaseModel):
@@ -452,7 +283,7 @@ class Business252(BaseModel):
 class InterestRate(BaseModel):
     r: Optional[float] = None
     dc: Optional[DAYCOUNTER] = None
-    comp: Optional[Compounding] = None
+    comp: Optional[enums.Compounding] = None
     freq: Optional[float] = None
 
 
@@ -943,7 +774,7 @@ class ImpliedTermStructure(BaseModel):
 class ZeroSpreadedTermStructure(BaseModel):
     curveHandle: YieldTermStructureHandle
     spreadHandle: QuoteHandle
-    comp: Optional[Compounding] = None
+    comp: Optional[enums.Compounding] = None
     freq: Optional[float] = None
     dc: Optional[DAYCOUNTER] = None
 
@@ -957,15 +788,15 @@ class FlatForward(BaseModel):
     referenceDate: Date
     forward: float
     dayCounter: DAYCOUNTER
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
 class IntervalPrice(BaseModel):
-    arg_0: float
-    arg_1: float
-    arg_2: float
-    arg_3: float
+    Close = 1
+    High = 2
+    Low = 3
+    Open = 0
 
 
 class IndexManager(BaseModel):
@@ -986,7 +817,7 @@ class IborIndex(BaseModel):
     settlementDays: int
     currency: CURRENCY
     calendar: CALENDAR
-    convention: BusinessDayConvention
+    convention: enums.BusinessDayConvention
     endOfMonth: bool
     dayCounter: DAYCOUNTER
     h: Optional[YieldTermStructureHandle] = None
@@ -1027,7 +858,7 @@ class SwapIndex(BaseModel):
     currency: CURRENCY
     calendar: CALENDAR
     fixedLegTenor: Period
-    fixedLegConvention: BusinessDayConvention
+    fixedLegConvention: enums.BusinessDayConvention
     fixedLegDayCounter: DAYCOUNTER
     iborIndex: IBORINDEX
     discountCurve: Optional[YieldTermStructureHandle] = None
@@ -1697,7 +1528,8 @@ class BlackVarianceCurve(BaseModel):
 
 
 class BlackVarianceSurface(BaseModel):
-    pass
+    ConstantExtrapolation = 0
+    InterpolatorDefaultExtrapolation = 1
 
 
 class LocalConstantVol(BaseModel):
@@ -1972,18 +1804,14 @@ class CompositeInstrument(BaseModel):
     pass
 
 
-class DateGeneration(BaseModel):
-    pass
-
-
 class Schedule(BaseModel):
     effectiveDate: Optional[Date] = None
     terminationDate: Optional[Date] = None
     tenor: Optional[Period] = None
     calendar: Optional[CALENDAR] = None
-    convention: Optional[BusinessDayConvention] = None
-    terminationDateConvention: Optional[BusinessDayConvention] = None
-    rule: Optional[DateGenerationRule] = None
+    convention: Optional[enums.BusinessDayConvention] = None
+    terminationDateConvention: Optional[enums.BusinessDayConvention] = None
+    rule: Optional[enums.DateGenerationRule] = None
     endOfMonth: Optional[bool] = None
     firstDate: Optional[Date] = None
     nextToLastDate: Optional[Date] = None
@@ -2175,7 +2003,10 @@ class CappedFlooredCmsSpreadCoupon(BaseModel):
 
 
 class LinearTsrPricerSettings(BaseModel):
-    pass
+    BSStdDevs = 3
+    PriceThreshold = 2
+    RateBound = 0
+    VegaRatio = 1
 
 
 class CmsSpreadCouponPricer(BaseModel):
@@ -2346,10 +2177,6 @@ class BinomialJoshi4VanillaEngine(BaseModel):
     steps: int
 
 
-class LsmBasisSystem(BaseModel):
-    pass
-
-
 class FDAmericanEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
     timeSteps: Optional[int] = None
@@ -2449,10 +2276,6 @@ class BlackCalculator(BaseModel):
     discount: Optional[float] = None
 
 
-class Average(BaseModel):
-    pass
-
-
 class AnalyticContinuousGeometricAveragePriceAsianEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
@@ -2500,40 +2323,40 @@ class FdSimpleExtOUJumpSwingEngine(BaseModel):
 
 
 class PlainVanillaPayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     strike: float
 
 
 class PercentageStrikePayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     moneyness: float
 
 
 class CashOrNothingPayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     strike: float
     payoff: float
 
 
 class AssetOrNothingPayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     strike: float
 
 
 class SuperSharePayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     strike: float
     increment: float
 
 
 class GapPayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     strike: float
     strikePayoff: float
 
 
 class VanillaForwardPayoff(BaseModel):
-    type: OptionType
+    type: enums.OptionType
     strike: float
 
 
@@ -2577,12 +2400,12 @@ class HimalayaOption(BaseModel):
 
 class CallabilityPrice(BaseModel):
     amount: float
-    type: CallabilityPriceType
+    type: enums.CallabilityPriceType
 
 
 class Callability(BaseModel):
     price: CallabilityPrice
-    type: CallabilityType
+    type: enums.CallabilityType
     date: Date
 
 
@@ -2603,7 +2426,7 @@ class Swap(BaseModel):
 
 
 class VanillaSwap(BaseModel):
-    type: VanillaSwapType
+    type: enums.VanillaSwapType
     nominal: float
     fixedSchedule: Schedule
     fixedRate: float
@@ -2622,7 +2445,7 @@ class MakeVanillaSwap(BaseModel):
 
 
 class NonstandardSwap(BaseModel):
-    type: VanillaSwapType
+    type: enums.VanillaSwapType
     fixedNominal: List[float]
     floatingNominal: List[float]
     fixedSchedule: Schedule
@@ -2635,7 +2458,7 @@ class NonstandardSwap(BaseModel):
     floatDayCount: DAYCOUNTER
     intermediateCapitalExchange: Optional[bool] = None
     finalCapitalExchange: Optional[bool] = None
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
 
 
 class DiscountingSwapEngine(BaseModel):
@@ -2646,7 +2469,7 @@ class DiscountingSwapEngine(BaseModel):
 
 
 class FloatFloatSwap(BaseModel):
-    type: VanillaSwapType
+    type: enums.VanillaSwapType
     nominal1: List[float]
     nominal2: List[float]
     schedule1: Schedule
@@ -2665,8 +2488,8 @@ class FloatFloatSwap(BaseModel):
     spread2: Optional[List[float]] = None
     cappedRate2: Optional[List[float]] = None
     flooredRate2: Optional[List[float]] = None
-    paymentConvention1: Optional[BusinessDayConvention] = None
-    paymentConvention2: Optional[BusinessDayConvention] = None
+    paymentConvention1: Optional[enums.BusinessDayConvention] = None
+    paymentConvention2: Optional[enums.BusinessDayConvention] = None
 
 
 class MakeOIS(BaseModel):
@@ -2823,10 +2646,6 @@ class YearOnYearInflationSwapHelper(BaseModel):
     pass
 
 
-class YoYInflationCapFloor(BaseModel):
-    pass
-
-
 class YoYInflationCap(BaseModel):
     leg: List[CASHFLOW]
     capRates: List[float]
@@ -2917,7 +2736,7 @@ class ZeroCouponBond(BaseModel):
     calendar: CALENDAR
     faceAmount: float
     maturityDate: Date
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     redemption: Optional[float] = None
     issueDate: Optional[Date] = None
 
@@ -2931,17 +2750,17 @@ class FixedRateBond(BaseModel):
     tenor: Period
     coupons: List[float]
     accrualDayCounter: DAYCOUNTER
-    accrualConvention: Optional[BusinessDayConvention] = None
-    paymentConvention: Optional[BusinessDayConvention] = None
+    accrualConvention: Optional[enums.BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     redemption: Optional[float] = None
     issueDate: Optional[Date] = None
     stubDate: Optional[Date] = None
-    rule: Optional[DateGenerationRule] = None
+    rule: Optional[enums.DateGenerationRule] = None
     endOfMonth: Optional[bool] = None
     paymentCalendar: Optional[CALENDAR] = None
     exCouponPeriod: Optional[Period] = None
     exCouponCalendar: Optional[CALENDAR] = None
-    exCouponConvention: Optional[BusinessDayConvention] = None
+    exCouponConvention: Optional[enums.BusinessDayConvention] = None
     exCouponEndOfMonth: Optional[bool] = None
 
 
@@ -2954,7 +2773,7 @@ class AmortizingFixedRateBond(BaseModel):
     sinkingFrequency: float
     coupon: float
     accrualDayCounter: DAYCOUNTER
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     issueDate: Optional[Date] = None
 
 
@@ -2964,7 +2783,7 @@ class AmortizingFloatingRateBond(BaseModel):
     schedule: Schedule
     index: IBORINDEX
     accrualDayCounter: DAYCOUNTER
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     fixingDays: Optional[int] = None
     gearings: Optional[List[float]] = None
     spreads: Optional[List[float]] = None
@@ -2980,7 +2799,7 @@ class FloatingRateBond(BaseModel):
     schedule: Schedule
     index: IBORINDEX
     paymentDayCounter: DAYCOUNTER
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     fixingDays: Optional[int] = None
     gearings: Optional[List[float]] = None
     spreads: Optional[List[float]] = None
@@ -2991,7 +2810,7 @@ class FloatingRateBond(BaseModel):
     issueDate: Optional[Date] = None
     exCouponPeriod: Optional[Period] = None
     exCouponCalendar: Optional[CALENDAR] = None
-    exCouponConvention: Optional[BusinessDayConvention] = None
+    exCouponConvention: Optional[enums.BusinessDayConvention] = None
     exCouponEndOfMonth: Optional[bool] = None
 
 
@@ -3001,7 +2820,7 @@ class CmsRateBond(BaseModel):
     schedule: Schedule
     index: SWAPINDEX
     paymentDayCounter: DAYCOUNTER
-    paymentConvention: BusinessDayConvention
+    paymentConvention: enums.BusinessDayConvention
     fixingDays: float
     gearings: List[float]
     spreads: List[float]
@@ -3026,7 +2845,7 @@ class CallableFixedRateBond(BaseModel):
     schedule: Schedule
     coupons: List[float]
     accrualDayCounter: DAYCOUNTER
-    paymentConvention: BusinessDayConvention
+    paymentConvention: enums.BusinessDayConvention
     redemption: float
     issueDate: Date
     putCallSchedule: List[CALLABILITY]
@@ -3048,7 +2867,9 @@ class BondFunctions(BaseModel):
 
 
 class CapFloor(BaseModel):
-    pass
+    Cap = 0
+    Collar = 2
+    Floor = 1
 
 
 class Cap(BaseModel):
@@ -3112,7 +2933,7 @@ class DepositRateHelper(BaseModel):
     tenor: Period
     fixingDays: float
     calendar: CALENDAR
-    convention: BusinessDayConvention
+    convention: enums.BusinessDayConvention
     endOfMonth: bool
     dayCounter: DAYCOUNTER
 
@@ -3124,13 +2945,13 @@ class FixedRateBondHelper(BaseModel):
     schedule: Schedule
     coupons: List[float]
     paymentDayCounter: DAYCOUNTER
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     redemption: Optional[float] = None
     issueDate: Optional[Date] = None
     paymentCalendar: Optional[CALENDAR] = None
     exCouponPeriod: Optional[Period] = None
     exCouponCalendar: Optional[CALENDAR] = None
-    exCouponConvention: Optional[BusinessDayConvention] = None
+    exCouponConvention: Optional[enums.BusinessDayConvention] = None
     exCouponEndOfMonth: Optional[bool] = None
     useCleanPrice: Optional[bool] = None
 
@@ -3149,7 +2970,7 @@ class FxSwapRateHelper(BaseModel):
     tenor: Period
     fixingDays: float
     calendar: CALENDAR
-    convention: BusinessDayConvention
+    convention: enums.BusinessDayConvention
     endOfMonth: bool
     isFxBaseCurrencyCollateralCurrency: bool
     collateralCurve: YieldTermStructureHandle
@@ -3249,8 +3070,8 @@ class SpreadCdsHelper(BaseModel):
     settlementDays: int
     calendar: CALENDAR
     frequency: float
-    convention: BusinessDayConvention
-    rule: DateGenerationRule
+    convention: enums.BusinessDayConvention
+    rule: enums.DateGenerationRule
     dayCounter: DAYCOUNTER
     recoveryRate: float
     discountCurve: YieldTermStructureHandle
@@ -3265,8 +3086,8 @@ class UpfrontCdsHelper(BaseModel):
     settlementDays: int
     calendar: CALENDAR
     frequency: float
-    convention: BusinessDayConvention
-    rule: DateGenerationRule
+    convention: enums.BusinessDayConvention
+    rule: enums.DateGenerationRule
     dayCounter: DAYCOUNTER
     recoveryRate: float
     discountCurve: YieldTermStructureHandle
@@ -4076,7 +3897,9 @@ class HestonSLVMCModel(BaseModel):
 
 
 class FdmHestonGreensFct(BaseModel):
-    pass
+    Gaussian = 1
+    SemiAnalytical = 2
+    ZeroCorrelation = 0
 
 
 class HestonSLVFokkerPlanckFdmParams(BaseModel):
@@ -4110,7 +3933,7 @@ class CapFloorTermVolatilityStructureHandle(BaseModel):
 class CapFloorTermVolCurve(BaseModel):
     settlementDays: float
     calendar: CALENDAR
-    bdc: BusinessDayConvention
+    bdc: enums.BusinessDayConvention
     lengths: List[Period]
     vols: List[float]
     dc: Optional[DAYCOUNTER] = None
@@ -4119,7 +3942,7 @@ class CapFloorTermVolCurve(BaseModel):
 class CapFloorTermVolSurface(BaseModel):
     settlementDays: float
     calendar: CALENDAR
-    bdc: BusinessDayConvention
+    bdc: enums.BusinessDayConvention
     optionTenors: List[Period]
     strikes: List[float]
     volatilities: Matrix
@@ -4188,7 +4011,7 @@ class ZeroCurve(BaseModel):
     dayCounter: DAYCOUNTER
     calendar: Optional[CALENDAR] = None
     i: Optional[Linear] = None
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
@@ -4198,7 +4021,7 @@ class LogLinearInterpolatedZeroCurve(BaseModel):
     dayCounter: DAYCOUNTER
     calendar: Optional[CALENDAR] = None
     i: Optional[LogLinear] = None
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
@@ -4208,7 +4031,7 @@ class CubicInterpolatedZeroCurve(BaseModel):
     dayCounter: DAYCOUNTER
     calendar: Optional[CALENDAR] = None
     i: Optional[Cubic] = None
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
@@ -4218,7 +4041,7 @@ class SplineCubicInterpolatedZeroCurve(BaseModel):
     dayCounter: DAYCOUNTER
     calendar: Optional[CALENDAR] = None
     i: Optional[SplineCubic] = None
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
@@ -4228,7 +4051,7 @@ class DefaultLogCubicInterpolatedZeroCurve(BaseModel):
     dayCounter: DAYCOUNTER
     calendar: Optional[CALENDAR] = None
     i: Optional[DefaultLogCubic] = None
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
@@ -4238,28 +4061,14 @@ class MonotonicCubicInterpolatedZeroCurve(BaseModel):
     dayCounter: DAYCOUNTER
     calendar: Optional[CALENDAR] = None
     i: Optional[MonotonicCubic] = None
-    compounding: Optional[Compounding] = None
+    compounding: Optional[enums.Compounding] = None
     frequency: Optional[float] = None
 
 
 class Gaussian1dNonstandardSwaptionEngineProbabilities(BaseModel):
-    __root__: Any
-
-
-class CmsMarketCalibrationCalibrationType(BaseModel):
-    __root__: Any
-
-
-class GFunctionFactoryYieldCurveModel(BaseModel):
-    __root__: Any
-
-
-class AnalyticPTDHestonEngineComplexLogFormula(BaseModel):
-    __root__: Any
-
-
-class YearOnYearInflationSwapType(BaseModel):
-    __root__: Any
+    Digital = 2
+    Naive = 1
+    NoProb = 0
 
 
 class SettlementMethod(BaseModel):
@@ -4270,48 +4079,14 @@ class IsdaCdsEngineForwardsInCouponPeriod(BaseModel):
     __root__: Any
 
 
-class GJRGARCHProcessDiscretization(BaseModel):
-    __root__: Any
-
-
 class GaussianQuadrature(BaseModel):
     __root__: Any
 
 
-class Actual365FixedConvention(BaseModel):
-    __root__: Any
-
-
-class ExtendedOrnsteinUhlenbeckProcess(BaseModel):
-    __root__: Any
-
-
-class AnalyticHestonEngineIntegrationAlgorithm(BaseModel):
-    __root__: Any
-
-
-class SobolRsgDirectionIntegers(BaseModel):
-    __root__: Any
-
-
-class FdBlackScholesVanillaEngineCashDividendModel(BaseModel):
-    __root__: Any
-
-
-class FdmSchemeDescFdmSchemeType(BaseModel):
-    __root__: Any
-
-
-class BarrierType(BaseModel):
-    __root__: Any
-
-
 class FdmBoundaryConditionSet(BaseModel):
-    __root__: Any
-
-
-class OvernightIndexFutureNettingType(BaseModel):
-    __root__: Any
+    Lower = 2
+    NoSide = 0
+    Upper = 1
 
 
 class FdmDiscountDirichletBoundarySide(BaseModel):
@@ -4319,50 +4094,12 @@ class FdmDiscountDirichletBoundarySide(BaseModel):
 
 
 class DefaultBoundaryConditionSide(BaseModel):
-    __root__: Any
-
-
-class BlackCalibrationHelperCalibrationErrorType(BaseModel):
-    __root__: Any
-
-
-class DeltaVolQuoteDeltaType(BaseModel):
-    __root__: Any
-
-
-class Thirty360Convention(BaseModel):
-    __root__: Any
+    Lower = 2
+    NoSide = 0
+    Upper = 1
 
 
 class FdmDirichletBoundarySide(BaseModel):
-    __root__: Any
-
-
-class PillarChoice(BaseModel):
-    __root__: Any
-
-
-class SettlementType(BaseModel):
-    __root__: Any
-
-
-class AverageType(BaseModel):
-    __root__: Any
-
-
-class PositionType(BaseModel):
-    __root__: Any
-
-
-class OvernightIndexedSwapType(BaseModel):
-    __root__: Any
-
-
-class ImplicitEulerSchemeSolverType(BaseModel):
-    __root__: Any
-
-
-class MirrorGaussianSimulatedAnnealingResetScheme(BaseModel):
     __root__: Any
 
 
@@ -4371,10 +4108,6 @@ class AndreasenHugeVolatilityInterplCalibrationType(BaseModel):
 
 
 class DiscountFactor(BaseModel):
-    __root__: Any
-
-
-class FuturesType(BaseModel):
     __root__: Any
 
 
@@ -4390,59 +4123,7 @@ class Leg(BaseModel):
     __root__: Any
 
 
-class ProtectionSide(BaseModel):
-    __root__: Any
-
-
-class IsdaCdsEngineNumericalFix(BaseModel):
-    __root__: Any
-
-
-class DoubleBarrierType(BaseModel):
-    __root__: Any
-
-
-class AnalyticHestonEngineComplexLogFormula(BaseModel):
-    __root__: Any
-
-
-class GaussianSimulatedAnnealingResetScheme(BaseModel):
-    __root__: Any
-
-
-class JointCalendarRule(BaseModel):
-    __root__: Any
-
-
-class ZeroCouponInflationSwapType(BaseModel):
-    __root__: Any
-
-
-class Gaussian1dSwaptionEngineProbabilities(BaseModel):
-    __root__: Any
-
-
 class VolatilityType(BaseModel):
-    __root__: Any
-
-
-class Gaussian1dFloatFloatSwaptionEngineProbabilities(BaseModel):
-    __root__: Any
-
-
-class LogNormalSimulatedAnnealingResetScheme(BaseModel):
-    __root__: Any
-
-
-class CPIInterpolationType(BaseModel):
-    __root__: Any
-
-
-class ExerciseType(BaseModel):
-    __root__: Any
-
-
-class CPISwapType(BaseModel):
     __root__: Any
 
 
@@ -4450,20 +4131,8 @@ class AnalyticPTDHestonEngineIntegration(BaseModel):
     __root__: Any
 
 
-class FdmSquareRootFwdOpTransformationType(BaseModel):
-    __root__: Any
-
-
-class AndreasenHugeVolatilityInterplInterpolationType(BaseModel):
-    __root__: Any
-
-
-class SobolBrownianGeneratorOrdering(BaseModel):
-    __root__: Any
-
-
 class Exercise(BaseModel):
-    type: ExerciseType
+    type: enums.ExerciseType
 
 
 class RebatedExercise(BaseModel):
@@ -4471,7 +4140,7 @@ class RebatedExercise(BaseModel):
     rebates: List[float]
     rebateSettlementDays: Optional[float] = None
     rebatePaymentCalendar: Optional[CALENDAR] = None
-    rebatePaymentConvention: Optional[BusinessDayConvention] = None
+    rebatePaymentConvention: Optional[enums.BusinessDayConvention] = None
 
 
 class JointCalendar(BaseModel):
@@ -4479,19 +4148,19 @@ class JointCalendar(BaseModel):
     arg_1: CALENDAR
     arg_2: CALENDAR
     arg_3: CALENDAR
-    rule: Optional[JointCalendarRule] = None
+    rule: Optional[enums.JointCalendarRule] = None
 
 
 class Actual365Fixed(BaseModel):
-    c: Optional[Actual365FixedConvention] = None
+    c: Optional[enums.Actual365FixedConvention] = None
 
 
 class Thirty360(BaseModel):
-    c: Optional[Thirty360Convention] = None
+    c: Optional[enums.Thirty360Convention] = None
 
 
 class ActualActual(BaseModel):
-    c: Optional[ActualActualConvention] = None
+    c: Optional[enums.ActualActualConvention] = None
     schedule: Optional[Schedule] = None
 
 
@@ -4503,7 +4172,7 @@ class GaussianSimulatedAnnealing(BaseModel):
     startTemperature: Optional[float] = None
     endTemperature: Optional[float] = None
     reAnnealSteps: Optional[int] = None
-    resetScheme: Optional[GaussianSimulatedAnnealingResetScheme] = None
+    resetScheme: Optional[enums.GaussianSimulatedAnnealingResetScheme] = None
     resetSteps: Optional[int] = None
 
 
@@ -4515,7 +4184,7 @@ class MirrorGaussianSimulatedAnnealing(BaseModel):
     startTemperature: Optional[float] = None
     endTemperature: Optional[float] = None
     reAnnealSteps: Optional[int] = None
-    resetScheme: Optional[MirrorGaussianSimulatedAnnealingResetScheme] = None
+    resetScheme: Optional[enums.MirrorGaussianSimulatedAnnealingResetScheme] = None
     resetSteps: Optional[int] = None
 
 
@@ -4527,14 +4196,14 @@ class LogNormalSimulatedAnnealing(BaseModel):
     startTemperature: Optional[float] = None
     endTemperature: Optional[float] = None
     reAnnealSteps: Optional[int] = None
-    resetScheme: Optional[LogNormalSimulatedAnnealingResetScheme] = None
+    resetScheme: Optional[enums.LogNormalSimulatedAnnealingResetScheme] = None
     resetSteps: Optional[int] = None
 
 
 class ConstantOptionletVolatility(BaseModel):
     settlementDays: float
     cal: CALENDAR
-    bdc: BusinessDayConvention
+    bdc: enums.BusinessDayConvention
     volatility: QuoteHandle
     dayCounter: DAYCOUNTER
     type: Optional[VolatilityType] = None
@@ -4544,7 +4213,7 @@ class ConstantOptionletVolatility(BaseModel):
 class ConstantSwaptionVolatility(BaseModel):
     referenceDate: Date
     cal: CALENDAR
-    bdc: BusinessDayConvention
+    bdc: enums.BusinessDayConvention
     volatility: float
     dc: DAYCOUNTER
     type: Optional[VolatilityType] = None
@@ -4553,7 +4222,7 @@ class ConstantSwaptionVolatility(BaseModel):
 
 class SwaptionVolatilityMatrix(BaseModel):
     calendar: CALENDAR
-    bdc: BusinessDayConvention
+    bdc: enums.BusinessDayConvention
     optionTenors: List[Period]
     swapTenors: List[Period]
     vols: Matrix
@@ -4577,7 +4246,9 @@ class AndreasenHugeVolatilityInterpl(BaseModel):
     spot: QuoteHandle
     rTS: YieldTermStructureHandle
     qTS: YieldTermStructureHandle
-    interpolationType: Optional[AndreasenHugeVolatilityInterplInterpolationType] = None
+    interpolationType: Optional[
+        enums.AndreasenHugeVolatilityInterplInterpolationType
+    ] = None
     calibrationType: Optional[AndreasenHugeVolatilityInterplCalibrationType] = None
     nGridPoints: Optional[int] = None
     minStrike: Optional[float] = None
@@ -4608,7 +4279,7 @@ class CmsMarketCalibration(BaseModel):
     volCube: SwaptionVolatilityStructureHandle
     cmsMarket: CmsMarket
     weights: Matrix
-    calibrationType: CmsMarketCalibrationCalibrationType
+    calibrationType: enums.CmsMarketCalibrationCalibrationType
 
 
 class ExtOUWithJumpsProcess(BaseModel):
@@ -4636,18 +4307,18 @@ class GJRGARCHProcess(BaseModel):
     gamma: float
     lambda_: float = Field(..., alias="lambda")
     daysPerYear: Optional[float] = None
-    d: Optional[GJRGARCHProcessDiscretization] = None
+    d: Optional[enums.GJRGARCHProcessDiscretization] = None
 
 
 class AnalyticHaganPricer(BaseModel):
     v: SwaptionVolatilityStructureHandle
-    model: GFunctionFactoryYieldCurveModel
+    model: enums.GFunctionFactoryYieldCurveModel
     meanReversion: QuoteHandle
 
 
 class NumericHaganPricer(BaseModel):
     v: SwaptionVolatilityStructureHandle
-    model: GFunctionFactoryYieldCurveModel
+    model: enums.GFunctionFactoryYieldCurveModel
     meanReversion: QuoteHandle
     lowerLimit: Optional[float] = None
     upperLimit: Optional[float] = None
@@ -4680,7 +4351,7 @@ class SwaptionHelper(BaseModel):
     fixedLegDayCounter: DAYCOUNTER
     floatingLegDayCounter: DAYCOUNTER
     termStructure: YieldTermStructureHandle
-    errorType: Optional[BlackCalibrationHelperCalibrationErrorType] = None
+    errorType: Optional[enums.BlackCalibrationHelperCalibrationErrorType] = None
     strike: Optional[float] = None
     nominal: Optional[float] = None
     type: Optional[VolatilityType] = None
@@ -4695,7 +4366,7 @@ class CapHelper(BaseModel):
     fixedLegDayCounter: DAYCOUNTER
     includeFirstSwaplet: bool
     termStructure: YieldTermStructureHandle
-    errorType: Optional[BlackCalibrationHelperCalibrationErrorType] = None
+    errorType: Optional[enums.BlackCalibrationHelperCalibrationErrorType] = None
     type: Optional[VolatilityType] = None
     shift: Optional[float] = None
 
@@ -4708,7 +4379,7 @@ class HestonModelHelper(BaseModel):
     volatility: QuoteHandle
     riskFreeRate: YieldTermStructureHandle
     dividendYield: YieldTermStructureHandle
-    errorType: Optional[BlackCalibrationHelperCalibrationErrorType] = None
+    errorType: Optional[enums.BlackCalibrationHelperCalibrationErrorType] = None
 
 
 class VanillaOption(BaseModel):
@@ -4741,13 +4412,13 @@ class QuantoForwardVanillaOption(BaseModel):
 
 
 class AnalyticHestonEngineIntegration(BaseModel):
-    intAlgo: AnalyticHestonEngineIntegrationAlgorithm
+    intAlgo: enums.AnalyticHestonEngineIntegrationAlgorithm
     quadrature: GaussianQuadrature
 
 
 class AnalyticPTDHestonEngine(BaseModel):
     model: PiecewiseTimeDependentHestonModel
-    cpxLog: AnalyticPTDHestonEngineComplexLogFormula
+    cpxLog: enums.AnalyticPTDHestonEngineComplexLogFormula
     itg: AnalyticPTDHestonEngineIntegration
     andersenPiterbargEpsilon: Optional[float] = None
 
@@ -4760,7 +4431,7 @@ class DividendVanillaOption(BaseModel):
 
 
 class BarrierOption(BaseModel):
-    barrierType: BarrierType
+    barrierType: enums.BarrierType
     barrier: float
     rebate: float
     payoff: STRIKEDTYPEPAYOFF
@@ -4768,7 +4439,7 @@ class BarrierOption(BaseModel):
 
 
 class FdmSchemeDesc(BaseModel):
-    type: FdmSchemeDescFdmSchemeType
+    type: enums.FdmSchemeDescFdmSchemeType
     theta: float
     mu: float
 
@@ -4782,7 +4453,9 @@ class FdBlackScholesVanillaEngine(BaseModel):
     schemeDesc: Optional[FdmSchemeDesc] = None
     localVol: Optional[bool] = None
     illegalLocalVolOverwrite: Optional[float] = None
-    cashDividendModel: Optional[FdBlackScholesVanillaEngineCashDividendModel] = None
+    cashDividendModel: Optional[
+        enums.FdBlackScholesVanillaEngineCashDividendModel
+    ] = None
 
 
 class FdOrnsteinUhlenbeckVanillaEngine(BaseModel):
@@ -4855,13 +4528,13 @@ class FdBlackScholesBarrierEngine(BaseModel):
 
 
 class ContinuousAveragingAsianOption(BaseModel):
-    averageType: AverageType
+    averageType: enums.AverageType
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
 
 
 class DiscreteAveragingAsianOption(BaseModel):
-    averageType: AverageType
+    averageType: enums.AverageType
     runningAccumulator: float
     pastFixings: int
     fixingDates: List[Date]
@@ -4870,7 +4543,7 @@ class DiscreteAveragingAsianOption(BaseModel):
 
 
 class DoubleBarrierOption(BaseModel):
-    barrierType: DoubleBarrierType
+    barrierType: enums.DoubleBarrierType
     barrier_lo: float
     barrier_hi: float
     rebate: float
@@ -4879,7 +4552,7 @@ class DoubleBarrierOption(BaseModel):
 
 
 class QuantoDoubleBarrierOption(BaseModel):
-    barrierType: DoubleBarrierType
+    barrierType: enums.DoubleBarrierType
     barrier_lo: float
     barrier_hi: float
     rebate: float
@@ -4891,7 +4564,7 @@ class DeltaVolQuote(BaseModel):
     delta: float
     vol: QuoteHandle
     maturity: float
-    deltaType: DeltaVolQuoteDeltaType
+    deltaType: enums.DeltaVolQuoteDeltaType
 
 
 class DeltaVolQuoteHandle(BaseModel):
@@ -4949,8 +4622,8 @@ class EverestOption(BaseModel):
 
 
 class BlackDeltaCalculator(BaseModel):
-    ot: OptionType
-    dt: DeltaVolQuoteDeltaType
+    ot: enums.OptionType
+    dt: enums.DeltaVolQuoteDeltaType
     spot: float
     dDiscount: DiscountFactor
     fDiscount: DiscountFactor
@@ -4958,7 +4631,7 @@ class BlackDeltaCalculator(BaseModel):
 
 
 class OvernightIndexedSwap(BaseModel):
-    type: OvernightIndexedSwapType
+    type: enums.OvernightIndexedSwapType
     nominals: List[float]
     schedule: Schedule
     fixedRate: float
@@ -4966,29 +4639,29 @@ class OvernightIndexedSwap(BaseModel):
     index: OVERNIGHTINDEX
     spread: Optional[float] = None
     paymentLag: Optional[float] = None
-    paymentAdjustment: Optional[BusinessDayConvention] = None
+    paymentAdjustment: Optional[enums.BusinessDayConvention] = None
     paymentCalendar: Optional[CALENDAR] = None
     telescopicValueDates: Optional[bool] = None
 
 
 class ZeroCouponInflationSwap(BaseModel):
-    type: ZeroCouponInflationSwapType
+    type: enums.ZeroCouponInflationSwapType
     nominal: float
     start: Date
     maturity: Date
     calendar: CALENDAR
-    convention: BusinessDayConvention
+    convention: enums.BusinessDayConvention
     dayCounter: DAYCOUNTER
     fixedRate: float
     index: ZEROINFLATIONINDEX
     lag: Period
     adjustInfObsDates: Optional[bool] = None
     infCalendar: Optional[CALENDAR] = None
-    infConvention: Optional[BusinessDayConvention] = None
+    infConvention: Optional[enums.BusinessDayConvention] = None
 
 
 class YearOnYearInflationSwap(BaseModel):
-    type: YearOnYearInflationSwapType
+    type: enums.YearOnYearInflationSwapType
     nominal: float
     fixedSchedule: Schedule
     fixedRate: float
@@ -4999,27 +4672,27 @@ class YearOnYearInflationSwap(BaseModel):
     spread: float
     yoyDayCounter: DAYCOUNTER
     paymentCalendar: CALENDAR
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
 
 
 class CPISwap(BaseModel):
-    type: CPISwapType
+    type: enums.CPISwapType
     nominal: float
     subtractInflationNominal: bool
     spread: float
     floatDayCount: DAYCOUNTER
     floatSchedule: Schedule
-    floatRoll: BusinessDayConvention
+    floatRoll: enums.BusinessDayConvention
     fixingDays: float
     floatIndex: IBORINDEX
     fixedRate: float
     baseCPI: float
     fixedDayCount: DAYCOUNTER
     fixedSchedule: Schedule
-    fixedRoll: BusinessDayConvention
+    fixedRoll: enums.BusinessDayConvention
     observationLag: Period
     fixedIndex: ZEROINFLATIONINDEX
-    observationInterpolation: Optional[CPIInterpolationType] = None
+    observationInterpolation: Optional[enums.CPIInterpolationType] = None
     inflationNominal: Optional[float] = None
 
 
@@ -5056,16 +4729,16 @@ class CPIBond(BaseModel):
     baseCPI: float
     observationLag: Period
     cpiIndex: ZEROINFLATIONINDEX
-    observationInterpolation: CPIInterpolationType
+    observationInterpolation: enums.CPIInterpolationType
     schedule: Schedule
     coupons: List[float]
     accrualDayCounter: DAYCOUNTER
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     issueDate: Optional[Date] = None
     paymentCalendar: Optional[CALENDAR] = None
     exCouponPeriod: Optional[Period] = None
     exCouponCalendar: Optional[CALENDAR] = None
-    exCouponConvention: Optional[BusinessDayConvention] = None
+    exCouponConvention: Optional[enums.BusinessDayConvention] = None
     exCouponEndOfMonth: Optional[bool] = None
 
 
@@ -5117,7 +4790,7 @@ class FraRateHelper(BaseModel):
     immOffsetStart: float
     immOffsetEnd: float
     iborIndex: IBORINDEX
-    pillar: Optional[PillarChoice] = None
+    pillar: Optional[enums.PillarChoice] = None
     customPillarDate: Optional[Date] = None
     useIndexedCoupon: Optional[bool] = None
 
@@ -5127,7 +4800,7 @@ class FuturesRateHelper(BaseModel):
     iborStartDate: Date
     index: IBORINDEX
     convexityAdjustment: Optional[float] = None
-    type: Optional[FuturesType] = None
+    type: Optional[enums.FuturesType] = None
 
 
 class SwapRateHelper(BaseModel):
@@ -5136,7 +4809,7 @@ class SwapRateHelper(BaseModel):
     spread: Optional[QuoteHandle] = None
     fwdStart: Optional[Period] = None
     discountingCurve: Optional[YieldTermStructureHandle] = None
-    pillar: Optional[PillarChoice] = None
+    pillar: Optional[enums.PillarChoice] = None
     customPillarDate: Optional[Date] = None
 
 
@@ -5154,12 +4827,12 @@ class OISRateHelper(BaseModel):
     discountingCurve: Optional[YieldTermStructureHandle] = None
     telescopicValueDates: Optional[bool] = None
     paymentLag: Optional[float] = None
-    paymentConvention: Optional[BusinessDayConvention] = None
+    paymentConvention: Optional[enums.BusinessDayConvention] = None
     paymentFrequency: Optional[float] = None
     paymentCalendar: Optional[CALENDAR] = None
     forwardStart: Optional[Period] = None
     overnightSpread: Optional[float] = None
-    pillar: Optional[PillarChoice] = None
+    pillar: Optional[enums.PillarChoice] = None
     customPillarDate: Optional[Date] = None
 
 
@@ -5169,7 +4842,7 @@ class OvernightIndexFutureRateHelper(BaseModel):
     maturityDate: Date
     index: OVERNIGHTINDEX
     convexityAdjustment: Optional[QuoteHandle] = None
-    type: Optional[OvernightIndexFutureNettingType] = None
+    type: Optional[enums.OvernightIndexFutureNettingType] = None
 
 
 class SofrFutureRateHelper(BaseModel):
@@ -5179,7 +4852,7 @@ class SofrFutureRateHelper(BaseModel):
     referenceFreq: float
     index: OVERNIGHTINDEX
     convexityAdjustment: Optional[float] = None
-    type: Optional[OvernightIndexFutureNettingType] = None
+    type: Optional[enums.OvernightIndexFutureNettingType] = None
 
 
 class FaceValueAccrualClaim(BaseModel):
@@ -5187,12 +4860,12 @@ class FaceValueAccrualClaim(BaseModel):
 
 
 class CreditDefaultSwap(BaseModel):
-    side: ProtectionSide
+    side: enums.ProtectionSide
     notional: float
     upfront: float
     spread: float
     schedule: Schedule
-    paymentConvention: BusinessDayConvention
+    paymentConvention: enums.BusinessDayConvention
     dayCounter: DAYCOUNTER
     settlesAccrual: Optional[bool] = None
     paysAtDefaultTime: Optional[bool] = None
@@ -5208,7 +4881,7 @@ class IsdaCdsEngine(BaseModel):
     recoveryRate: float
     discountCurve: YieldTermStructureHandle
     includeSettlementDateFlows: Optional[bool] = None
-    numericalFix: Optional[IsdaCdsEngineNumericalFix] = None
+    numericalFix: Optional[enums.IsdaCdsEngineNumericalFix] = None
     accrualBias: Optional[IsdaCdsEngineAccrualBias] = None
     forwardsInCouponPeriod: Optional[IsdaCdsEngineForwardsInCouponPeriod] = None
 
@@ -5249,13 +4922,13 @@ class FdmSquareRootFwdOp(BaseModel):
     theta: float
     sigma: float
     direction: int
-    type: Optional[FdmSquareRootFwdOpTransformationType] = None
+    type: Optional[enums.FdmSquareRootFwdOpTransformationType] = None
 
 
 class FdmHestonFwdOp(BaseModel):
     mesher: FDMMESHER
     process: HESTONPROCESS
-    type: Optional[FdmSquareRootFwdOpTransformationType] = None
+    type: Optional[enums.FdmSquareRootFwdOpTransformationType] = None
     leverageFct: Optional[LOCALVOLTERMSTRUCTURE] = None
 
 
@@ -5270,7 +4943,7 @@ class ImplicitEulerScheme(BaseModel):
     map: FDMLINEAROPCOMPOSITE
     bcSet: Optional[FdmBoundaryConditionSet] = None
     relTol: Optional[float] = None
-    solverType: Optional[ImplicitEulerSchemeSolverType] = None
+    solverType: Optional[enums.ImplicitEulerSchemeSolverType] = None
 
 
 class CrankNicolsonScheme(BaseModel):
@@ -5278,7 +4951,7 @@ class CrankNicolsonScheme(BaseModel):
     map: FDMLINEAROPCOMPOSITE
     bcSet: Optional[FdmBoundaryConditionSet] = None
     relTol: Optional[float] = None
-    solverType: Optional[ImplicitEulerSchemeSolverType] = None
+    solverType: Optional[enums.ImplicitEulerSchemeSolverType] = None
 
 
 class DouglasScheme(BaseModel):
@@ -5358,12 +5031,12 @@ class FittedBondDiscountCurve(BaseModel):
 class FixedRateBondForward(BaseModel):
     valueDate: Date
     maturityDate: Date
-    type: PositionType
+    type: enums.PositionType
     strike: float
     settlementDays: float
     dayCounter: DAYCOUNTER
     calendar: CALENDAR
-    businessDayConvention: BusinessDayConvention
+    businessDayConvention: enums.BusinessDayConvention
     fixedBond: FixedRateBond
     discountCurve: Optional[YieldTermStructureHandle] = None
     incomeDiscountCurve: Optional[YieldTermStructureHandle] = None
@@ -5372,7 +5045,7 @@ class FixedRateBondForward(BaseModel):
 class ForwardRateAgreement(BaseModel):
     valueDate: Date
     maturityDate: Date
-    type: PositionType
+    type: enums.PositionType
     strikeForwardRate: float
     notionalAmount: float
     index: IBORINDEX
@@ -5398,7 +5071,7 @@ class Gaussian1dSwaptionEngine(BaseModel):
     extrapolatePayoff: Optional[bool] = None
     flatPayoffExtrapolation: Optional[bool] = None
     discountCurve: Optional[YieldTermStructureHandle] = None
-    probabilities: Optional[Gaussian1dSwaptionEngineProbabilities] = None
+    probabilities: Optional[enums.Gaussian1dSwaptionEngineProbabilities] = None
 
 
 class Gaussian1dNonstandardSwaptionEngine(BaseModel):
@@ -5421,19 +5094,21 @@ class Gaussian1dFloatFloatSwaptionEngine(BaseModel):
     oas: Optional[QuoteHandle] = None
     discountCurve: Optional[YieldTermStructureHandle] = None
     includeTodaysExercise: Optional[bool] = None
-    probabilities: Optional[Gaussian1dFloatFloatSwaptionEngineProbabilities] = None
+    probabilities: Optional[
+        enums.Gaussian1dFloatFloatSwaptionEngineProbabilities
+    ] = None
 
 
 class SobolRsg(BaseModel):
     dimensionality: int
     seed: Optional[int] = None
-    directionIntegers: Optional[SobolRsgDirectionIntegers] = None
+    directionIntegers: Optional[enums.SobolRsgDirectionIntegers] = None
 
 
 class UniformLowDiscrepancySequenceGenerator(BaseModel):
     dimensionality: int
     seed: Optional[int] = None
-    directionIntegers: Optional[SobolRsgDirectionIntegers] = None
+    directionIntegers: Optional[enums.SobolRsgDirectionIntegers] = None
 
 
 class GaussianLowDiscrepancySequenceGenerator(BaseModel):
@@ -5451,9 +5126,9 @@ class DirichletBC(BaseModel):
 
 
 class SobolBrownianGeneratorFactory(BaseModel):
-    ordering: SobolBrownianGeneratorOrdering
+    ordering: enums.SobolBrownianGeneratorOrdering
     seed: Optional[int] = None
-    directionIntegers: Optional[SobolRsgDirectionIntegers] = None
+    directionIntegers: Optional[enums.SobolRsgDirectionIntegers] = None
 
 
 class FdHestonBarrierEngine(BaseModel):
@@ -5491,22 +5166,26 @@ class OptionletStripper1(BaseModel):
 class Swaption(BaseModel):
     swap: VanillaSwap
     exercise: EXERCISE
-    type: Optional[SettlementType] = None
+    type: Optional[enums.SettlementType] = None
     settlementMethod: Optional[SettlementMethod] = None
 
 
 class NonstandardSwaption(BaseModel):
     swap: NonstandardSwap
     exercise: EXERCISE
-    type: Optional[SettlementType] = None
+    type: Optional[enums.SettlementType] = None
     settlementMethod: Optional[SettlementMethod] = None
 
 
 class FloatFloatSwaption(BaseModel):
     swap: FloatFloatSwap
     exercise: EXERCISE
-    delivery: Optional[SettlementType] = None
+    delivery: Optional[enums.SettlementType] = None
     settlementMethod: Optional[SettlementMethod] = None
+
+
+class AnalyticHestonEngineComplexLogFormula(BaseModel):
+    pass
 
 
 class HestonBlackVolSurface(BaseModel):
@@ -5531,6 +5210,14 @@ class AssetSwap(BaseModel):
     floatSchedule: Optional[Schedule] = None
     floatingDayCount: Optional[DAYCOUNTER] = None
     parAssetSwap: Optional[bool] = None
+
+
+class ExtendedOrnsteinUhlenbeckProcess(BaseModel):
+    pass
+
+
+class YoYInflationCapFloor(BaseModel):
+    pass
 
 
 CashFlows.update_forward_refs()
@@ -6217,7 +5904,6 @@ CALENDAR = Union[
 ]
 QUOTE = Union[Quote, SimpleQuote, DerivedQuote, CompositeQuote, DeltaVolQuote]
 OBSERVABLE = Union[
-    Observable,
     QUOTE,
     TERMSTRUCTURE,
     INDEX,
@@ -6246,8 +5932,6 @@ BSMRNDCalculator.update_forward_refs()
 FDBermudanEngine.update_forward_refs()
 Ukraine.update_forward_refs()
 Bibor3M.update_forward_refs()
-AnalyticHestonEngineIntegrationAlgorithm.update_forward_refs()
-CmsMarketCalibrationCalibrationType.update_forward_refs()
 UniformRandomSequenceGenerator.update_forward_refs()
 TemperatureExponential.update_forward_refs()
 FdmHullWhiteOp.update_forward_refs()
@@ -6281,7 +5965,6 @@ UniformLowDiscrepancySequenceGenerator.update_forward_refs()
 ZeroSpreadedTermStructure.update_forward_refs()
 GbpLiborSwapIsdaFix.update_forward_refs()
 Euribor3M.update_forward_refs()
-BarrierType.update_forward_refs()
 Fdm3DimSolver.update_forward_refs()
 JamshidianSwaptionEngine.update_forward_refs()
 AnalyticCapFloorEngine.update_forward_refs()
@@ -6298,8 +5981,6 @@ CalibratedModelHandle.update_forward_refs()
 CeilingTruncation.update_forward_refs()
 StudentDistribution.update_forward_refs()
 SettlementMethod.update_forward_refs()
-JointCalendarRule.update_forward_refs()
-AndreasenHugeVolatilityInterplInterpolationType.update_forward_refs()
 OptionletStripper1.update_forward_refs()
 FdmDividendHandler.update_forward_refs()
 ExponentialSplinesFitting.update_forward_refs()
@@ -6330,7 +6011,6 @@ CubicBSplinesFitting.update_forward_refs()
 FdmCEV1dMesher.update_forward_refs()
 NonCentralCumulativeChiSquareDistribution.update_forward_refs()
 Germany.update_forward_refs()
-ZeroCouponInflationSwapType.update_forward_refs()
 HestonModelHelper.update_forward_refs()
 USDLibor.update_forward_refs()
 Euribor.update_forward_refs()
@@ -6346,7 +6026,6 @@ Swap.update_forward_refs()
 MaxBasketPayoff.update_forward_refs()
 MarkovFunctionalModelSettings.update_forward_refs()
 ConvertibleZeroCouponBond.update_forward_refs()
-FdBlackScholesVanillaEngineCashDividendModel.update_forward_refs()
 ExplicitEulerScheme.update_forward_refs()
 SwaptionVolCube1.update_forward_refs()
 EurLiborSwapIfrFix.update_forward_refs()
@@ -6363,7 +6042,6 @@ TreeCapFloorEngine.update_forward_refs()
 SwapSpreadIndex.update_forward_refs()
 EurLiborSwapIsdaFixB.update_forward_refs()
 FdmZabrOp.update_forward_refs()
-GFunctionFactoryYieldCurveModel.update_forward_refs()
 JuQuadraticApproximationEngine.update_forward_refs()
 India.update_forward_refs()
 CappedFlooredCoupon.update_forward_refs()
@@ -6374,7 +6052,6 @@ DiscountFactor.update_forward_refs()
 QuantoDoubleBarrierOption.update_forward_refs()
 GaussChebyshev2ndIntegration.update_forward_refs()
 DirichletBC.update_forward_refs()
-FuturesType.update_forward_refs()
 SegmentIntegral.update_forward_refs()
 FixedRateBondForward.update_forward_refs()
 BatesProcess.update_forward_refs()
@@ -6405,7 +6082,7 @@ Fdm1dMesher.update_forward_refs()
 DailyTenorLibor.update_forward_refs()
 FdmSchemeDesc.update_forward_refs()
 CmsMarketCalibration.update_forward_refs()
-AverageType.update_forward_refs()
+# AverageType.update_forward_refs()
 MethodOfLinesScheme.update_forward_refs()
 SpreadCdsHelper.update_forward_refs()
 Euribor3652M.update_forward_refs()
@@ -6416,11 +6093,11 @@ GaussHyperbolicIntegration.update_forward_refs()
 ZACPI.update_forward_refs()
 BinomialCRRVanillaEngine.update_forward_refs()
 HullWhite.update_forward_refs()
-PositionType.update_forward_refs()
+# PositionType.update_forward_refs()
 ConvexMonotone.update_forward_refs()
 FdmBlackScholesOp.update_forward_refs()
 Taiwan.update_forward_refs()
-YearOnYearInflationSwapType.update_forward_refs()
+# YearOnYearInflationSwapType.update_forward_refs()
 LognormalCmsSpreadPricer.update_forward_refs()
 EURLibor.update_forward_refs()
 AnalyticDigitalAmericanKOEngine.update_forward_refs()
@@ -6434,14 +6111,12 @@ ConvertibleFloatingRateBond.update_forward_refs()
 SaudiArabia.update_forward_refs()
 Libor.update_forward_refs()
 CallableFixedRateBond.update_forward_refs()
-DeltaVolQuoteDeltaType.update_forward_refs()
 Gaussian1dFloatFloatSwaptionEngine.update_forward_refs()
 HongKong.update_forward_refs()
 Euribor3651Y.update_forward_refs()
 ChfLiborSwapIsdaFix.update_forward_refs()
 FractionalDividend.update_forward_refs()
 DMinus.update_forward_refs()
-OvernightIndexedSwapType.update_forward_refs()
 FdG2SwaptionEngine.update_forward_refs()
 ExtOUWithJumpsProcess.update_forward_refs()
 USCPI.update_forward_refs()
@@ -6449,7 +6124,6 @@ GaussianRandomSequenceGenerator.update_forward_refs()
 Robor.update_forward_refs()
 CapFloorTermVolatilityStructureHandle.update_forward_refs()
 VanillaForwardPayoff.update_forward_refs()
-AnalyticPTDHestonEngineComplexLogFormula.update_forward_refs()
 ConstantSwaptionVolatility.update_forward_refs()
 EUHICP.update_forward_refs()
 Argentina.update_forward_refs()
@@ -6457,14 +6131,12 @@ BasketOption.update_forward_refs()
 BivariateCumulativeNormalDistributionWe04DP.update_forward_refs()
 AndreasenHugeLocalVolAdapter.update_forward_refs()
 DiscountingBondEngine.update_forward_refs()
-ExerciseType.update_forward_refs()
 FdmSquareRootFwdOp.update_forward_refs()
 NeumannBC.update_forward_refs()
 FdmQuantoHelper.update_forward_refs()
 Period.update_forward_refs()
 SwapIndex.update_forward_refs()
 BlackProcess.update_forward_refs()
-Gaussian1dSwaptionEngineProbabilities.update_forward_refs()
 FdmBatesOp.update_forward_refs()
 LocalVolTermStructureHandle.update_forward_refs()
 FlatForward.update_forward_refs()
@@ -6485,7 +6157,6 @@ Euribor3658M.update_forward_refs()
 YYZACPI.update_forward_refs()
 GJRGARCHProcess.update_forward_refs()
 GaussLobattoIntegral.update_forward_refs()
-SobolBrownianGeneratorOrdering.update_forward_refs()
 HullWhiteProcess.update_forward_refs()
 Bkbm2M.update_forward_refs()
 JpyLiborSwapIsdaFixAm.update_forward_refs()
@@ -6501,10 +6172,8 @@ FdmBoundaryConditionSet.update_forward_refs()
 ForwardRateAgreement.update_forward_refs()
 ForwardSpreadedTermStructure.update_forward_refs()
 Money.update_forward_refs()
-BlackCalibrationHelperCalibrationErrorType.update_forward_refs()
 Italy.update_forward_refs()
 VarianceGammaProcess.update_forward_refs()
-ProtectionSide.update_forward_refs()
 LogLinearInterpolatedZeroCurve.update_forward_refs()
 MonotonicCubicInterpolatedZeroCurve.update_forward_refs()
 Bibor1Y.update_forward_refs()
@@ -6519,7 +6188,6 @@ CappedFlooredCmsCoupon.update_forward_refs()
 ConstantParameter.update_forward_refs()
 SecondDerivativeOp.update_forward_refs()
 SafeBilinearInterpolation.update_forward_refs()
-GaussianSimulatedAnnealingResetScheme.update_forward_refs()
 ParkinsonSigma.update_forward_refs()
 SimpleCashFlow.update_forward_refs()
 COSHestonEngine.update_forward_refs()
@@ -6532,12 +6200,10 @@ CHFLibor.update_forward_refs()
 Euribor3656M.update_forward_refs()
 DefaultLogCubicInterpolatedZeroCurve.update_forward_refs()
 ZeroCouponBond.update_forward_refs()
-SettlementType.update_forward_refs()
 InverseCumulativePoisson.update_forward_refs()
 AndreasenHugeVolatilityAdapter.update_forward_refs()
 Cap.update_forward_refs()
 GarmanKlassSigma5.update_forward_refs()
-Actual365FixedConvention.update_forward_refs()
 FloatFloatSwaption.update_forward_refs()
 SafeForwardFlatInterpolation.update_forward_refs()
 InverseNonCentralCumulativeChiSquareDistribution.update_forward_refs()
@@ -6559,7 +6225,6 @@ OISRateHelper.update_forward_refs()
 SwapRateHelper.update_forward_refs()
 SamplerGaussian.update_forward_refs()
 FdmCEVOp.update_forward_refs()
-OvernightIndexFutureNettingType.update_forward_refs()
 Euribor3652W.update_forward_refs()
 CraigSneydScheme.update_forward_refs()
 PoissonDistribution.update_forward_refs()
@@ -6575,8 +6240,6 @@ GsrProcess.update_forward_refs()
 Euribor6M.update_forward_refs()
 Nzocr.update_forward_refs()
 YYEUHICPXT.update_forward_refs()
-DoubleBarrierType.update_forward_refs()
-CPIInterpolationType.update_forward_refs()
 Euribor1Y.update_forward_refs()
 BinomialJRVanillaEngine.update_forward_refs()
 IntegralCdsEngine.update_forward_refs()
@@ -6639,14 +6302,12 @@ GaussianLowDiscrepancySequenceGenerator.update_forward_refs()
 FdHestonDoubleBarrierEngine.update_forward_refs()
 Euribor9M.update_forward_refs()
 FdmHestonLocalVolatilityVarianceMesher.update_forward_refs()
-FdmSquareRootFwdOpTransformationType.update_forward_refs()
 Actual360.update_forward_refs()
 AmortizingFloatingRateBond.update_forward_refs()
 CallabilityPrice.update_forward_refs()
 InverseCumulativeNormal.update_forward_refs()
 StochasticProcessArray.update_forward_refs()
 SafeLinearInterpolation.update_forward_refs()
-Thirty360Convention.update_forward_refs()
 FdmOrnsteinUhlenbeckOp.update_forward_refs()
 Floor.update_forward_refs()
 AndreasenHugeVolatilityInterplCalibrationType.update_forward_refs()
@@ -6675,12 +6336,10 @@ BlackIborCouponPricer.update_forward_refs()
 FdmBlackScholesMesher.update_forward_refs()
 FdmHestonHullWhiteOp.update_forward_refs()
 AnalyticDiscreteGeometricAverageStrikeAsianEngine.update_forward_refs()
-GJRGARCHProcessDiscretization.update_forward_refs()
 HestonModelHandle.update_forward_refs()
 MTBrownianGeneratorFactory.update_forward_refs()
 SafeConvexMonotoneInterpolation.update_forward_refs()
 Bbsw6M.update_forward_refs()
-ExtendedOrnsteinUhlenbeckProcess.update_forward_refs()
 Slovakia.update_forward_refs()
 FDShoutEngine.update_forward_refs()
 Bibor2M.update_forward_refs()
@@ -6688,10 +6347,8 @@ MoroInverseCumulativeNormal.update_forward_refs()
 SafeKrugerLogCubic.update_forward_refs()
 BlackConstantVol.update_forward_refs()
 ZeroCurve.update_forward_refs()
-CPISwapType.update_forward_refs()
 AndreasenHugeVolatilityInterpl.update_forward_refs()
 AnalyticHestonEngineIntegration.update_forward_refs()
-AnalyticHestonEngineComplexLogFormula.update_forward_refs()
 MakeOIS.update_forward_refs()
 YYEUHICP.update_forward_refs()
 THBFIX.update_forward_refs()
@@ -6719,13 +6376,10 @@ FixedRateBond.update_forward_refs()
 VannaVolgaBarrierEngine.update_forward_refs()
 Euribor3654M.update_forward_refs()
 SabrSmileSection.update_forward_refs()
-LogNormalSimulatedAnnealingResetScheme.update_forward_refs()
 KlugeExtOUProcess.update_forward_refs()
 LogNormalSimulatedAnnealing.update_forward_refs()
 DKKLibor.update_forward_refs()
 YoYInflationTermStructureHandle.update_forward_refs()
-Gaussian1dFloatFloatSwaptionEngineProbabilities.update_forward_refs()
-MirrorGaussianSimulatedAnnealingResetScheme.update_forward_refs()
 RebatedExercise.update_forward_refs()
 FlatHazardRate.update_forward_refs()
 HestonRNDCalculator.update_forward_refs()
@@ -6776,11 +6430,9 @@ G2ForwardProcess.update_forward_refs()
 UnitedKingdom.update_forward_refs()
 LevenbergMarquardt.update_forward_refs()
 Simplex.update_forward_refs()
-SobolRsgDirectionIntegers.update_forward_refs()
 AnalyticHaganPricer.update_forward_refs()
 CzechRepublic.update_forward_refs()
 ExponentialJump1dMesher.update_forward_refs()
-FdmSchemeDescFdmSchemeType.update_forward_refs()
 ZeroInflationTermStructureHandle.update_forward_refs()
 ActualActual.update_forward_refs()
 Brazil.update_forward_refs()
@@ -6792,7 +6444,6 @@ MakeVanillaSwap.update_forward_refs()
 SafeKrugerCubic.update_forward_refs()
 Bbsw2M.update_forward_refs()
 TreeCallableFixedRateBondEngine.update_forward_refs()
-PillarChoice.update_forward_refs()
 SimpsonIntegral.update_forward_refs()
 DPlusDMinus.update_forward_refs()
 CapFloorTermVolCurve.update_forward_refs()
@@ -6838,7 +6489,6 @@ Euribor2M.update_forward_refs()
 FRHICP.update_forward_refs()
 Bbsw1M.update_forward_refs()
 Bkbm4M.update_forward_refs()
-ImplicitEulerSchemeSolverType.update_forward_refs()
 GaussGegenbauerIntegration.update_forward_refs()
 EURLibor5M.update_forward_refs()
 Bkbm1M.update_forward_refs()
@@ -6872,7 +6522,6 @@ GBPLiborON.update_forward_refs()
 EURLibor1Y.update_forward_refs()
 FdSabrVanillaEngine.update_forward_refs()
 GarmanKlassSigma1.update_forward_refs()
-IsdaCdsEngineNumericalFix.update_forward_refs()
 Bibor.update_forward_refs()
 NonstandardSwap.update_forward_refs()
 SwaptionHelper.update_forward_refs()
