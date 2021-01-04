@@ -32,13 +32,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/gecBurton/pydantic_quantlib
+    $ git clone git://github.com/gecBurton/pydantic-quantlib
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/gecBurton/pydantic_quantlib/tarball/master
+    $ curl -OJL https://github.com/gecBurton/pydantic-quantlib/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
