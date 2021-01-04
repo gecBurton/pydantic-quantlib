@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ ]
+requirements = ["pydantic", "QuantLib>=1.20" ]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -18,7 +18,7 @@ test_requirements = ['pytest>=3', ]
 
 setup(
     author="George EC Burton",
-    author_email='g.e.c.burton:@gmail.com',
+    author_email='g.e.c.burton@gmail.com',
     python_requires='>=3.5',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
