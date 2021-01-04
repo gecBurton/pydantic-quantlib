@@ -1,0 +1,2 @@
+QuantLib>=1.20
+pydantic>=1.7
