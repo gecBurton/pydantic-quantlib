@@ -14,7 +14,7 @@ __version__ = "0.1.0"
 from enum import Enum
 from typing import Any, List, Optional, Union
 
-from pydantic import Field, confloat
+from pydantic import Field, conint
 
 from .core import BaseModel
 
@@ -153,14 +153,14 @@ class StdUnderflowError(BaseModel):
 
 
 class Period(BaseModel):
-    n: Optional[confloat(multiple_of=1.0)] = None
+    n: Optional[int] = None
     units: Optional[TimeUnit] = None
 
 
 class Date(BaseModel):
-    d: confloat(ge=1.0, le=31.0, multiple_of=1.0)
-    m: confloat(ge=1.0, le=12.0, multiple_of=1.0)
-    y: confloat(ge=1900.0, le=2999.0, multiple_of=1.0)
+    d: conint(ge=1, le=31)  # type: ignore
+    m: conint(ge=1, le=12)  # type: ignore
+    y: conint(ge=1900, le=2999)  # type: ignore
 
 
 class DateParser(BaseModel):
@@ -203,7 +203,7 @@ class Observable(BaseModel):
 
 
 class Array(BaseModel):
-    n: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    n: Optional[int] = None
     fill: Optional[float] = None
 
 
@@ -220,8 +220,8 @@ class MatrixRow(BaseModel):
 
 
 class Matrix(BaseModel):
-    rows: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    columns: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    rows: Optional[int] = None
+    columns: Optional[int] = None
     fill: Optional[float] = None
 
 
@@ -461,28 +461,28 @@ class Rounding(BaseModel):
 
 
 class UpRounding(BaseModel):
-    precision: confloat(multiple_of=1.0)
-    digit: Optional[confloat(multiple_of=1.0)] = None
+    precision: int
+    digit: Optional[int] = None
 
 
 class DownRounding(BaseModel):
-    precision: confloat(multiple_of=1.0)
-    digit: Optional[confloat(multiple_of=1.0)] = None
+    precision: int
+    digit: Optional[int] = None
 
 
 class ClosestRounding(BaseModel):
-    precision: confloat(multiple_of=1.0)
-    digit: Optional[confloat(multiple_of=1.0)] = None
+    precision: int
+    digit: Optional[int] = None
 
 
 class CeilingTruncation(BaseModel):
-    precision: confloat(multiple_of=1.0)
-    digit: Optional[confloat(multiple_of=1.0)] = None
+    precision: int
+    digit: Optional[int] = None
 
 
 class FloorTruncation(BaseModel):
-    precision: confloat(multiple_of=1.0)
-    digit: Optional[confloat(multiple_of=1.0)] = None
+    precision: int
+    digit: Optional[int] = None
 
 
 class Currency(BaseModel):
@@ -983,7 +983,7 @@ class InterestRateIndex(BaseModel):
 class IborIndex(BaseModel):
     familyName: str
     tenor: Period
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     currency: CURRENCY
     calendar: CALENDAR
     convention: BusinessDayConvention
@@ -994,7 +994,7 @@ class IborIndex(BaseModel):
 
 class OvernightIndex(BaseModel):
     familyName: str
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     currency: CURRENCY
     calendar: CALENDAR
     dayCounter: DAYCOUNTER
@@ -1023,7 +1023,7 @@ class DailyTenorLibor(BaseModel):
 class SwapIndex(BaseModel):
     familyName: str
     tenor: Period
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     currency: CURRENCY
     calendar: CALENDAR
     fixedLegTenor: Period
@@ -1575,8 +1575,8 @@ class NonhomogeneousBoundaryConstraint(BaseModel):
 
 
 class EndCriteria(BaseModel):
-    maxIteration: confloat(ge=0.0, multiple_of=1.0)
-    maxStationaryStateIterations: confloat(ge=0.0, multiple_of=1.0)
+    maxIteration: int
+    maxStationaryStateIterations: int
     rootEpsilon: float
     functionEpsilon: float
     gradientNormEpsilon: float
@@ -1614,26 +1614,26 @@ class DifferentialEvolution(BaseModel):
 
 
 class SamplerGaussian(BaseModel):
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class SamplerLogNormal(BaseModel):
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class SamplerMirrorGaussian(BaseModel):
     lower: Array
     upper: Array
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class ProbabilityBoltzmannDownhill(BaseModel):
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class TemperatureExponential(BaseModel):
     initialTemp: float
-    dimension: confloat(ge=0.0, multiple_of=1.0)
+    dimension: int
     power: Optional[float] = None
 
 
@@ -1734,7 +1734,7 @@ class SwaptionVolCube1(BaseModel):
     optMethod: Optional[OPTIMIZATIONMETHOD] = None
     errorAccept: Optional[float] = None
     useMaxError: Optional[bool] = None
-    maxGuesses: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxGuesses: Optional[int] = None
     backwardFlat: Optional[bool] = None
     cutoffStrike: Optional[float] = None
 
@@ -1769,8 +1769,8 @@ class KahaleSmileSection(BaseModel):
     deleteArbitragePoints: Optional[bool] = None
     moneynessGrid: Optional[List[float]] = None
     gap: Optional[float] = None
-    forcedLeftIndex: Optional[confloat(multiple_of=1.0)] = None
-    forcedRightIndex: Optional[confloat(multiple_of=1.0)] = None
+    forcedLeftIndex: Optional[int] = None
+    forcedRightIndex: Optional[int] = None
 
 
 class ZabrShortMaturityLognormal(BaseModel):
@@ -2061,7 +2061,7 @@ class IborCoupon(BaseModel):
     nominal: float
     startDate: Date
     endDate: Date
-    fixingDays: confloat(multiple_of=1.0)
+    fixingDays: int
     index: IBORINDEX
     gearing: Optional[float] = None
     spread: Optional[float] = None
@@ -2077,7 +2077,7 @@ class CappedFlooredIborCoupon(BaseModel):
     nominal: float
     startDate: Date
     endDate: Date
-    fixingDays: confloat(multiple_of=1.0)
+    fixingDays: int
     index: IBORINDEX
     gearing: Optional[float] = None
     spread: Optional[float] = None
@@ -2103,7 +2103,7 @@ class CmsCoupon(BaseModel):
     nominal: float
     startDate: Date
     endDate: Date
-    fixingDays: confloat(multiple_of=1.0)
+    fixingDays: int
     index: SWAPINDEX
     gearing: Optional[float] = None
     spread: Optional[float] = None
@@ -2212,7 +2212,7 @@ class CalibratedModelHandle(BaseModel):
 
 class TimeGrid(BaseModel):
     end: Optional[float] = None
-    steps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    steps: Optional[int] = None
 
 
 class Parameter(BaseModel):
@@ -2291,7 +2291,7 @@ class PiecewiseTimeDependentHestonModel(BaseModel):
 class COSHestonEngine(BaseModel):
     model: HESTONMODEL
     L: Optional[float] = None
-    N: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    N: Optional[int] = None
 
 
 class BatesModel(BaseModel):
@@ -2300,7 +2300,7 @@ class BatesModel(BaseModel):
 
 class BatesEngine(BaseModel):
     model: BatesModel
-    integrationOrder: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    integrationOrder: Optional[int] = None
 
 
 class IntegralEngine(BaseModel):
@@ -2309,41 +2309,41 @@ class IntegralEngine(BaseModel):
 
 class FDBermudanEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    timeSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    gridPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    timeSteps: Optional[int] = None
+    gridPoints: Optional[int] = None
     timeDependent: Optional[bool] = None
 
 
 class FDEuropeanEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    timeSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    gridPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    timeSteps: Optional[int] = None
+    gridPoints: Optional[int] = None
     timeDependent: Optional[bool] = None
 
 
 class BinomialCRRVanillaEngine(BaseModel):
     value: GENERALIZEDBLACKSCHOLESPROCESS
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
 
 
 class BinomialJRVanillaEngine(BaseModel):
     value: GENERALIZEDBLACKSCHOLESPROCESS
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
 
 
 class BinomialTrigeorgisVanillaEngine(BaseModel):
     value: GENERALIZEDBLACKSCHOLESPROCESS
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
 
 
 class BinomialTianVanillaEngine(BaseModel):
     value: GENERALIZEDBLACKSCHOLESPROCESS
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
 
 
 class BinomialJoshi4VanillaEngine(BaseModel):
     value: GENERALIZEDBLACKSCHOLESPROCESS
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
 
 
 class LsmBasisSystem(BaseModel):
@@ -2352,15 +2352,15 @@ class LsmBasisSystem(BaseModel):
 
 class FDAmericanEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    timeSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    gridPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    timeSteps: Optional[int] = None
+    gridPoints: Optional[int] = None
     timeDependent: Optional[bool] = None
 
 
 class FDShoutEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    timeSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    gridPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    timeSteps: Optional[int] = None
+    gridPoints: Optional[int] = None
     timeDependent: Optional[bool] = None
 
 
@@ -2372,9 +2372,9 @@ class ContinuousArithmeticAsianLevyEngine(BaseModel):
 
 class FdBlackScholesAsianEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    tGrid: confloat(ge=0.0, multiple_of=1.0)
-    xGrid: confloat(ge=0.0, multiple_of=1.0)
-    aGrid: confloat(ge=0.0, multiple_of=1.0)
+    tGrid: int
+    xGrid: int
+    aGrid: int
 
 
 class BaroneAdesiWhaleyApproximationEngine(BaseModel):
@@ -2476,12 +2476,12 @@ class FFTVarianceGammaEngine(BaseModel):
 
 class AnalyticDoubleBarrierEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    series: Optional[confloat(multiple_of=1.0)] = None
+    series: Optional[int] = None
 
 
 class WulinYongDoubleBarrierEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    series: Optional[confloat(multiple_of=1.0)] = None
+    series: Optional[int] = None
 
 
 class AnalyticDoubleBarrierBinaryEngine(BaseModel):
@@ -2491,8 +2491,8 @@ class AnalyticDoubleBarrierBinaryEngine(BaseModel):
 class VanillaSwingOption(BaseModel):
     payoff: PAYOFF
     ex: SwingExercise
-    minExerciseRights: confloat(ge=0.0, multiple_of=1.0)
-    maxExerciseRights: confloat(ge=0.0, multiple_of=1.0)
+    minExerciseRights: int
+    maxExerciseRights: int
 
 
 class FdSimpleExtOUJumpSwingEngine(BaseModel):
@@ -2891,7 +2891,7 @@ class JamshidianSwaptionEngine(BaseModel):
 
 class TreeSwaptionEngine(BaseModel):
     model: ShortRateModelHandle
-    timeSteps: confloat(ge=0.0, multiple_of=1.0)
+    timeSteps: int
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
@@ -2909,7 +2909,7 @@ class TreeCapFloorEngine(BaseModel):
 class G2SwaptionEngine(BaseModel):
     model: G2
     range: float
-    intervals: confloat(ge=0.0, multiple_of=1.0)
+    intervals: int
 
 
 class ZeroCouponBond(BaseModel):
@@ -2923,7 +2923,7 @@ class ZeroCouponBond(BaseModel):
 
 
 class FixedRateBond(BaseModel):
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     couponCalendar: CALENDAR
     faceAmount: float
     startDate: Date
@@ -2946,7 +2946,7 @@ class FixedRateBond(BaseModel):
 
 
 class AmortizingFixedRateBond(BaseModel):
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     paymentCalendar: CALENDAR
     faceAmount: float
     startDate: Date
@@ -2959,13 +2959,13 @@ class AmortizingFixedRateBond(BaseModel):
 
 
 class AmortizingFloatingRateBond(BaseModel):
-    settlementDays: confloat(ge=0.0, multiple_of=1.0)
+    settlementDays: int
     notional: List[float]
     schedule: Schedule
     index: IBORINDEX
     accrualDayCounter: DAYCOUNTER
     paymentConvention: Optional[BusinessDayConvention] = None
-    fixingDays: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    fixingDays: Optional[int] = None
     gearings: Optional[List[float]] = None
     spreads: Optional[List[float]] = None
     caps: Optional[List[float]] = None
@@ -2975,13 +2975,13 @@ class AmortizingFloatingRateBond(BaseModel):
 
 
 class FloatingRateBond(BaseModel):
-    settlementDays: confloat(ge=0.0, multiple_of=1.0)
+    settlementDays: int
     faceAmount: float
     schedule: Schedule
     index: IBORINDEX
     paymentDayCounter: DAYCOUNTER
     paymentConvention: Optional[BusinessDayConvention] = None
-    fixingDays: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    fixingDays: Optional[int] = None
     gearings: Optional[List[float]] = None
     spreads: Optional[List[float]] = None
     caps: Optional[List[float]] = None
@@ -2996,7 +2996,7 @@ class FloatingRateBond(BaseModel):
 
 
 class CmsRateBond(BaseModel):
-    settlementDays: confloat(ge=0.0, multiple_of=1.0)
+    settlementDays: int
     faceAmount: float
     schedule: Schedule
     index: SWAPINDEX
@@ -3021,7 +3021,7 @@ class CallableBond(BaseModel):
 
 
 class CallableFixedRateBond(BaseModel):
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     faceAmount: float
     schedule: Schedule
     coupons: List[float]
@@ -3119,7 +3119,7 @@ class DepositRateHelper(BaseModel):
 
 class FixedRateBondHelper(BaseModel):
     cleanPrice: QuoteHandle
-    settlementDays: confloat(ge=0.0, multiple_of=1.0)
+    settlementDays: int
     faceAmount: float
     schedule: Schedule
     coupons: List[float]
@@ -3233,7 +3233,7 @@ class DefaultProbabilityTermStructureHandle(BaseModel):
 
 
 class FlatHazardRate(BaseModel):
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     calendar: CALENDAR
     hazardRate: QuoteHandle
     dayCounter: DAYCOUNTER
@@ -3246,7 +3246,7 @@ class DefaultProbabilityHelper(BaseModel):
 class SpreadCdsHelper(BaseModel):
     spread: float
     tenor: Period
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     calendar: CALENDAR
     frequency: float
     convention: BusinessDayConvention
@@ -3262,7 +3262,7 @@ class UpfrontCdsHelper(BaseModel):
     upfront: float
     spread: float
     tenor: Period
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     calendar: CALENDAR
     frequency: float
     convention: BusinessDayConvention
@@ -3374,7 +3374,7 @@ class NonCentralCumulativeChiSquareDistribution(BaseModel):
 class InverseNonCentralCumulativeChiSquareDistribution(BaseModel):
     df: float
     ncp: float
-    maxEvaluations: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxEvaluations: Optional[int] = None
     accuracy: Optional[float] = None
 
 
@@ -3399,17 +3399,17 @@ class InverseCumulativePoisson(BaseModel):
 
 
 class StudentDistribution(BaseModel):
-    n: confloat(multiple_of=1.0)
+    n: int
 
 
 class CumulativeStudentDistribution(BaseModel):
-    n: confloat(multiple_of=1.0)
+    n: int
 
 
 class InverseCumulativeStudent(BaseModel):
-    n: confloat(multiple_of=1.0)
+    n: int
     accuracy: Optional[float] = None
-    maxIterations: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxIterations: Optional[int] = None
 
 
 class Money(BaseModel):
@@ -3432,11 +3432,11 @@ class Settings(BaseModel):
 
 
 class Fdm1dMesher(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
 
 
 class FdmBlackScholesMesher(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
     process: GENERALIZEDBLACKSCHOLESPROCESS
     maturity: float
     strike: float
@@ -3453,13 +3453,13 @@ class FdmBlackScholesMesher(BaseModel):
 class Concentrating1dMesher(BaseModel):
     start: float
     end: float
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
     cPoints: List[List[Union[float, float, bool]]]
     tol: Optional[float] = None
 
 
 class ExponentialJump1dMesher(BaseModel):
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
     beta: float
     jumpIntensity: float
     eta: float
@@ -3467,7 +3467,7 @@ class ExponentialJump1dMesher(BaseModel):
 
 
 class FdmCEV1dMesher(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
     f0: float
     alpha: float
     beta: float
@@ -3478,27 +3478,27 @@ class FdmCEV1dMesher(BaseModel):
 
 
 class FdmHestonVarianceMesher(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
     process: HESTONPROCESS
     maturity: float
-    tAvgSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tAvgSteps: Optional[int] = None
     epsilon: Optional[float] = None
 
 
 class FdmHestonLocalVolatilityVarianceMesher(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
     process: HESTONPROCESS
     leverageFct: LOCALVOLTERMSTRUCTURE
     maturity: float
-    tAvgSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tAvgSteps: Optional[int] = None
     epsilon: Optional[float] = None
 
 
 class FdmSimpleProcess1dMesher(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
     process: STOCHASTICPROCESS1D
     maturity: float
-    tAvgSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tAvgSteps: Optional[int] = None
     epsilon: Optional[float] = None
     mandatoryPoint: Optional[Optional[float]] = None
 
@@ -3506,7 +3506,7 @@ class FdmSimpleProcess1dMesher(BaseModel):
 class Uniform1dMesher(BaseModel):
     start: float
     end: float
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
 
 
 class Predefined1dMesher(BaseModel):
@@ -3559,7 +3559,7 @@ class FdmBlackScholesOp(BaseModel):
     strike: float
     localVol: Optional[bool] = None
     illegalLocalVolOverwrite: Optional[Optional[float]] = None
-    direction: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    direction: Optional[int] = None
     quantoHelper: Optional[FdmQuantoHelper] = None
 
 
@@ -3579,14 +3579,14 @@ class FdmCEVOp(BaseModel):
     f0: float
     alpha: float
     beta: float
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
 
 
 class FdmG2Op(BaseModel):
     mesher: FDMMESHER
     model: G2
-    direction1: confloat(ge=0.0, multiple_of=1.0)
-    direction2: confloat(ge=0.0, multiple_of=1.0)
+    direction1: int
+    direction2: int
 
 
 class FdmHestonHullWhiteOp(BaseModel):
@@ -3606,7 +3606,7 @@ class FdmHestonOp(BaseModel):
 class FdmHullWhiteOp(BaseModel):
     mesher: FDMMESHER
     model: HullWhite
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
 
 
 class FdmLocalVolFwdOp(BaseModel):
@@ -3615,14 +3615,14 @@ class FdmLocalVolFwdOp(BaseModel):
     rTS: YIELDTERMSTRUCTURE
     qTS: YIELDTERMSTRUCTURE
     localVol: LOCALVOLTERMSTRUCTURE
-    direction: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    direction: Optional[int] = None
 
 
 class FdmOrnsteinUhlenbeckOp(BaseModel):
     mesher: FDMMESHER
     p: OrnsteinUhlenbeckProcess
     rTS: YIELDTERMSTRUCTURE
-    direction: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    direction: Optional[int] = None
 
 
 class FdmSabrOp(BaseModel):
@@ -3654,40 +3654,40 @@ class FdmBlackScholesFwdOp(BaseModel):
     strike: float
     localVol: Optional[bool] = None
     illegalLocalVolOverwrite: Optional[float] = None
-    direction: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    direction: Optional[int] = None
 
 
 class TripleBandLinearOp(BaseModel):
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     mesher: FDMMESHER
 
 
 class FirstDerivativeOp(BaseModel):
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     mesher: FDMMESHER
 
 
 class SecondDerivativeOp(BaseModel):
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     mesher: FDMMESHER
 
 
 class NinePointLinearOp(BaseModel):
-    d0: confloat(ge=0.0, multiple_of=1.0)
-    d1: confloat(ge=0.0, multiple_of=1.0)
+    d0: int
+    d1: int
     mesher: FDMMESHER
 
 
 class SecondOrderMixedDerivativeOp(BaseModel):
-    d0: confloat(ge=0.0, multiple_of=1.0)
-    d1: confloat(ge=0.0, multiple_of=1.0)
+    d0: int
+    d1: int
     mesher: FDMMESHER
 
 
 class NthOrderDerivativeOp(BaseModel):
-    direction: confloat(ge=0.0, multiple_of=1.0)
-    order: confloat(ge=0.0, multiple_of=1.0)
-    nPoints: confloat(multiple_of=1.0)
+    direction: int
+    order: int
+    nPoints: int
     mesher: FDMMESHER
 
 
@@ -3702,7 +3702,7 @@ class FdmCellAveragingInnerValue(BaseModel):
 class FdmLogInnerValue(BaseModel):
     payoff: PAYOFF
     mesher: FDMMESHER
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
 
 
 class FdmLogBasketInnerValue(BaseModel):
@@ -3730,9 +3730,9 @@ class FdmAmericanStepCondition(BaseModel):
 class FdmArithmeticAverageCondition(BaseModel):
     averageTimes: List[float]
     real: float
-    pastFixings: confloat(ge=0.0, multiple_of=1.0)
+    pastFixings: int
     mesher: FDMMESHER
-    equityDirection: confloat(ge=0.0, multiple_of=1.0)
+    equityDirection: int
 
 
 class FdmBermudanStepCondition(BaseModel):
@@ -3754,8 +3754,8 @@ class FdmSimpleSwingCondition(BaseModel):
     exerciseTimes: List[float]
     mesher: FDMMESHER
     calculator: FDMINNERVALUECALCULATOR
-    swingDirection: confloat(ge=0.0, multiple_of=1.0)
-    minExercises: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    swingDirection: int
+    minExercises: Optional[int] = None
 
 
 class FdmDividendHandler(BaseModel):
@@ -3763,7 +3763,7 @@ class FdmDividendHandler(BaseModel):
     mesher: FDMMESHER
     referenceDate: Date
     dayCounter: DAYCOUNTER
-    equityDirection: confloat(ge=0.0, multiple_of=1.0)
+    equityDirection: int
 
 
 class FdmSolverDesc(BaseModel):
@@ -3811,7 +3811,7 @@ class GBSMRNDCalculator(BaseModel):
 class HestonRNDCalculator(BaseModel):
     hestonProcess: HESTONPROCESS
     integrationEps: Optional[float] = None
-    maxIntegrationIterations: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxIntegrationIterations: Optional[int] = None
 
 
 class LocalVolRNDCalculator(BaseModel):
@@ -3819,11 +3819,11 @@ class LocalVolRNDCalculator(BaseModel):
     rTS: YIELDTERMSTRUCTURE
     qTS: YIELDTERMSTRUCTURE
     localVol: LOCALVOLTERMSTRUCTURE
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    xGrid: Optional[int] = None
+    tGrid: Optional[int] = None
     x0Density: Optional[float] = None
     localVolProbEps: Optional[float] = None
-    maxIter: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxIter: Optional[int] = None
     gaussianStepSize: Optional[float] = None
 
 
@@ -3884,14 +3884,14 @@ class Gsr(BaseModel):
 
 
 class MarkovFunctionalModelSettings(BaseModel):
-    yGridPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    yGridPoints: Optional[int] = None
     yStdDevs: Optional[float] = None
-    gaussHermitePoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    gaussHermitePoints: Optional[int] = None
     digitalGap: Optional[float] = None
     marketRateAccuracy: Optional[float] = None
     lowerRateBound: Optional[float] = None
     upperRateBound: Optional[float] = None
-    adjustments: Optional[confloat(multiple_of=1.0)] = None
+    adjustments: Optional[int] = None
     smileMoneyCheckpoints: Optional[List[float]] = None
 
 
@@ -3900,83 +3900,83 @@ class Gaussian1dJamshidianSwaptionEngine(BaseModel):
 
 
 class SegmentIntegral(BaseModel):
-    intervals: confloat(ge=0.0, multiple_of=1.0)
+    intervals: int
 
 
 class SimpsonIntegral(BaseModel):
     accuracy: float
-    maxIterations: confloat(ge=0.0, multiple_of=1.0)
+    maxIterations: int
 
 
 class GaussKronrodAdaptive(BaseModel):
     tolerance: float
-    maxFunctionEvaluations: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxFunctionEvaluations: Optional[int] = None
 
 
 class GaussKronrodNonAdaptive(BaseModel):
     absoluteAccuracy: float
-    maxEvaluations: confloat(ge=0.0, multiple_of=1.0)
+    maxEvaluations: int
     relativeAccuracy: float
 
 
 class GaussLobattoIntegral(BaseModel):
-    maxIterations: confloat(ge=0.0, multiple_of=1.0)
+    maxIterations: int
     absAccuracy: float
     relAccuracy: Optional[float] = None
     useConvergenceEstimate: Optional[bool] = None
 
 
 class GaussLaguerreIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
     s: Optional[float] = None
 
 
 class GaussHermiteIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
     mu: Optional[float] = None
 
 
 class GaussJacobiIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
     alpha: float
     beta: float
 
 
 class GaussHyperbolicIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
 
 
 class GaussLegendreIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
 
 
 class GaussChebyshevIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
 
 
 class GaussChebyshev2ndIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
 
 
 class GaussGegenbauerIntegration(BaseModel):
-    n: confloat(ge=0.0, multiple_of=1.0)
+    n: int
     lambda_: float = Field(..., alias="lambda")
 
 
 class LecuyerUniformRng(BaseModel):
-    seed: Optional[confloat(multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class KnuthUniformRng(BaseModel):
-    seed: Optional[confloat(multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class MersenneTwisterUniformRng(BaseModel):
-    seed: Optional[confloat(multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class UniformRandomGenerator(BaseModel):
-    seed: Optional[confloat(multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class GaussianRandomGenerator(BaseModel):
@@ -3984,19 +3984,19 @@ class GaussianRandomGenerator(BaseModel):
 
 
 class HaltonRsg(BaseModel):
-    dimensionality: confloat(ge=0.0, multiple_of=1.0)
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    dimensionality: int
+    seed: Optional[int] = None
     randomStart: Optional[bool] = None
     randomShift: Optional[bool] = None
 
 
 class SobolBrownianBridgeRsg(BaseModel):
-    factors: confloat(ge=0.0, multiple_of=1.0)
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    factors: int
+    steps: int
 
 
 class UniformRandomSequenceGenerator(BaseModel):
-    dimensionality: confloat(ge=0.0, multiple_of=1.0)
+    dimensionality: int
     rng: UniformRandomGenerator
 
 
@@ -4017,7 +4017,7 @@ class GaussianMultiPathGenerator(BaseModel):
 
 
 class BrownianBridge(BaseModel):
-    steps: confloat(ge=0.0, multiple_of=1.0)
+    steps: int
 
 
 class DefaultBoundaryCondition(BaseModel):
@@ -4031,22 +4031,22 @@ class TridiagonalOperator(BaseModel):
 
 
 class DPlus(BaseModel):
-    gridPoints: confloat(ge=0.0, multiple_of=1.0)
+    gridPoints: int
     h: float
 
 
 class DMinus(BaseModel):
-    gridPoints: confloat(ge=0.0, multiple_of=1.0)
+    gridPoints: int
     h: float
 
 
 class DZero(BaseModel):
-    gridPoints: confloat(ge=0.0, multiple_of=1.0)
+    gridPoints: int
     h: float
 
 
 class DPlusDMinus(BaseModel):
-    gridPoints: confloat(ge=0.0, multiple_of=1.0)
+    gridPoints: int
     h: float
 
 
@@ -4064,7 +4064,7 @@ class BrownianGeneratorFactory(BaseModel):
 
 
 class MTBrownianGeneratorFactory(BaseModel):
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    seed: Optional[int] = None
 
 
 class SobolBrownianGenerator(BaseModel):
@@ -4152,7 +4152,7 @@ class BachelierSwaptionEngine(BaseModel):
 
 
 class ConstantEstimator(BaseModel):
-    size: confloat(ge=0.0, multiple_of=1.0)
+    size: int
 
 
 class ParkinsonSigma(BaseModel):
@@ -4502,9 +4502,9 @@ class GaussianSimulatedAnnealing(BaseModel):
     reannealing: Optional[ReannealingTrivial] = None
     startTemperature: Optional[float] = None
     endTemperature: Optional[float] = None
-    reAnnealSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    reAnnealSteps: Optional[int] = None
     resetScheme: Optional[GaussianSimulatedAnnealingResetScheme] = None
-    resetSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    resetSteps: Optional[int] = None
 
 
 class MirrorGaussianSimulatedAnnealing(BaseModel):
@@ -4514,9 +4514,9 @@ class MirrorGaussianSimulatedAnnealing(BaseModel):
     reannealing: Optional[ReannealingTrivial] = None
     startTemperature: Optional[float] = None
     endTemperature: Optional[float] = None
-    reAnnealSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    reAnnealSteps: Optional[int] = None
     resetScheme: Optional[MirrorGaussianSimulatedAnnealingResetScheme] = None
-    resetSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    resetSteps: Optional[int] = None
 
 
 class LogNormalSimulatedAnnealing(BaseModel):
@@ -4526,9 +4526,9 @@ class LogNormalSimulatedAnnealing(BaseModel):
     reannealing: Optional[ReannealingTrivial] = None
     startTemperature: Optional[float] = None
     endTemperature: Optional[float] = None
-    reAnnealSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    reAnnealSteps: Optional[int] = None
     resetScheme: Optional[LogNormalSimulatedAnnealingResetScheme] = None
-    resetSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    resetSteps: Optional[int] = None
 
 
 class ConstantOptionletVolatility(BaseModel):
@@ -4579,7 +4579,7 @@ class AndreasenHugeVolatilityInterpl(BaseModel):
     qTS: YieldTermStructureHandle
     interpolationType: Optional[AndreasenHugeVolatilityInterplInterpolationType] = None
     calibrationType: Optional[AndreasenHugeVolatilityInterplCalibrationType] = None
-    nGridPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    nGridPoints: Optional[int] = None
     minStrike: Optional[float] = None
     maxStrike: Optional[float] = None
     optimizationMethod: Optional[OPTIMIZATIONMETHOD] = None
@@ -4665,7 +4665,7 @@ class LognormalCmsSpreadPricer(BaseModel):
     cmsPricer: CMSCOUPONPRICER
     correlation: QuoteHandle
     couponDiscountCurve: Optional[YieldTermStructureHandle] = None
-    IntegrationPoints: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    IntegrationPoints: Optional[int] = None
     volatilityType: Optional[VolatilityType] = None
     shift1: Optional[float] = None
     shift2: Optional[float] = None
@@ -4776,9 +4776,9 @@ class FdmSchemeDesc(BaseModel):
 class FdBlackScholesVanillaEngine(BaseModel):
     value: GENERALIZEDBLACKSCHOLESPROCESS
     quantoHelper: FdmQuantoHelper
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
     localVol: Optional[bool] = None
     illegalLocalVolOverwrite: Optional[float] = None
@@ -4788,29 +4788,29 @@ class FdBlackScholesVanillaEngine(BaseModel):
 class FdOrnsteinUhlenbeckVanillaEngine(BaseModel):
     value: OrnsteinUhlenbeckProcess
     rTS: YIELDTERMSTRUCTURE
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     epsilon: Optional[float] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
 
 
 class FdBatesVanillaEngine(BaseModel):
     model: BatesModel
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    vGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    vGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
 
 
 class FdHestonVanillaEngine(BaseModel):
     model: HESTONMODEL
     quantoHelper: FdmQuantoHelper
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    vGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    vGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
     leverageFct: Optional[LOCALVOLTERMSTRUCTURE] = None
 
@@ -4820,9 +4820,9 @@ class FdCEVVanillaEngine(BaseModel):
     alpha: float
     beta: float
     rTS: YieldTermStructureHandle
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     scalingFactor: Optional[float] = None
     eps: Optional[float] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
@@ -4835,10 +4835,10 @@ class FdSabrVanillaEngine(BaseModel):
     nu: float
     rho: float
     rTS: YieldTermStructureHandle
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    fGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    fGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     scalingFactor: Optional[float] = None
     eps: Optional[float] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
@@ -4846,9 +4846,9 @@ class FdSabrVanillaEngine(BaseModel):
 
 class FdBlackScholesBarrierEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
     localVol: Optional[bool] = None
     illegalLocalVolOverwrite: Optional[float] = None
@@ -4863,7 +4863,7 @@ class ContinuousAveragingAsianOption(BaseModel):
 class DiscreteAveragingAsianOption(BaseModel):
     averageType: AverageType
     runningAccumulator: float
-    pastFixings: confloat(ge=0.0, multiple_of=1.0)
+    pastFixings: int
     fixingDates: List[Date]
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
@@ -4911,8 +4911,8 @@ class VannaVolgaBarrierEngine(BaseModel):
 
 class FdSimpleBSSwingEngine(BaseModel):
     process: GENERALIZEDBLACKSCHOLESPROCESS
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
 
 
@@ -4933,10 +4933,10 @@ class Fd2dBlackScholesVanillaEngine(BaseModel):
     p1: GENERALIZEDBLACKSCHOLESPROCESS
     p2: GENERALIZEDBLACKSCHOLESPROCESS
     correlation: float
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    yGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    xGrid: Optional[int] = None
+    yGrid: Optional[int] = None
+    tGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
     localVol: Optional[bool] = None
     illegalLocalVolOverwrite: Optional[float] = None
@@ -5025,19 +5025,19 @@ class CPISwap(BaseModel):
 
 class FdG2SwaptionEngine(BaseModel):
     model: G2
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    yGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    yGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     invEps: Optional[float] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
 
 
 class FdHullWhiteSwaptionEngine(BaseModel):
     model: HullWhite
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     invEps: Optional[float] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
 
@@ -5076,7 +5076,7 @@ class ConvertibleZeroCouponBond(BaseModel):
     callability: List[CALLABILITY]
     creditSpread: QuoteHandle
     issueDate: Date
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     dayCounter: DAYCOUNTER
     schedule: Schedule
     redemption: Optional[float] = None
@@ -5089,7 +5089,7 @@ class ConvertibleFixedCouponBond(BaseModel):
     callability: List[CALLABILITY]
     creditSpread: QuoteHandle
     issueDate: Date
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     coupons: List[float]
     dayCounter: DAYCOUNTER
     schedule: Schedule
@@ -5103,9 +5103,9 @@ class ConvertibleFloatingRateBond(BaseModel):
     callability: List[CALLABILITY]
     creditSpread: QuoteHandle
     issueDate: Date
-    settlementDays: confloat(multiple_of=1.0)
+    settlementDays: int
     index: IBORINDEX
-    fixingDays: confloat(multiple_of=1.0)
+    fixingDays: int
     spreads: List[float]
     dayCounter: DAYCOUNTER
     schedule: Schedule
@@ -5174,8 +5174,8 @@ class OvernightIndexFutureRateHelper(BaseModel):
 
 class SofrFutureRateHelper(BaseModel):
     price: float
-    referenceMonth: confloat(ge=1.0, le=12.0, multiple_of=1.0)
-    referenceYear: confloat(ge=1900.0, le=2999.0, multiple_of=1.0)
+    referenceMonth: conint(ge=1, le=12)  # type: ignore
+    referenceYear: conint(ge=1900, le=2999)  # type: ignore
     referenceFreq: float
     index: OVERNIGHTINDEX
     convexityAdjustment: Optional[float] = None
@@ -5222,7 +5222,7 @@ class CdsOption(BaseModel):
 class FdmDirichletBoundary(BaseModel):
     mesher: FDMMESHER
     valueOnBoundary: float
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     side: FdmDirichletBoundarySide
 
 
@@ -5231,7 +5231,7 @@ class FdmDiscountDirichletBoundary(BaseModel):
     rTS: YIELDTERMSTRUCTURE
     maturityTime: float
     valueOnBoundary: float
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     side: FdmDiscountDirichletBoundarySide
 
 
@@ -5239,7 +5239,7 @@ class FdmBatesOp(BaseModel):
     mesher: FDMMESHER
     batesProcess: BatesProcess
     bcSet: FdmBoundaryConditionSet
-    integroIntegrationOrder: confloat(ge=0.0, multiple_of=1.0)
+    integroIntegrationOrder: int
     quantoHelper: Optional[FdmQuantoHelper] = None
 
 
@@ -5248,7 +5248,7 @@ class FdmSquareRootFwdOp(BaseModel):
     kappa: float
     theta: float
     sigma: float
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     type: Optional[FdmSquareRootFwdOpTransformationType] = None
 
 
@@ -5340,7 +5340,7 @@ class Fdm3DimSolver(BaseModel):
 
 class FdmIndicesOnBoundary(BaseModel):
     l: FdmLinearOpLayout
-    direction: confloat(ge=0.0, multiple_of=1.0)
+    direction: int
     side: FdmDirichletBoundarySide
 
 
@@ -5350,7 +5350,7 @@ class FittedBondDiscountCurve(BaseModel):
     dayCounter: DAYCOUNTER
     fittingMethod: FITTINGMETHOD
     accuracy: Optional[float] = None
-    maxEvaluations: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    maxEvaluations: Optional[int] = None
     guess: Optional[Array] = None
     simplexLambda: Optional[float] = None
 
@@ -5393,7 +5393,7 @@ class MarkovFunctional(BaseModel):
 
 class Gaussian1dSwaptionEngine(BaseModel):
     model: GAUSSIAN1DMODEL
-    integrationPoints: Optional[confloat(multiple_of=1.0)] = None
+    integrationPoints: Optional[int] = None
     stddevs: Optional[float] = None
     extrapolatePayoff: Optional[bool] = None
     flatPayoffExtrapolation: Optional[bool] = None
@@ -5403,7 +5403,7 @@ class Gaussian1dSwaptionEngine(BaseModel):
 
 class Gaussian1dNonstandardSwaptionEngine(BaseModel):
     model: GAUSSIAN1DMODEL
-    integrationPoints: Optional[confloat(multiple_of=1.0)] = None
+    integrationPoints: Optional[int] = None
     stddevs: Optional[float] = None
     extrapolatePayoff: Optional[bool] = None
     flatPayoffExtrapolation: Optional[bool] = None
@@ -5414,7 +5414,7 @@ class Gaussian1dNonstandardSwaptionEngine(BaseModel):
 
 class Gaussian1dFloatFloatSwaptionEngine(BaseModel):
     model: GAUSSIAN1DMODEL
-    integrationPoints: Optional[confloat(multiple_of=1.0)] = None
+    integrationPoints: Optional[int] = None
     stddevs: Optional[float] = None
     extrapolatePayoff: Optional[bool] = None
     flatPayoffExtrapolation: Optional[bool] = None
@@ -5425,14 +5425,14 @@ class Gaussian1dFloatFloatSwaptionEngine(BaseModel):
 
 
 class SobolRsg(BaseModel):
-    dimensionality: confloat(ge=0.0, multiple_of=1.0)
-    seed: Optional[confloat(multiple_of=1.0)] = None
+    dimensionality: int
+    seed: Optional[int] = None
     directionIntegers: Optional[SobolRsgDirectionIntegers] = None
 
 
 class UniformLowDiscrepancySequenceGenerator(BaseModel):
-    dimensionality: confloat(ge=0.0, multiple_of=1.0)
-    seed: Optional[confloat(multiple_of=1.0)] = None
+    dimensionality: int
+    seed: Optional[int] = None
     directionIntegers: Optional[SobolRsgDirectionIntegers] = None
 
 
@@ -5452,26 +5452,26 @@ class DirichletBC(BaseModel):
 
 class SobolBrownianGeneratorFactory(BaseModel):
     ordering: SobolBrownianGeneratorOrdering
-    seed: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    seed: Optional[int] = None
     directionIntegers: Optional[SobolRsgDirectionIntegers] = None
 
 
 class FdHestonBarrierEngine(BaseModel):
     model: HESTONMODEL
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    vGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    vGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
     leverageFct: Optional[LOCALVOLTERMSTRUCTURE] = None
 
 
 class FdHestonDoubleBarrierEngine(BaseModel):
     model: HESTONMODEL
-    tGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    xGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    vGrid: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
-    dampingSteps: Optional[confloat(ge=0.0, multiple_of=1.0)] = None
+    tGrid: Optional[int] = None
+    xGrid: Optional[int] = None
+    vGrid: Optional[int] = None
+    dampingSteps: Optional[int] = None
     schemeDesc: Optional[FdmSchemeDesc] = None
     leverageFct: Optional[LOCALVOLTERMSTRUCTURE] = None
 
@@ -5573,7 +5573,6 @@ FDMINNERVALUECALCULATOR = Union[
     FdmLogBasketInnerValue,
     FdmZeroInnerValue,
 ]
-# STEPCONDITION<(ARRAY)> = Union[StepCondition<(Array)>, FdmStepConditionProxy, FdmSnapshotCondition, FdmStepConditionComposite, FdmAmericanStepCondition, FdmArithmeticAverageCondition, FdmBermudanStepCondition, FdmSimpleStorageCondition, FdmSimpleSwingCondition, FdmDividendHandler]
 NINEPOINTLINEAROP = Union[NinePointLinearOp, SecondOrderMixedDerivativeOp]
 TRIPLEBANDLINEAROP = Union[TripleBandLinearOp, FirstDerivativeOp, SecondDerivativeOp]
 FDMBOUNDARYCONDITION = Union[
@@ -5668,8 +5667,6 @@ SHORTRATEMODEL = Union[ShortRateModel, ONEFACTORAFFINEMODEL, BlackKarasinski, G2
 YOYINFLATIONCAPFLOOR = Union[
     YoYInflationCapFloor, YoYInflationCap, YoYInflationFloor, YoYInflationCollar
 ]
-# BOOTSTRAPHELPER<(YOYINFLATIONTERMSTRUCTURE)> = Union[BootstrapHelper<(YoYInflationTermStructure)>, YearOnYearInflationSwapHelper]
-# BOOTSTRAPHELPER<(ZEROINFLATIONTERMSTRUCTURE)> = Union[BootstrapHelper<(ZeroInflationTermStructure)>, ZeroCouponInflationSwapHelper]
 INFLATIONCOUPON = Union[InflationCoupon, CPICoupon]
 YOYINFLATIONINDEX = Union[
     YoYInflationIndex, YYEUHICP, YYEUHICPXT, YYFRHICP, YYUKRPI, YYUSCPI, YYZACPI
@@ -5994,9 +5991,7 @@ EURLIBOR = Union[
     EURLibor11M,
     EURLibor1Y,
 ]
-EURIBOR365 = Union[
-    Euribor365
-]  # , Euribor365_SW, Euribor365_2W, Euribor365_3W, Euribor365_1M, Euribor365_2M, Euribor365_3M, Euribor365_4M, Euribor365_5M, Euribor365_6M, Euribor365_7M, Euribor365_8M, Euribor365_9M, Euribor365_10M, Euribor365_11M, Euribor365_1Y]
+EURIBOR365 = Union[Euribor365]
 EURIBOR = Union[
     Euribor,
     EuriborSW,
