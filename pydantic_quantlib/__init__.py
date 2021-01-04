@@ -15,15 +15,13 @@ from typing import Any, List, Optional, Union
 
 from pydantic import Field, conint
 
-from build.lib.pydantic_quantlib import TimeUnit
-
 from . import enums
 from .core import BaseModel
 
 
 class Period(BaseModel):
     n: Optional[int] = None
-    units: Optional[TimeUnit] = None
+    units: Optional[enums.TimeUnit] = None
 
 
 class Date(BaseModel):
