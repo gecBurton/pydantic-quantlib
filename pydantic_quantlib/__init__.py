@@ -13,11 +13,11 @@ __version__ = "0.1.0"
 
 from typing import Any, List, Optional, Union
 
-import enums
 from pydantic import Field, conint
 
 from build.lib.pydantic_quantlib import TimeUnit
 
+from . import enums
 from .core import BaseModel
 
 
@@ -5186,15 +5186,19 @@ class FloatFloatSwaption(BaseModel):
     settlementMethod: Optional[SettlementMethod] = None
 
 
+class AnalyticHestonEngineComplexLogFormula(BaseModel):
+    pass
+
+
 class HestonBlackVolSurface(BaseModel):
     hestonModel: HestonModelHandle
-    cpxLogFormula: Optional[enums.AnalyticHestonEngineComplexLogFormula] = None
+    cpxLogFormula: Optional[AnalyticHestonEngineComplexLogFormula] = None
     integration: Optional[AnalyticHestonEngineIntegration] = None
 
 
 class AnalyticHestonEngine(BaseModel):
     model: HESTONMODEL
-    cpxLog: enums.AnalyticHestonEngineComplexLogFormula
+    cpxLog: AnalyticHestonEngineComplexLogFormula
     itg: AnalyticHestonEngineIntegration
     andersenPiterbargEpsilon: Optional[float] = None
 
