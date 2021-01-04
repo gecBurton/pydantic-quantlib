@@ -5573,7 +5573,6 @@ FDMINNERVALUECALCULATOR = Union[
     FdmLogBasketInnerValue,
     FdmZeroInnerValue,
 ]
-# STEPCONDITION<(ARRAY)> = Union[StepCondition<(Array)>, FdmStepConditionProxy, FdmSnapshotCondition, FdmStepConditionComposite, FdmAmericanStepCondition, FdmArithmeticAverageCondition, FdmBermudanStepCondition, FdmSimpleStorageCondition, FdmSimpleSwingCondition, FdmDividendHandler]
 NINEPOINTLINEAROP = Union[NinePointLinearOp, SecondOrderMixedDerivativeOp]
 TRIPLEBANDLINEAROP = Union[TripleBandLinearOp, FirstDerivativeOp, SecondDerivativeOp]
 FDMBOUNDARYCONDITION = Union[
@@ -5668,8 +5667,6 @@ SHORTRATEMODEL = Union[ShortRateModel, ONEFACTORAFFINEMODEL, BlackKarasinski, G2
 YOYINFLATIONCAPFLOOR = Union[
     YoYInflationCapFloor, YoYInflationCap, YoYInflationFloor, YoYInflationCollar
 ]
-# BOOTSTRAPHELPER<(YOYINFLATIONTERMSTRUCTURE)> = Union[BootstrapHelper<(YoYInflationTermStructure)>, YearOnYearInflationSwapHelper]
-# BOOTSTRAPHELPER<(ZEROINFLATIONTERMSTRUCTURE)> = Union[BootstrapHelper<(ZeroInflationTermStructure)>, ZeroCouponInflationSwapHelper]
 INFLATIONCOUPON = Union[InflationCoupon, CPICoupon]
 YOYINFLATIONINDEX = Union[
     YoYInflationIndex, YYEUHICP, YYEUHICPXT, YYFRHICP, YYUKRPI, YYUSCPI, YYZACPI
@@ -5994,9 +5991,7 @@ EURLIBOR = Union[
     EURLibor11M,
     EURLibor1Y,
 ]
-EURIBOR365 = Union[
-    Euribor365
-]  # , Euribor365_SW, Euribor365_2W, Euribor365_3W, Euribor365_1M, Euribor365_2M, Euribor365_3M, Euribor365_4M, Euribor365_5M, Euribor365_6M, Euribor365_7M, Euribor365_8M, Euribor365_9M, Euribor365_10M, Euribor365_11M, Euribor365_1Y]
+EURIBOR365 = Union[Euribor365]
 EURIBOR = Union[
     Euribor,
     EuriborSW,
