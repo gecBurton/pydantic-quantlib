@@ -197,21 +197,6 @@ class SouthKoreaMarket(Enum):
     Settlement = 0
 
 
-class UnitedKingdomMarket(Enum):
-    Exchange = 1
-    Metals = 2
-    Settlement = 0
-
-
-class UnitedStatesMarket(Enum):
-    FederalReserve = 5
-    GovernmentBond = 2
-    LiborImpact = 4
-    NERC = 3
-    NYSE = 1
-    Settlement = 0
-
-
 class SalvagingAlgorithm(Enum):
     NoAlgorithm = 0
     Spectral = 1
