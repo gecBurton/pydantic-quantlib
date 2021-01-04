@@ -22,7 +22,7 @@ class BaseModel(_BaseModel):
             return attr.value
 
         schema = self.schema()["properties"][field]
-        if multipleOf := schema.get("multipleOf"):
-            if multipleOf == 1:
-                return int(attr)
+        multiple_of = schema.get("multipleOf")
+        if multiple_of == 1:
+            return int(attr)
         return attr
