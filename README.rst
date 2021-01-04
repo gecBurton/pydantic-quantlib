@@ -47,7 +47,7 @@ The European Option can be converted to the usual QuantLib_ object for computati
 .. code-block:: python
 
     >>> european_option.to_quantlib()
-    <QuantLib.QuantLib.VanillaOption; proxy of <Swig Object of type 'ext::shared_ptr< VanillaOption > *' at 0x7f6559ddabd0> >
+    '<QuantLib.QuantLib.VanillaOption; proxy of <Swig Object of type 'ext::shared_ptr< VanillaOption > *' at 0x7f6559ddabd0> >'
 
 
 It can also be, printed:
@@ -55,7 +55,7 @@ It can also be, printed:
 .. code-block:: python
 
     >>> print(european_option)
-    payoff=PlainVanillaPayoff(type=<OptionType.Put: -1>, strike=40.0) exercise=EuropeanExercise(date=Date(d=4.0, m=1.0, y=2022.0))
+    'PlainVanillaPayoff(type=<OptionType.Put: -1>, strike=40.0) exercise=EuropeanExercise(date=Date(d=4.0, m=1.0, y=2022.0))'
 
 It can be converted to JSON
 
