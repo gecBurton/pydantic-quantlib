@@ -20,10 +20,14 @@ from .core import BaseModel
 
 
 class TimeUnit(Enum):
-    None_0 = 0
-    None_1 = 1
-    None_2 = 2
-    None_3 = 3
+    Days = 0
+    Weeks = 1
+    Months = 2
+    Years = 3
+    Hours = 4
+    Minutes = 5
+    Seconds = 6
+    Milliseconds = 7
 
 
 class OptionType(Enum):
@@ -32,21 +36,33 @@ class OptionType(Enum):
 
 
 class BusinessDayConvention(Enum):
-    None_0 = 0
-    None_1 = 1
-    None_2 = 2
-    None_3 = 3
-    None_4 = 4
+    Following = 0
+    ModifiedFollowing = 1
+    Preceding = 2
+    ModifiedPreceding = 3
+    Unadjusted = 4
+    HalfMonthModifiedFollowing = 5
+    Nearest = 6
 
 
 class DateGenerationRule(Enum):
-    None_0 = 0
-    None_1 = 1
+    Backward = 0
+    Forward = 1
+    Zero = 2
+    ThirdWednesday = 3
+    Twentieth = 4
+    TwentiethIMM = 5
+    OldCDS = 6
+    CDS = 7
+    CDS2015 = 8
 
 
 class Compounding(Enum):
-    None_0 = 0
-    None_1 = 1
+    Simple = 0
+    Compounded = 1
+    Continuous = 2
+    SimpleThenCompounded = 3
+    CompoundedThenSimple = 4
 
 
 class ActualActualConvention(Enum):

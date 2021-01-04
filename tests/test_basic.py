@@ -3,6 +3,7 @@ using a Black&Scholes Merton process.
 """
 
 import QuantLib as ql
+
 import pydantic_quantlib as pql
 
 settings = ql.Settings.instance()

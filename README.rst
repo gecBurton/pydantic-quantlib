@@ -28,6 +28,8 @@ Features
 
 This package uses pydantic_ to wrap QuantLib_ to provide a set of Typed class factories.
 
+The pydantic models are auto-generated from the QuantLib SWIG bindings, code available on request.
+
 Example
 --------
 
