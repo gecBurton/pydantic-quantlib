@@ -89,6 +89,7 @@ class Market(Enum):
     None_0 = 0
     None_1 = 1
     None_2 = 2
+    None_3 = 3
 
 
 class SwigSwigPtrPyObject(BaseModel):
