@@ -21,12 +21,8 @@ class BaseModel(_BaseModel):
 
         if field is None:  # convert the whole object
             ql_obj = getattr(ql, self.__repr_name__())
-            args = map(self.to_quantlib, self.__fields__)
-            args = [arg for arg in args if arg is not None]
-            try:
-                return ql_obj(*args)
-            except Exception as e:
-                raise Exception(ql_obj, args, e)
+            args = (self.to_quantlib(key) for key, _value in self.__repr_args__())
+            return ql_obj(*filter(None, args))
 
         attr = getattr(self, field)
         if isinstance(attr, BaseModel):
@@ -38,3 +34,7 @@ class BaseModel(_BaseModel):
 
         # else no conversion required
         return attr
+
+    def __repr_args__(self):
+        parent = super().__repr_args__()
+        return [(key, value) for key, value in parent if key != "resource_name"]

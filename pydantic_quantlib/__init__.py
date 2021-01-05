@@ -11,7 +11,7 @@ __version__ = "0.1.0"
 #   timestamp: 2021-01-03T20:14:28+00:00
 
 
-from typing import Any, List, Optional, Union
+from typing import Any, List, Literal, Optional, Union
 
 from pydantic import Field, conint
 
@@ -20,267 +20,305 @@ from .core import BaseModel
 
 
 class Period(BaseModel):
+    resource_name: Optional[Literal["Period"]] = "Period"
     n: Optional[int] = None
     units: Optional[enums.TimeUnit] = None
 
 
 class Date(BaseModel):
+    resource_name: Optional[Literal["Date"]] = "Date"
     d: conint(ge=1, le=31)  # type: ignore
     m: conint(ge=1, le=12)  # type: ignore
     y: conint(ge=1900, le=2999)  # type: ignore
 
 
 class EuropeanExercise(BaseModel):
+    resource_name: Optional[Literal["EuropeanExercise"]] = "EuropeanExercise"
     date: Date
 
 
 class AmericanExercise(BaseModel):
+    resource_name: Optional[Literal["AmericanExercise"]] = "AmericanExercise"
     earliestDate: Date
     latestDate: Date
     payoffAtExpiry: Optional[bool] = None
 
 
 class BermudanExercise(BaseModel):
+    resource_name: Optional[Literal["BermudanExercise"]] = "BermudanExercise"
     dates: List[Date]
     payoffAtExpiry: Optional[bool] = None
 
 
 class SwingExercise(BaseModel):
+    resource_name: Optional[Literal["SwingExercise"]] = "SwingExercise"
     dates: List[Date]
 
 
 class Array(BaseModel):
+    resource_name: Optional[Literal["Array"]] = "Array"
     n: Optional[int] = None
     fill: Optional[float] = None
 
 
 class Matrix(BaseModel):
+    resource_name: Optional[Literal["Matrix"]] = "Matrix"
     rows: Optional[int] = None
     columns: Optional[int] = None
     fill: Optional[float] = None
 
 
 class SVD(BaseModel):
+    resource_name: Optional[Literal["SVD"]] = "SVD"
     value: Matrix
 
 
 class BiCGstab(BaseModel):
-    pass
+    resource_name: Optional[Literal["BiCGstab"]] = "BiCGstab"
 
 
 class GMRES(BaseModel):
-    pass
+    resource_name: Optional[Literal["GMRES"]] = "GMRES"
 
 
 class Quote(BaseModel):
-    pass
+    resource_name: Optional[Literal["Quote"]] = "Quote"
 
 
 class QuoteHandle(BaseModel):
+    resource_name: Optional[Literal["QuoteHandle"]] = "QuoteHandle"
     value: Optional[QUOTE] = None
 
 
 class SimpleQuote(BaseModel):
+    resource_name: Optional[Literal["SimpleQuote"]] = "SimpleQuote"
     value: float
 
 
 class DerivedQuote(BaseModel):
-    pass
+    resource_name: Optional[Literal["DerivedQuote"]] = "DerivedQuote"
 
 
 class CompositeQuote(BaseModel):
-    pass
+    resource_name: Optional[Literal["CompositeQuote"]] = "CompositeQuote"
 
 
 class Calendar(BaseModel):
-    pass
+    resource_name: Optional[Literal["Calendar"]] = "Calendar"
 
 
 class Argentina(BaseModel):
+    resource_name: Optional[Literal["Argentina"]] = "Argentina"
     m: Optional[enums.ArgentinaMarket] = None
 
 
 class Australia(BaseModel):
-    pass
+    resource_name: Optional[Literal["Australia"]] = "Australia"
 
 
 class Brazil(BaseModel):
+    resource_name: Optional[Literal["Brazil"]] = "Brazil"
     m: Optional[enums.BrazilMarket] = None
 
 
 class Canada(BaseModel):
+    resource_name: Optional[Literal["Canada"]] = "Canada"
     m: Optional[enums.CanadaMarket] = None
 
 
 class China(BaseModel):
+    resource_name: Optional[Literal["China"]] = "China"
     m: Optional[enums.ChinaMarket] = None
 
 
 class CzechRepublic(BaseModel):
+    resource_name: Optional[Literal["CzechRepublic"]] = "CzechRepublic"
     m: Optional[enums.CzechMarket] = None
 
 
 class Denmark(BaseModel):
-    pass
+    resource_name: Optional[Literal["Denmark"]] = "Denmark"
 
 
 class Finland(BaseModel):
-    pass
+    resource_name: Optional[Literal["Finland"]] = "Finland"
 
 
 class France(BaseModel):
+    resource_name: Optional[Literal["France"]] = "France"
     m: Optional[enums.FranceMarket] = None
 
 
 class Germany(BaseModel):
+    resource_name: Optional[Literal["Germany"]] = "Germany"
     m: Optional[enums.GermanyMarket] = None
 
 
 class HongKong(BaseModel):
+    resource_name: Optional[Literal["HongKong"]] = "HongKong"
     m: Optional[enums.HongKongMarket] = None
 
 
 class Hungary(BaseModel):
-    pass
+    resource_name: Optional[Literal["Hungary"]] = "Hungary"
 
 
 class Iceland(BaseModel):
+    resource_name: Optional[Literal["Iceland"]] = "Iceland"
     m: Optional[enums.IcelandMarket] = None
 
 
 class India(BaseModel):
+    resource_name: Optional[Literal["India"]] = "India"
     m: Optional[enums.IndiaMarket] = None
 
 
 class Indonesia(BaseModel):
+    resource_name: Optional[Literal["Indonesia"]] = "Indonesia"
     m: Optional[enums.IndonesiaMarket] = None
 
 
 class Israel(BaseModel):
+    resource_name: Optional[Literal["Israel"]] = "Israel"
     m: Optional[enums.IsraelMarket] = None
 
 
 class Italy(BaseModel):
+    resource_name: Optional[Literal["Italy"]] = "Italy"
     m: Optional[enums.ItalyMarket] = None
 
 
 class Japan(BaseModel):
-    pass
+    resource_name: Optional[Literal["Japan"]] = "Japan"
 
 
 class Mexico(BaseModel):
+    resource_name: Optional[Literal["Mexico"]] = "Mexico"
     m: Optional[enums.MexicoMarket] = None
 
 
 class NewZealand(BaseModel):
-    pass
+    resource_name: Optional[Literal["NewZealand"]] = "NewZealand"
 
 
 class Norway(BaseModel):
-    pass
+    resource_name: Optional[Literal["Norway"]] = "Norway"
 
 
 class Poland(BaseModel):
-    pass
+    resource_name: Optional[Literal["Poland"]] = "Poland"
 
 
 class Russia(BaseModel):
+    resource_name: Optional[Literal["Russia"]] = "Russia"
     m: Optional[enums.RussiaMarket] = None
 
 
 class Romania(BaseModel):
-    pass
+    resource_name: Optional[Literal["Romania"]] = "Romania"
 
 
 class SaudiArabia(BaseModel):
+    resource_name: Optional[Literal["SaudiArabia"]] = "SaudiArabia"
     m: Optional[enums.SaudiArabiaMarket] = None
 
 
 class Singapore(BaseModel):
+    resource_name: Optional[Literal["Singapore"]] = "Singapore"
     m: Optional[enums.SingaporeMarket] = None
 
 
 class Slovakia(BaseModel):
+    resource_name: Optional[Literal["Slovakia"]] = "Slovakia"
     m: Optional[enums.SlovakiaMarket] = None
 
 
 class SouthAfrica(BaseModel):
-    pass
+    resource_name: Optional[Literal["SouthAfrica"]] = "SouthAfrica"
 
 
 class SouthKorea(BaseModel):
+    resource_name: Optional[Literal["SouthKorea"]] = "SouthKorea"
     m: Optional[enums.SouthKoreaMarket] = None
 
 
 class Sweden(BaseModel):
-    pass
+    resource_name: Optional[Literal["Sweden"]] = "Sweden"
 
 
 class Switzerland(BaseModel):
-    pass
+    resource_name: Optional[Literal["Switzerland"]] = "Switzerland"
 
 
 class Taiwan(BaseModel):
+    resource_name: Optional[Literal["Taiwan"]] = "Taiwan"
     m: Optional[enums.TaiwanMarket] = None
 
 
 class TARGET(BaseModel):
-    pass
+    resource_name: Optional[Literal["TARGET"]] = "TARGET"
 
 
 class Thailand(BaseModel):
-    pass
+    resource_name: Optional[Literal["Thailand"]] = "Thailand"
 
 
 class Turkey(BaseModel):
-    pass
+    resource_name: Optional[Literal["Turkey"]] = "Turkey"
 
 
 class Ukraine(BaseModel):
+    resource_name: Optional[Literal["Ukraine"]] = "Ukraine"
     m: Optional[enums.UkraineMarket] = None
 
 
 class UnitedKingdom(BaseModel):
+    resource_name: Optional[Literal["UnitedKingdom"]] = "UnitedKingdom"
     m: Optional[enums.UnitedKingdomMarket] = None
 
 
 class UnitedStates(BaseModel):
+    resource_name: Optional[Literal["UnitedStates"]] = "UnitedStates"
     m: Optional[enums.UnitedStatesMarket] = None
 
 
 class NullCalendar(BaseModel):
-    pass
+    resource_name: Optional[Literal["NullCalendar"]] = "NullCalendar"
 
 
 class WeekendsOnly(BaseModel):
-    pass
+    resource_name: Optional[Literal["WeekendsOnly"]] = "WeekendsOnly"
 
 
 class BespokeCalendar(BaseModel):
+    resource_name: Optional[Literal["BespokeCalendar"]] = "BespokeCalendar"
     name: str
 
 
 class DayCounter(BaseModel):
-    pass
+    resource_name: Optional[Literal["DayCounter"]] = "DayCounter"
 
 
 class Actual360(BaseModel):
+    resource_name: Optional[Literal["Actual360"]] = "Actual360"
     includeLastDay: Optional[bool] = None
 
 
 class OneDayCounter(BaseModel):
-    pass
+    resource_name: Optional[Literal["OneDayCounter"]] = "OneDayCounter"
 
 
 class SimpleDayCounter(BaseModel):
-    pass
+    resource_name: Optional[Literal["SimpleDayCounter"]] = "SimpleDayCounter"
 
 
 class Business252(BaseModel):
+    resource_name: Optional[Literal["Business252"]] = "Business252"
     c: Optional[CALENDAR] = None
 
 
 class InterestRate(BaseModel):
+    resource_name: Optional[Literal["InterestRate"]] = "InterestRate"
     r: Optional[float] = None
     dc: Optional[DAYCOUNTER] = None
     comp: Optional[enums.Compounding] = None
@@ -288,465 +326,520 @@ class InterestRate(BaseModel):
 
 
 class Rounding(BaseModel):
-    pass
+    resource_name: Optional[Literal["Rounding"]] = "Rounding"
 
 
 class UpRounding(BaseModel):
+    resource_name: Optional[Literal["UpRounding"]] = "UpRounding"
     precision: int
     digit: Optional[int] = None
 
 
 class DownRounding(BaseModel):
+    resource_name: Optional[Literal["DownRounding"]] = "DownRounding"
     precision: int
     digit: Optional[int] = None
 
 
 class ClosestRounding(BaseModel):
+    resource_name: Optional[Literal["ClosestRounding"]] = "ClosestRounding"
     precision: int
     digit: Optional[int] = None
 
 
 class CeilingTruncation(BaseModel):
+    resource_name: Optional[Literal["CeilingTruncation"]] = "CeilingTruncation"
     precision: int
     digit: Optional[int] = None
 
 
 class FloorTruncation(BaseModel):
+    resource_name: Optional[Literal["FloorTruncation"]] = "FloorTruncation"
     precision: int
     digit: Optional[int] = None
 
 
 class Currency(BaseModel):
-    pass
+    resource_name: Optional[Literal["Currency"]] = "Currency"
 
 
 class ARSCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ARSCurrency"]] = "ARSCurrency"
 
 
 class ATSCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ATSCurrency"]] = "ATSCurrency"
 
 
 class AUDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["AUDCurrency"]] = "AUDCurrency"
 
 
 class BDTCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["BDTCurrency"]] = "BDTCurrency"
 
 
 class BEFCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["BEFCurrency"]] = "BEFCurrency"
 
 
 class BGLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["BGLCurrency"]] = "BGLCurrency"
 
 
 class BRLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["BRLCurrency"]] = "BRLCurrency"
 
 
 class BYRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["BYRCurrency"]] = "BYRCurrency"
 
 
 class CADCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["CADCurrency"]] = "CADCurrency"
 
 
 class CHFCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["CHFCurrency"]] = "CHFCurrency"
 
 
 class CLPCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["CLPCurrency"]] = "CLPCurrency"
 
 
 class CNYCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["CNYCurrency"]] = "CNYCurrency"
 
 
 class COPCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["COPCurrency"]] = "COPCurrency"
 
 
 class CYPCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["CYPCurrency"]] = "CYPCurrency"
 
 
 class CZKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["CZKCurrency"]] = "CZKCurrency"
 
 
 class DEMCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["DEMCurrency"]] = "DEMCurrency"
 
 
 class DKKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["DKKCurrency"]] = "DKKCurrency"
 
 
 class EEKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["EEKCurrency"]] = "EEKCurrency"
 
 
 class ESPCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ESPCurrency"]] = "ESPCurrency"
 
 
 class EURCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["EURCurrency"]] = "EURCurrency"
 
 
 class FIMCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["FIMCurrency"]] = "FIMCurrency"
 
 
 class FRFCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["FRFCurrency"]] = "FRFCurrency"
 
 
 class GBPCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["GBPCurrency"]] = "GBPCurrency"
 
 
 class GRDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["GRDCurrency"]] = "GRDCurrency"
 
 
 class HKDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["HKDCurrency"]] = "HKDCurrency"
 
 
 class HUFCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["HUFCurrency"]] = "HUFCurrency"
 
 
 class IEPCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["IEPCurrency"]] = "IEPCurrency"
 
 
 class IDRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["IDRCurrency"]] = "IDRCurrency"
 
 
 class ILSCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ILSCurrency"]] = "ILSCurrency"
 
 
 class INRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["INRCurrency"]] = "INRCurrency"
 
 
 class IQDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["IQDCurrency"]] = "IQDCurrency"
 
 
 class IRRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["IRRCurrency"]] = "IRRCurrency"
 
 
 class ISKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ISKCurrency"]] = "ISKCurrency"
 
 
 class ITLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ITLCurrency"]] = "ITLCurrency"
 
 
 class JPYCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["JPYCurrency"]] = "JPYCurrency"
 
 
 class KRWCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["KRWCurrency"]] = "KRWCurrency"
 
 
 class KWDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["KWDCurrency"]] = "KWDCurrency"
 
 
 class LTLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["LTLCurrency"]] = "LTLCurrency"
 
 
 class LUFCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["LUFCurrency"]] = "LUFCurrency"
 
 
 class LVLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["LVLCurrency"]] = "LVLCurrency"
 
 
 class MTLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["MTLCurrency"]] = "MTLCurrency"
 
 
 class MXNCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["MXNCurrency"]] = "MXNCurrency"
 
 
 class MYRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["MYRCurrency"]] = "MYRCurrency"
 
 
 class NLGCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["NLGCurrency"]] = "NLGCurrency"
 
 
 class NOKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["NOKCurrency"]] = "NOKCurrency"
 
 
 class NPRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["NPRCurrency"]] = "NPRCurrency"
 
 
 class NZDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["NZDCurrency"]] = "NZDCurrency"
 
 
 class PEHCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["PEHCurrency"]] = "PEHCurrency"
 
 
 class PEICurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["PEICurrency"]] = "PEICurrency"
 
 
 class PENCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["PENCurrency"]] = "PENCurrency"
 
 
 class PKRCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["PKRCurrency"]] = "PKRCurrency"
 
 
 class PLNCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["PLNCurrency"]] = "PLNCurrency"
 
 
 class PTECurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["PTECurrency"]] = "PTECurrency"
 
 
 class ROLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ROLCurrency"]] = "ROLCurrency"
 
 
 class RONCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["RONCurrency"]] = "RONCurrency"
 
 
 class RUBCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["RUBCurrency"]] = "RUBCurrency"
 
 
 class SARCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["SARCurrency"]] = "SARCurrency"
 
 
 class SEKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["SEKCurrency"]] = "SEKCurrency"
 
 
 class SGDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["SGDCurrency"]] = "SGDCurrency"
 
 
 class SITCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["SITCurrency"]] = "SITCurrency"
 
 
 class SKKCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["SKKCurrency"]] = "SKKCurrency"
 
 
 class THBCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["THBCurrency"]] = "THBCurrency"
 
 
 class TRLCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["TRLCurrency"]] = "TRLCurrency"
 
 
 class TRYCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["TRYCurrency"]] = "TRYCurrency"
 
 
 class TTDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["TTDCurrency"]] = "TTDCurrency"
 
 
 class TWDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["TWDCurrency"]] = "TWDCurrency"
 
 
 class USDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["USDCurrency"]] = "USDCurrency"
 
 
 class VEBCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["VEBCurrency"]] = "VEBCurrency"
 
 
 class VNDCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["VNDCurrency"]] = "VNDCurrency"
 
 
 class ZARCurrency(BaseModel):
-    pass
+    resource_name: Optional[Literal["ZARCurrency"]] = "ZARCurrency"
 
 
 class SafeLinearInterpolation(BaseModel):
+    resource_name: Optional[
+        Literal["SafeLinearInterpolation"]
+    ] = "SafeLinearInterpolation"
     x: Array
     y: Array
 
 
 class SafeLogLinearInterpolation(BaseModel):
+    resource_name: Optional[
+        Literal["SafeLogLinearInterpolation"]
+    ] = "SafeLogLinearInterpolation"
     x: Array
     y: Array
 
 
 class SafeBackwardFlatInterpolation(BaseModel):
+    resource_name: Optional[
+        Literal["SafeBackwardFlatInterpolation"]
+    ] = "SafeBackwardFlatInterpolation"
     x: Array
     y: Array
 
 
 class SafeForwardFlatInterpolation(BaseModel):
+    resource_name: Optional[
+        Literal["SafeForwardFlatInterpolation"]
+    ] = "SafeForwardFlatInterpolation"
     x: Array
     y: Array
 
 
 class SafeCubicNaturalSpline(BaseModel):
+    resource_name: Optional[
+        Literal["SafeCubicNaturalSpline"]
+    ] = "SafeCubicNaturalSpline"
     x: Array
     y: Array
 
 
 class SafeLogCubicNaturalSpline(BaseModel):
+    resource_name: Optional[
+        Literal["SafeLogCubicNaturalSpline"]
+    ] = "SafeLogCubicNaturalSpline"
     x: Array
     y: Array
 
 
 class SafeMonotonicCubicNaturalSpline(BaseModel):
+    resource_name: Optional[
+        Literal["SafeMonotonicCubicNaturalSpline"]
+    ] = "SafeMonotonicCubicNaturalSpline"
     x: Array
     y: Array
 
 
 class SafeMonotonicLogCubicNaturalSpline(BaseModel):
+    resource_name: Optional[
+        Literal["SafeMonotonicLogCubicNaturalSpline"]
+    ] = "SafeMonotonicLogCubicNaturalSpline"
     x: Array
     y: Array
 
 
 class SafeKrugerCubic(BaseModel):
+    resource_name: Optional[Literal["SafeKrugerCubic"]] = "SafeKrugerCubic"
     x: Array
     y: Array
 
 
 class SafeKrugerLogCubic(BaseModel):
+    resource_name: Optional[Literal["SafeKrugerLogCubic"]] = "SafeKrugerLogCubic"
     x: Array
     y: Array
 
 
 class SafeFritschButlandCubic(BaseModel):
+    resource_name: Optional[
+        Literal["SafeFritschButlandCubic"]
+    ] = "SafeFritschButlandCubic"
     x: Array
     y: Array
 
 
 class SafeFritschButlandLogCubic(BaseModel):
+    resource_name: Optional[
+        Literal["SafeFritschButlandLogCubic"]
+    ] = "SafeFritschButlandLogCubic"
     x: Array
     y: Array
 
 
 class SafeParabolic(BaseModel):
+    resource_name: Optional[Literal["SafeParabolic"]] = "SafeParabolic"
     x: Array
     y: Array
 
 
 class SafeLogParabolic(BaseModel):
+    resource_name: Optional[Literal["SafeLogParabolic"]] = "SafeLogParabolic"
     x: Array
     y: Array
 
 
 class SafeMonotonicParabolic(BaseModel):
+    resource_name: Optional[
+        Literal["SafeMonotonicParabolic"]
+    ] = "SafeMonotonicParabolic"
     x: Array
     y: Array
 
 
 class SafeMonotonicLogParabolic(BaseModel):
+    resource_name: Optional[
+        Literal["SafeMonotonicLogParabolic"]
+    ] = "SafeMonotonicLogParabolic"
     x: Array
     y: Array
 
 
 class SafeBilinearInterpolation(BaseModel):
+    resource_name: Optional[
+        Literal["SafeBilinearInterpolation"]
+    ] = "SafeBilinearInterpolation"
     x: Array
     y: Array
     m: Matrix
 
 
 class SafeBicubicSpline(BaseModel):
+    resource_name: Optional[Literal["SafeBicubicSpline"]] = "SafeBicubicSpline"
     x: Array
     y: Array
     m: Matrix
 
 
 class BackwardFlat(BaseModel):
-    pass
+    resource_name: Optional[Literal["BackwardFlat"]] = "BackwardFlat"
 
 
 class ForwardFlat(BaseModel):
-    pass
+    resource_name: Optional[Literal["ForwardFlat"]] = "ForwardFlat"
 
 
 class Linear(BaseModel):
-    pass
+    resource_name: Optional[Literal["Linear"]] = "Linear"
 
 
 class LogLinear(BaseModel):
-    pass
+    resource_name: Optional[Literal["LogLinear"]] = "LogLinear"
 
 
 class Cubic(BaseModel):
-    pass
+    resource_name: Optional[Literal["Cubic"]] = "Cubic"
 
 
 class MonotonicCubic(BaseModel):
-    pass
+    resource_name: Optional[Literal["MonotonicCubic"]] = "MonotonicCubic"
 
 
 class DefaultLogCubic(BaseModel):
-    pass
+    resource_name: Optional[Literal["DefaultLogCubic"]] = "DefaultLogCubic"
 
 
 class MonotonicLogCubic(BaseModel):
-    pass
+    resource_name: Optional[Literal["MonotonicLogCubic"]] = "MonotonicLogCubic"
 
 
 class SplineCubic(BaseModel):
-    pass
+    resource_name: Optional[Literal["SplineCubic"]] = "SplineCubic"
 
 
 class Kruger(BaseModel):
-    pass
+    resource_name: Optional[Literal["Kruger"]] = "Kruger"
 
 
 class KrugerLog(BaseModel):
-    pass
+    resource_name: Optional[Literal["KrugerLog"]] = "KrugerLog"
 
 
 class ConvexMonotone(BaseModel):
+    resource_name: Optional[Literal["ConvexMonotone"]] = "ConvexMonotone"
     quadraticity: Optional[float] = None
     monotonicity: Optional[float] = None
     forcePositive: Optional[bool] = None
 
 
 class RichardsonExtrapolation(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["RichardsonExtrapolation"]
+    ] = "RichardsonExtrapolation"
 
 
 class SafeConvexMonotoneInterpolation(BaseModel):
+    resource_name: Optional[
+        Literal["SafeConvexMonotoneInterpolation"]
+    ] = "SafeConvexMonotoneInterpolation"
     x: Array
     y: Array
     quadraticity: Optional[float] = None
@@ -755,23 +848,30 @@ class SafeConvexMonotoneInterpolation(BaseModel):
 
 
 class TermStructure(BaseModel):
-    pass
+    resource_name: Optional[Literal["TermStructure"]] = "TermStructure"
 
 
 class YieldTermStructure(BaseModel):
-    pass
+    resource_name: Optional[Literal["YieldTermStructure"]] = "YieldTermStructure"
 
 
 class YieldTermStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["YieldTermStructureHandle"]
+    ] = "YieldTermStructureHandle"
     value: Optional[YIELDTERMSTRUCTURE] = None
 
 
 class ImpliedTermStructure(BaseModel):
+    resource_name: Optional[Literal["ImpliedTermStructure"]] = "ImpliedTermStructure"
     curveHandle: YieldTermStructureHandle
     referenceDate: Date
 
 
 class ZeroSpreadedTermStructure(BaseModel):
+    resource_name: Optional[
+        Literal["ZeroSpreadedTermStructure"]
+    ] = "ZeroSpreadedTermStructure"
     curveHandle: YieldTermStructureHandle
     spreadHandle: QuoteHandle
     comp: Optional[enums.Compounding] = None
@@ -780,11 +880,15 @@ class ZeroSpreadedTermStructure(BaseModel):
 
 
 class ForwardSpreadedTermStructure(BaseModel):
+    resource_name: Optional[
+        Literal["ForwardSpreadedTermStructure"]
+    ] = "ForwardSpreadedTermStructure"
     curveHandle: YieldTermStructureHandle
     spreadHandle: QuoteHandle
 
 
 class FlatForward(BaseModel):
+    resource_name: Optional[Literal["FlatForward"]] = "FlatForward"
     referenceDate: Date
     forward: float
     dayCounter: DAYCOUNTER
@@ -793,6 +897,7 @@ class FlatForward(BaseModel):
 
 
 class IntervalPrice(BaseModel):
+    resource_name: Optional[Literal["IntervalPrice"]] = "IntervalPrice"
     Close = 1
     High = 2
     Low = 3
@@ -800,18 +905,19 @@ class IntervalPrice(BaseModel):
 
 
 class IndexManager(BaseModel):
-    pass
+    resource_name: Optional[Literal["IndexManager"]] = "IndexManager"
 
 
 class Index(BaseModel):
-    pass
+    resource_name: Optional[Literal["Index"]] = "Index"
 
 
 class InterestRateIndex(BaseModel):
-    pass
+    resource_name: Optional[Literal["InterestRateIndex"]] = "InterestRateIndex"
 
 
 class IborIndex(BaseModel):
+    resource_name: Optional[Literal["IborIndex"]] = "IborIndex"
     familyName: str
     tenor: Period
     settlementDays: int
@@ -824,6 +930,7 @@ class IborIndex(BaseModel):
 
 
 class OvernightIndex(BaseModel):
+    resource_name: Optional[Literal["OvernightIndex"]] = "OvernightIndex"
     familyName: str
     settlementDays: int
     currency: CURRENCY
@@ -833,6 +940,7 @@ class OvernightIndex(BaseModel):
 
 
 class Libor(BaseModel):
+    resource_name: Optional[Literal["Libor"]] = "Libor"
     familyName: str
     tenor: Period
     settlementDays: float
@@ -843,6 +951,7 @@ class Libor(BaseModel):
 
 
 class DailyTenorLibor(BaseModel):
+    resource_name: Optional[Literal["DailyTenorLibor"]] = "DailyTenorLibor"
     familyName: str
     settlementDays: float
     currency: CURRENCY
@@ -852,6 +961,7 @@ class DailyTenorLibor(BaseModel):
 
 
 class SwapIndex(BaseModel):
+    resource_name: Optional[Literal["SwapIndex"]] = "SwapIndex"
     familyName: str
     tenor: Period
     settlementDays: int
@@ -865,6 +975,7 @@ class SwapIndex(BaseModel):
 
 
 class SwapSpreadIndex(BaseModel):
+    resource_name: Optional[Literal["SwapSpreadIndex"]] = "SwapSpreadIndex"
     familyName: str
     swapIndex1: SWAPINDEX
     swapIndex2: SWAPINDEX
@@ -873,539 +984,655 @@ class SwapSpreadIndex(BaseModel):
 
 
 class AUDLibor(BaseModel):
+    resource_name: Optional[Literal["AUDLibor"]] = "AUDLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class CADLibor(BaseModel):
+    resource_name: Optional[Literal["CADLibor"]] = "CADLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class CADLiborON(BaseModel):
+    resource_name: Optional[Literal["CADLiborON"]] = "CADLiborON"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Cdor(BaseModel):
+    resource_name: Optional[Literal["Cdor"]] = "Cdor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class CHFLibor(BaseModel):
+    resource_name: Optional[Literal["CHFLibor"]] = "CHFLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class DKKLibor(BaseModel):
+    resource_name: Optional[Literal["DKKLibor"]] = "DKKLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw(BaseModel):
+    resource_name: Optional[Literal["Bbsw"]] = "Bbsw"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw1M(BaseModel):
+    resource_name: Optional[Literal["Bbsw1M"]] = "Bbsw1M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw2M(BaseModel):
+    resource_name: Optional[Literal["Bbsw2M"]] = "Bbsw2M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw3M(BaseModel):
+    resource_name: Optional[Literal["Bbsw3M"]] = "Bbsw3M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw4M(BaseModel):
+    resource_name: Optional[Literal["Bbsw4M"]] = "Bbsw4M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw5M(BaseModel):
+    resource_name: Optional[Literal["Bbsw5M"]] = "Bbsw5M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bbsw6M(BaseModel):
+    resource_name: Optional[Literal["Bbsw6M"]] = "Bbsw6M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm(BaseModel):
+    resource_name: Optional[Literal["Bkbm"]] = "Bkbm"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm1M(BaseModel):
+    resource_name: Optional[Literal["Bkbm1M"]] = "Bkbm1M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm2M(BaseModel):
+    resource_name: Optional[Literal["Bkbm2M"]] = "Bkbm2M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm3M(BaseModel):
+    resource_name: Optional[Literal["Bkbm3M"]] = "Bkbm3M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm4M(BaseModel):
+    resource_name: Optional[Literal["Bkbm4M"]] = "Bkbm4M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm5M(BaseModel):
+    resource_name: Optional[Literal["Bkbm5M"]] = "Bkbm5M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bkbm6M(BaseModel):
+    resource_name: Optional[Literal["Bkbm6M"]] = "Bkbm6M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor(BaseModel):
+    resource_name: Optional[Literal["Euribor"]] = "Euribor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EuriborSW(BaseModel):
+    resource_name: Optional[Literal["EuriborSW"]] = "EuriborSW"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor2W(BaseModel):
+    resource_name: Optional[Literal["Euribor2W"]] = "Euribor2W"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3W(BaseModel):
+    resource_name: Optional[Literal["Euribor3W"]] = "Euribor3W"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor1M(BaseModel):
+    resource_name: Optional[Literal["Euribor1M"]] = "Euribor1M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor2M(BaseModel):
+    resource_name: Optional[Literal["Euribor2M"]] = "Euribor2M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3M(BaseModel):
+    resource_name: Optional[Literal["Euribor3M"]] = "Euribor3M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor4M(BaseModel):
+    resource_name: Optional[Literal["Euribor4M"]] = "Euribor4M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor5M(BaseModel):
+    resource_name: Optional[Literal["Euribor5M"]] = "Euribor5M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor6M(BaseModel):
+    resource_name: Optional[Literal["Euribor6M"]] = "Euribor6M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor7M(BaseModel):
+    resource_name: Optional[Literal["Euribor7M"]] = "Euribor7M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor8M(BaseModel):
+    resource_name: Optional[Literal["Euribor8M"]] = "Euribor8M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor9M(BaseModel):
+    resource_name: Optional[Literal["Euribor9M"]] = "Euribor9M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor10M(BaseModel):
+    resource_name: Optional[Literal["Euribor10M"]] = "Euribor10M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor11M(BaseModel):
+    resource_name: Optional[Literal["Euribor11M"]] = "Euribor11M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor1Y(BaseModel):
+    resource_name: Optional[Literal["Euribor1Y"]] = "Euribor1Y"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor365(BaseModel):
+    resource_name: Optional[Literal["Euribor365"]] = "Euribor365"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor365SW(BaseModel):
+    resource_name: Optional[Literal["Euribor365SW"]] = "Euribor365SW"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3652W(BaseModel):
+    resource_name: Optional[Literal["Euribor3652W"]] = "Euribor3652W"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3653W(BaseModel):
+    resource_name: Optional[Literal["Euribor3653W"]] = "Euribor3653W"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3651M(BaseModel):
+    resource_name: Optional[Literal["Euribor3651M"]] = "Euribor3651M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3652M(BaseModel):
+    resource_name: Optional[Literal["Euribor3652M"]] = "Euribor3652M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3653M(BaseModel):
+    resource_name: Optional[Literal["Euribor3653M"]] = "Euribor3653M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3654M(BaseModel):
+    resource_name: Optional[Literal["Euribor3654M"]] = "Euribor3654M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3655M(BaseModel):
+    resource_name: Optional[Literal["Euribor3655M"]] = "Euribor3655M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3656M(BaseModel):
+    resource_name: Optional[Literal["Euribor3656M"]] = "Euribor3656M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3657M(BaseModel):
+    resource_name: Optional[Literal["Euribor3657M"]] = "Euribor3657M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3658M(BaseModel):
+    resource_name: Optional[Literal["Euribor3658M"]] = "Euribor3658M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3659M(BaseModel):
+    resource_name: Optional[Literal["Euribor3659M"]] = "Euribor3659M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor36510M(BaseModel):
+    resource_name: Optional[Literal["Euribor36510M"]] = "Euribor36510M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor36511M(BaseModel):
+    resource_name: Optional[Literal["Euribor36511M"]] = "Euribor36511M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Euribor3651Y(BaseModel):
+    resource_name: Optional[Literal["Euribor3651Y"]] = "Euribor3651Y"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor(BaseModel):
+    resource_name: Optional[Literal["EURLibor"]] = "EURLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLiborSW(BaseModel):
+    resource_name: Optional[Literal["EURLiborSW"]] = "EURLiborSW"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor2W(BaseModel):
+    resource_name: Optional[Literal["EURLibor2W"]] = "EURLibor2W"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor1M(BaseModel):
+    resource_name: Optional[Literal["EURLibor1M"]] = "EURLibor1M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor2M(BaseModel):
+    resource_name: Optional[Literal["EURLibor2M"]] = "EURLibor2M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor3M(BaseModel):
+    resource_name: Optional[Literal["EURLibor3M"]] = "EURLibor3M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor4M(BaseModel):
+    resource_name: Optional[Literal["EURLibor4M"]] = "EURLibor4M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor5M(BaseModel):
+    resource_name: Optional[Literal["EURLibor5M"]] = "EURLibor5M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor6M(BaseModel):
+    resource_name: Optional[Literal["EURLibor6M"]] = "EURLibor6M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor7M(BaseModel):
+    resource_name: Optional[Literal["EURLibor7M"]] = "EURLibor7M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor8M(BaseModel):
+    resource_name: Optional[Literal["EURLibor8M"]] = "EURLibor8M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor9M(BaseModel):
+    resource_name: Optional[Literal["EURLibor9M"]] = "EURLibor9M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor10M(BaseModel):
+    resource_name: Optional[Literal["EURLibor10M"]] = "EURLibor10M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor11M(BaseModel):
+    resource_name: Optional[Literal["EURLibor11M"]] = "EURLibor11M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EURLibor1Y(BaseModel):
+    resource_name: Optional[Literal["EURLibor1Y"]] = "EURLibor1Y"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class GBPLibor(BaseModel):
+    resource_name: Optional[Literal["GBPLibor"]] = "GBPLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class GBPLiborON(BaseModel):
+    resource_name: Optional[Literal["GBPLiborON"]] = "GBPLiborON"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Jibar(BaseModel):
+    resource_name: Optional[Literal["Jibar"]] = "Jibar"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class JPYLibor(BaseModel):
+    resource_name: Optional[Literal["JPYLibor"]] = "JPYLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Mosprime(BaseModel):
+    resource_name: Optional[Literal["Mosprime"]] = "Mosprime"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class NZDLibor(BaseModel):
+    resource_name: Optional[Literal["NZDLibor"]] = "NZDLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Pribor(BaseModel):
+    resource_name: Optional[Literal["Pribor"]] = "Pribor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Robor(BaseModel):
+    resource_name: Optional[Literal["Robor"]] = "Robor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class SEKLibor(BaseModel):
+    resource_name: Optional[Literal["SEKLibor"]] = "SEKLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Shibor(BaseModel):
+    resource_name: Optional[Literal["Shibor"]] = "Shibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Tibor(BaseModel):
+    resource_name: Optional[Literal["Tibor"]] = "Tibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class THBFIX(BaseModel):
+    resource_name: Optional[Literal["THBFIX"]] = "THBFIX"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class TRLibor(BaseModel):
+    resource_name: Optional[Literal["TRLibor"]] = "TRLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class USDLibor(BaseModel):
+    resource_name: Optional[Literal["USDLibor"]] = "USDLibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class USDLiborON(BaseModel):
+    resource_name: Optional[Literal["USDLiborON"]] = "USDLiborON"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Wibor(BaseModel):
+    resource_name: Optional[Literal["Wibor"]] = "Wibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Zibor(BaseModel):
+    resource_name: Optional[Literal["Zibor"]] = "Zibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Aonia(BaseModel):
+    resource_name: Optional[Literal["Aonia"]] = "Aonia"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Eonia(BaseModel):
+    resource_name: Optional[Literal["Eonia"]] = "Eonia"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Sonia(BaseModel):
+    resource_name: Optional[Literal["Sonia"]] = "Sonia"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class FedFunds(BaseModel):
+    resource_name: Optional[Literal["FedFunds"]] = "FedFunds"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Nzocr(BaseModel):
+    resource_name: Optional[Literal["Nzocr"]] = "Nzocr"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Sofr(BaseModel):
+    resource_name: Optional[Literal["Sofr"]] = "Sofr"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EuriborSwapIsdaFixA(BaseModel):
+    resource_name: Optional[Literal["EuriborSwapIsdaFixA"]] = "EuriborSwapIsdaFixA"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EuriborSwapIsdaFixB(BaseModel):
+    resource_name: Optional[Literal["EuriborSwapIsdaFixB"]] = "EuriborSwapIsdaFixB"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EuriborSwapIfrFix(BaseModel):
+    resource_name: Optional[Literal["EuriborSwapIfrFix"]] = "EuriborSwapIfrFix"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EurLiborSwapIsdaFixA(BaseModel):
+    resource_name: Optional[Literal["EurLiborSwapIsdaFixA"]] = "EurLiborSwapIsdaFixA"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EurLiborSwapIsdaFixB(BaseModel):
+    resource_name: Optional[Literal["EurLiborSwapIsdaFixB"]] = "EurLiborSwapIsdaFixB"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class EurLiborSwapIfrFix(BaseModel):
+    resource_name: Optional[Literal["EurLiborSwapIfrFix"]] = "EurLiborSwapIfrFix"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class ChfLiborSwapIsdaFix(BaseModel):
+    resource_name: Optional[Literal["ChfLiborSwapIsdaFix"]] = "ChfLiborSwapIsdaFix"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class GbpLiborSwapIsdaFix(BaseModel):
+    resource_name: Optional[Literal["GbpLiborSwapIsdaFix"]] = "GbpLiborSwapIsdaFix"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class JpyLiborSwapIsdaFixAm(BaseModel):
+    resource_name: Optional[Literal["JpyLiborSwapIsdaFixAm"]] = "JpyLiborSwapIsdaFixAm"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class JpyLiborSwapIsdaFixPm(BaseModel):
+    resource_name: Optional[Literal["JpyLiborSwapIsdaFixPm"]] = "JpyLiborSwapIsdaFixPm"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class UsdLiborSwapIsdaFixAm(BaseModel):
+    resource_name: Optional[Literal["UsdLiborSwapIsdaFixAm"]] = "UsdLiborSwapIsdaFixAm"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class UsdLiborSwapIsdaFixPm(BaseModel):
+    resource_name: Optional[Literal["UsdLiborSwapIsdaFixPm"]] = "UsdLiborSwapIsdaFixPm"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor(BaseModel):
+    resource_name: Optional[Literal["Bibor"]] = "Bibor"
     tenor: Period
     h: Optional[YieldTermStructureHandle] = None
 
 
 class BiborSW(BaseModel):
+    resource_name: Optional[Literal["BiborSW"]] = "BiborSW"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor1M(BaseModel):
+    resource_name: Optional[Literal["Bibor1M"]] = "Bibor1M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor2M(BaseModel):
+    resource_name: Optional[Literal["Bibor2M"]] = "Bibor2M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor3M(BaseModel):
+    resource_name: Optional[Literal["Bibor3M"]] = "Bibor3M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor6M(BaseModel):
+    resource_name: Optional[Literal["Bibor6M"]] = "Bibor6M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor9M(BaseModel):
+    resource_name: Optional[Literal["Bibor9M"]] = "Bibor9M"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Bibor1Y(BaseModel):
+    resource_name: Optional[Literal["Bibor1Y"]] = "Bibor1Y"
     h: Optional[YieldTermStructureHandle] = None
 
 
 class Brent(BaseModel):
-    pass
+    resource_name: Optional[Literal["Brent"]] = "Brent"
 
 
 class Bisection(BaseModel):
-    pass
+    resource_name: Optional[Literal["Bisection"]] = "Bisection"
 
 
 class FalsePosition(BaseModel):
-    pass
+    resource_name: Optional[Literal["FalsePosition"]] = "FalsePosition"
 
 
 class Ridder(BaseModel):
-    pass
+    resource_name: Optional[Literal["Ridder"]] = "Ridder"
 
 
 class Secant(BaseModel):
-    pass
+    resource_name: Optional[Literal["Secant"]] = "Secant"
 
 
 class Newton(BaseModel):
-    pass
+    resource_name: Optional[Literal["Newton"]] = "Newton"
 
 
 class NewtonSafe(BaseModel):
-    pass
+    resource_name: Optional[Literal["NewtonSafe"]] = "NewtonSafe"
 
 
 class Constraint(BaseModel):
-    pass
+    resource_name: Optional[Literal["Constraint"]] = "Constraint"
 
 
 class BoundaryConstraint(BaseModel):
+    resource_name: Optional[Literal["BoundaryConstraint"]] = "BoundaryConstraint"
     lower: float
     upper: float
 
 
 class NoConstraint(BaseModel):
-    pass
+    resource_name: Optional[Literal["NoConstraint"]] = "NoConstraint"
 
 
 class PositiveConstraint(BaseModel):
-    pass
+    resource_name: Optional[Literal["PositiveConstraint"]] = "PositiveConstraint"
 
 
 class CompositeConstraint(BaseModel):
+    resource_name: Optional[Literal["CompositeConstraint"]] = "CompositeConstraint"
     c1: CONSTRAINT
     c2: CONSTRAINT
 
 
 class NonhomogeneousBoundaryConstraint(BaseModel):
+    resource_name: Optional[
+        Literal["NonhomogeneousBoundaryConstraint"]
+    ] = "NonhomogeneousBoundaryConstraint"
     l: Array
     u: Array
 
 
 class EndCriteria(BaseModel):
+    resource_name: Optional[Literal["EndCriteria"]] = "EndCriteria"
     maxIteration: int
     maxStationaryStateIterations: int
     rootEpsilon: float
@@ -1414,26 +1641,28 @@ class EndCriteria(BaseModel):
 
 
 class OptimizationMethod(BaseModel):
-    pass
+    resource_name: Optional[Literal["OptimizationMethod"]] = "OptimizationMethod"
 
 
 class ConjugateGradient(BaseModel):
-    pass
+    resource_name: Optional[Literal["ConjugateGradient"]] = "ConjugateGradient"
 
 
 class Simplex(BaseModel):
+    resource_name: Optional[Literal["Simplex"]] = "Simplex"
     lambda_: float = Field(..., alias="lambda")
 
 
 class SteepestDescent(BaseModel):
-    pass
+    resource_name: Optional[Literal["SteepestDescent"]] = "SteepestDescent"
 
 
 class BFGS(BaseModel):
-    pass
+    resource_name: Optional[Literal["BFGS"]] = "BFGS"
 
 
 class LevenbergMarquardt(BaseModel):
+    resource_name: Optional[Literal["LevenbergMarquardt"]] = "LevenbergMarquardt"
     epsfcn: Optional[float] = None
     xtol: Optional[float] = None
     gtol: Optional[float] = None
@@ -1441,78 +1670,106 @@ class LevenbergMarquardt(BaseModel):
 
 
 class DifferentialEvolution(BaseModel):
-    pass
+    resource_name: Optional[Literal["DifferentialEvolution"]] = "DifferentialEvolution"
 
 
 class SamplerGaussian(BaseModel):
+    resource_name: Optional[Literal["SamplerGaussian"]] = "SamplerGaussian"
     seed: Optional[int] = None
 
 
 class SamplerLogNormal(BaseModel):
+    resource_name: Optional[Literal["SamplerLogNormal"]] = "SamplerLogNormal"
     seed: Optional[int] = None
 
 
 class SamplerMirrorGaussian(BaseModel):
+    resource_name: Optional[Literal["SamplerMirrorGaussian"]] = "SamplerMirrorGaussian"
     lower: Array
     upper: Array
     seed: Optional[int] = None
 
 
 class ProbabilityBoltzmannDownhill(BaseModel):
+    resource_name: Optional[
+        Literal["ProbabilityBoltzmannDownhill"]
+    ] = "ProbabilityBoltzmannDownhill"
     seed: Optional[int] = None
 
 
 class TemperatureExponential(BaseModel):
+    resource_name: Optional[
+        Literal["TemperatureExponential"]
+    ] = "TemperatureExponential"
     initialTemp: float
     dimension: int
     power: Optional[float] = None
 
 
 class ReannealingTrivial(BaseModel):
-    pass
+    resource_name: Optional[Literal["ReannealingTrivial"]] = "ReannealingTrivial"
 
 
 class Optimizer(BaseModel):
-    pass
+    resource_name: Optional[Literal["Optimizer"]] = "Optimizer"
 
 
 class VolatilityTermStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["VolatilityTermStructure"]
+    ] = "VolatilityTermStructure"
 
 
 class BlackVolTermStructure(BaseModel):
-    pass
+    resource_name: Optional[Literal["BlackVolTermStructure"]] = "BlackVolTermStructure"
 
 
 class BlackVolTermStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["BlackVolTermStructureHandle"]
+    ] = "BlackVolTermStructureHandle"
     value: Optional[BLACKVOLTERMSTRUCTURE] = None
 
 
 class LocalVolTermStructure(BaseModel):
-    pass
+    resource_name: Optional[Literal["LocalVolTermStructure"]] = "LocalVolTermStructure"
 
 
 class LocalVolTermStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["LocalVolTermStructureHandle"]
+    ] = "LocalVolTermStructureHandle"
     value: Optional[LOCALVOLTERMSTRUCTURE] = None
 
 
 class OptionletVolatilityStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["OptionletVolatilityStructure"]
+    ] = "OptionletVolatilityStructure"
 
 
 class OptionletVolatilityStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["OptionletVolatilityStructureHandle"]
+    ] = "OptionletVolatilityStructureHandle"
     value: Optional[OPTIONLETVOLATILITYSTRUCTURE] = None
 
 
 class SwaptionVolatilityStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["SwaptionVolatilityStructure"]
+    ] = "SwaptionVolatilityStructure"
 
 
 class SwaptionVolatilityStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["SwaptionVolatilityStructureHandle"]
+    ] = "SwaptionVolatilityStructureHandle"
     value: Optional[SWAPTIONVOLATILITYSTRUCTURE] = None
 
 
 class BlackConstantVol(BaseModel):
+    resource_name: Optional[Literal["BlackConstantVol"]] = "BlackConstantVol"
     referenceDate: Date
     c: CALENDAR
     volatility: float
@@ -1520,6 +1777,7 @@ class BlackConstantVol(BaseModel):
 
 
 class BlackVarianceCurve(BaseModel):
+    resource_name: Optional[Literal["BlackVarianceCurve"]] = "BlackVarianceCurve"
     referenceDate: Date
     dates: List[Date]
     volatilities: List[float]
@@ -1528,17 +1786,20 @@ class BlackVarianceCurve(BaseModel):
 
 
 class BlackVarianceSurface(BaseModel):
+    resource_name: Optional[Literal["BlackVarianceSurface"]] = "BlackVarianceSurface"
     ConstantExtrapolation = 0
     InterpolatorDefaultExtrapolation = 1
 
 
 class LocalConstantVol(BaseModel):
+    resource_name: Optional[Literal["LocalConstantVol"]] = "LocalConstantVol"
     referenceDate: Date
     volatility: float
     dayCounter: DAYCOUNTER
 
 
 class LocalVolSurface(BaseModel):
+    resource_name: Optional[Literal["LocalVolSurface"]] = "LocalVolSurface"
     blackTS: BlackVolTermStructureHandle
     riskFreeTS: YieldTermStructureHandle
     dividendTS: YieldTermStructureHandle
@@ -1546,10 +1807,13 @@ class LocalVolSurface(BaseModel):
 
 
 class SwaptionVolatilityDiscrete(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["SwaptionVolatilityDiscrete"]
+    ] = "SwaptionVolatilityDiscrete"
 
 
 class SwaptionVolCube1(BaseModel):
+    resource_name: Optional[Literal["SwaptionVolCube1"]] = "SwaptionVolCube1"
     atmVolStructure: SwaptionVolatilityStructureHandle
     optionTenors: List[Period]
     swapTenors: List[Period]
@@ -1572,6 +1836,7 @@ class SwaptionVolCube1(BaseModel):
 
 
 class SwaptionVolCube2(BaseModel):
+    resource_name: Optional[Literal["SwaptionVolCube2"]] = "SwaptionVolCube2"
     atmVolStructure: SwaptionVolatilityStructureHandle
     optionTenors: List[Period]
     swapTenors: List[Period]
@@ -1583,10 +1848,11 @@ class SwaptionVolCube2(BaseModel):
 
 
 class SmileSection(BaseModel):
-    pass
+    resource_name: Optional[Literal["SmileSection"]] = "SmileSection"
 
 
 class SabrSmileSection(BaseModel):
+    resource_name: Optional[Literal["SabrSmileSection"]] = "SabrSmileSection"
     timeToExpiry: float
     forward: float
     sabrParameters: List[float]
@@ -1594,6 +1860,7 @@ class SabrSmileSection(BaseModel):
 
 
 class KahaleSmileSection(BaseModel):
+    resource_name: Optional[Literal["KahaleSmileSection"]] = "KahaleSmileSection"
     source: SMILESECTION
     atm: Optional[float] = None
     interpolate: Optional[bool] = None
@@ -1606,22 +1873,27 @@ class KahaleSmileSection(BaseModel):
 
 
 class ZabrShortMaturityLognormal(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["ZabrShortMaturityLognormal"]
+    ] = "ZabrShortMaturityLognormal"
 
 
 class ZabrShortMaturityNormal(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["ZabrShortMaturityNormal"]
+    ] = "ZabrShortMaturityNormal"
 
 
 class ZabrLocalVolatility(BaseModel):
-    pass
+    resource_name: Optional[Literal["ZabrLocalVolatility"]] = "ZabrLocalVolatility"
 
 
 class ZabrFullFd(BaseModel):
-    pass
+    resource_name: Optional[Literal["ZabrFullFd"]] = "ZabrFullFd"
 
 
 class NoArbSabrSmileSection(BaseModel):
+    resource_name: Optional[Literal["NoArbSabrSmileSection"]] = "NoArbSabrSmileSection"
     d: Date
     forward: float
     sabrParameters: List[float]
@@ -1630,6 +1902,9 @@ class NoArbSabrSmileSection(BaseModel):
 
 
 class NoArbSabrInterpolatedSmileSection(BaseModel):
+    resource_name: Optional[
+        Literal["NoArbSabrInterpolatedSmileSection"]
+    ] = "NoArbSabrInterpolatedSmileSection"
     optionDate: Date
     forward: float
     strikes: List[float]
@@ -1651,14 +1926,17 @@ class NoArbSabrInterpolatedSmileSection(BaseModel):
 
 
 class StochasticProcess(BaseModel):
-    pass
+    resource_name: Optional[Literal["StochasticProcess"]] = "StochasticProcess"
 
 
 class StochasticProcess1D(BaseModel):
-    pass
+    resource_name: Optional[Literal["StochasticProcess1D"]] = "StochasticProcess1D"
 
 
 class GeneralizedBlackScholesProcess(BaseModel):
+    resource_name: Optional[
+        Literal["GeneralizedBlackScholesProcess"]
+    ] = "GeneralizedBlackScholesProcess"
     s0: QuoteHandle
     dividendTS: YieldTermStructureHandle
     riskFreeTS: YieldTermStructureHandle
@@ -1666,12 +1944,16 @@ class GeneralizedBlackScholesProcess(BaseModel):
 
 
 class BlackScholesProcess(BaseModel):
+    resource_name: Optional[Literal["BlackScholesProcess"]] = "BlackScholesProcess"
     s0: QuoteHandle
     riskFreeTS: YieldTermStructureHandle
     volTS: BlackVolTermStructureHandle
 
 
 class BlackScholesMertonProcess(BaseModel):
+    resource_name: Optional[
+        Literal["BlackScholesMertonProcess"]
+    ] = "BlackScholesMertonProcess"
     s0: QuoteHandle
     dividendTS: YieldTermStructureHandle
     riskFreeTS: YieldTermStructureHandle
@@ -1679,12 +1961,14 @@ class BlackScholesMertonProcess(BaseModel):
 
 
 class BlackProcess(BaseModel):
+    resource_name: Optional[Literal["BlackProcess"]] = "BlackProcess"
     s0: QuoteHandle
     riskFreeTS: YieldTermStructureHandle
     volTS: BlackVolTermStructureHandle
 
 
 class GarmanKohlagenProcess(BaseModel):
+    resource_name: Optional[Literal["GarmanKohlagenProcess"]] = "GarmanKohlagenProcess"
     s0: QuoteHandle
     foreignRiskFreeTS: YieldTermStructureHandle
     domesticRiskFreeTS: YieldTermStructureHandle
@@ -1692,6 +1976,7 @@ class GarmanKohlagenProcess(BaseModel):
 
 
 class Merton76Process(BaseModel):
+    resource_name: Optional[Literal["Merton76Process"]] = "Merton76Process"
     stateVariable: QuoteHandle
     dividendTS: YieldTermStructureHandle
     riskFreeTS: YieldTermStructureHandle
@@ -1702,17 +1987,24 @@ class Merton76Process(BaseModel):
 
 
 class StochasticProcessArray(BaseModel):
+    resource_name: Optional[
+        Literal["StochasticProcessArray"]
+    ] = "StochasticProcessArray"
     array: List[STOCHASTICPROCESS1D]
     correlation: Matrix
 
 
 class GeometricBrownianMotionProcess(BaseModel):
+    resource_name: Optional[
+        Literal["GeometricBrownianMotionProcess"]
+    ] = "GeometricBrownianMotionProcess"
     initialValue: float
     mu: float
     sigma: float
 
 
 class VarianceGammaProcess(BaseModel):
+    resource_name: Optional[Literal["VarianceGammaProcess"]] = "VarianceGammaProcess"
     s0: QuoteHandle
     dividendYield: YieldTermStructureHandle
     riskFreeRate: YieldTermStructureHandle
@@ -1722,6 +2014,7 @@ class VarianceGammaProcess(BaseModel):
 
 
 class HestonProcess(BaseModel):
+    resource_name: Optional[Literal["HestonProcess"]] = "HestonProcess"
     riskFreeTS: YieldTermStructureHandle
     dividendTS: YieldTermStructureHandle
     s0: QuoteHandle
@@ -1733,6 +2026,7 @@ class HestonProcess(BaseModel):
 
 
 class BatesProcess(BaseModel):
+    resource_name: Optional[Literal["BatesProcess"]] = "BatesProcess"
     riskFreeRate: YieldTermStructureHandle
     dividendYield: YieldTermStructureHandle
     s0: QuoteHandle
@@ -1747,18 +2041,23 @@ class BatesProcess(BaseModel):
 
 
 class HullWhiteProcess(BaseModel):
+    resource_name: Optional[Literal["HullWhiteProcess"]] = "HullWhiteProcess"
     riskFreeTS: YieldTermStructureHandle
     a: float
     sigma: float
 
 
 class HullWhiteForwardProcess(BaseModel):
+    resource_name: Optional[
+        Literal["HullWhiteForwardProcess"]
+    ] = "HullWhiteForwardProcess"
     riskFreeTS: YieldTermStructureHandle
     a: float
     sigma: float
 
 
 class G2Process(BaseModel):
+    resource_name: Optional[Literal["G2Process"]] = "G2Process"
     a: float
     sigma: float
     b: float
@@ -1767,6 +2066,7 @@ class G2Process(BaseModel):
 
 
 class G2ForwardProcess(BaseModel):
+    resource_name: Optional[Literal["G2ForwardProcess"]] = "G2ForwardProcess"
     a: float
     sigma: float
     b: float
@@ -1775,6 +2075,7 @@ class G2ForwardProcess(BaseModel):
 
 
 class GsrProcess(BaseModel):
+    resource_name: Optional[Literal["GsrProcess"]] = "GsrProcess"
     times: Array
     vols: Array
     reversions: Array
@@ -1782,6 +2083,9 @@ class GsrProcess(BaseModel):
 
 
 class OrnsteinUhlenbeckProcess(BaseModel):
+    resource_name: Optional[
+        Literal["OrnsteinUhlenbeckProcess"]
+    ] = "OrnsteinUhlenbeckProcess"
     speed: float
     vol: float
     x0: Optional[float] = None
@@ -1789,22 +2093,24 @@ class OrnsteinUhlenbeckProcess(BaseModel):
 
 
 class PricingEngine(BaseModel):
-    pass
+    resource_name: Optional[Literal["PricingEngine"]] = "PricingEngine"
 
 
 class Instrument(BaseModel):
-    pass
+    resource_name: Optional[Literal["Instrument"]] = "Instrument"
 
 
 class Stock(BaseModel):
+    resource_name: Optional[Literal["Stock"]] = "Stock"
     quote: QuoteHandle
 
 
 class CompositeInstrument(BaseModel):
-    pass
+    resource_name: Optional[Literal["CompositeInstrument"]] = "CompositeInstrument"
 
 
 class Schedule(BaseModel):
+    resource_name: Optional[Literal["Schedule"]] = "Schedule"
     effectiveDate: Optional[Date] = None
     terminationDate: Optional[Date] = None
     tenor: Optional[Period] = None
@@ -1818,33 +2124,37 @@ class Schedule(BaseModel):
 
 
 class MakeSchedule(BaseModel):
-    pass
+    resource_name: Optional[Literal["MakeSchedule"]] = "MakeSchedule"
 
 
 class CashFlow(BaseModel):
-    pass
+    resource_name: Optional[Literal["CashFlow"]] = "CashFlow"
 
 
 class SimpleCashFlow(BaseModel):
+    resource_name: Optional[Literal["SimpleCashFlow"]] = "SimpleCashFlow"
     amount: float
     date: Date
 
 
 class Redemption(BaseModel):
+    resource_name: Optional[Literal["Redemption"]] = "Redemption"
     amount: float
     date: Date
 
 
 class AmortizingPayment(BaseModel):
+    resource_name: Optional[Literal["AmortizingPayment"]] = "AmortizingPayment"
     amount: float
     date: Date
 
 
 class Coupon(BaseModel):
-    pass
+    resource_name: Optional[Literal["Coupon"]] = "Coupon"
 
 
 class FixedRateCoupon(BaseModel):
+    resource_name: Optional[Literal["FixedRateCoupon"]] = "FixedRateCoupon"
     paymentDate: Date
     nominal: float
     rate: float
@@ -1857,14 +2167,19 @@ class FixedRateCoupon(BaseModel):
 
 
 class FloatingRateCouponPricer(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FloatingRateCouponPricer"]
+    ] = "FloatingRateCouponPricer"
 
 
 class FloatingRateCoupon(BaseModel):
-    pass
+    resource_name: Optional[Literal["FloatingRateCoupon"]] = "FloatingRateCoupon"
 
 
 class OvernightIndexedCoupon(BaseModel):
+    resource_name: Optional[
+        Literal["OvernightIndexedCoupon"]
+    ] = "OvernightIndexedCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -1879,12 +2194,14 @@ class OvernightIndexedCoupon(BaseModel):
 
 
 class CappedFlooredCoupon(BaseModel):
+    resource_name: Optional[Literal["CappedFlooredCoupon"]] = "CappedFlooredCoupon"
     underlying: FLOATINGRATECOUPON
     cap: Optional[float] = None
     floor: Optional[float] = None
 
 
 class IborCoupon(BaseModel):
+    resource_name: Optional[Literal["IborCoupon"]] = "IborCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -1901,6 +2218,9 @@ class IborCoupon(BaseModel):
 
 
 class CappedFlooredIborCoupon(BaseModel):
+    resource_name: Optional[
+        Literal["CappedFlooredIborCoupon"]
+    ] = "CappedFlooredIborCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -1919,14 +2239,16 @@ class CappedFlooredIborCoupon(BaseModel):
 
 
 class IborCouponPricer(BaseModel):
-    pass
+    resource_name: Optional[Literal["IborCouponPricer"]] = "IborCouponPricer"
 
 
 class BlackIborCouponPricer(BaseModel):
+    resource_name: Optional[Literal["BlackIborCouponPricer"]] = "BlackIborCouponPricer"
     v: Optional[OptionletVolatilityStructureHandle] = None
 
 
 class CmsCoupon(BaseModel):
+    resource_name: Optional[Literal["CmsCoupon"]] = "CmsCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -1943,6 +2265,7 @@ class CmsCoupon(BaseModel):
 
 
 class CmsSpreadCoupon(BaseModel):
+    resource_name: Optional[Literal["CmsSpreadCoupon"]] = "CmsSpreadCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -1959,14 +2282,17 @@ class CmsSpreadCoupon(BaseModel):
 
 
 class CmsCouponPricer(BaseModel):
-    pass
+    resource_name: Optional[Literal["CmsCouponPricer"]] = "CmsCouponPricer"
 
 
 class GFunctionFactory(BaseModel):
-    pass
+    resource_name: Optional[Literal["GFunctionFactory"]] = "GFunctionFactory"
 
 
 class CappedFlooredCmsCoupon(BaseModel):
+    resource_name: Optional[
+        Literal["CappedFlooredCmsCoupon"]
+    ] = "CappedFlooredCmsCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -1985,6 +2311,9 @@ class CappedFlooredCmsCoupon(BaseModel):
 
 
 class CappedFlooredCmsSpreadCoupon(BaseModel):
+    resource_name: Optional[
+        Literal["CappedFlooredCmsSpreadCoupon"]
+    ] = "CappedFlooredCmsSpreadCoupon"
     paymentDate: Date
     nominal: float
     startDate: Date
@@ -2003,6 +2332,9 @@ class CappedFlooredCmsSpreadCoupon(BaseModel):
 
 
 class LinearTsrPricerSettings(BaseModel):
+    resource_name: Optional[
+        Literal["LinearTsrPricerSettings"]
+    ] = "LinearTsrPricerSettings"
     BSStdDevs = 3
     PriceThreshold = 2
     RateBound = 0
@@ -2010,104 +2342,123 @@ class LinearTsrPricerSettings(BaseModel):
 
 
 class CmsSpreadCouponPricer(BaseModel):
-    pass
+    resource_name: Optional[Literal["CmsSpreadCouponPricer"]] = "CmsSpreadCouponPricer"
 
 
 class Duration(BaseModel):
-    pass
+    resource_name: Optional[Literal["Duration"]] = "Duration"
 
 
 class CashFlows(BaseModel):
+    resource_name: Optional[Literal["CashFlows"]] = "CashFlows"
     value: Optional[CashFlows] = None
 
 
 class CalibrationHelper(BaseModel):
-    pass
+    resource_name: Optional[Literal["CalibrationHelper"]] = "CalibrationHelper"
 
 
 class BlackCalibrationHelper(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["BlackCalibrationHelper"]
+    ] = "BlackCalibrationHelper"
 
 
 class CalibratedModel(BaseModel):
-    pass
+    resource_name: Optional[Literal["CalibratedModel"]] = "CalibratedModel"
 
 
 class TermStructureConsistentModel(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["TermStructureConsistentModel"]
+    ] = "TermStructureConsistentModel"
 
 
 class CalibratedModelHandle(BaseModel):
+    resource_name: Optional[Literal["CalibratedModelHandle"]] = "CalibratedModelHandle"
     value: Optional[CALIBRATEDMODEL] = None
 
 
 class TimeGrid(BaseModel):
+    resource_name: Optional[Literal["TimeGrid"]] = "TimeGrid"
     end: Optional[float] = None
     steps: Optional[int] = None
 
 
 class Parameter(BaseModel):
-    pass
+    resource_name: Optional[Literal["Parameter"]] = "Parameter"
 
 
 class ConstantParameter(BaseModel):
+    resource_name: Optional[Literal["ConstantParameter"]] = "ConstantParameter"
     constraint: CONSTRAINT
 
 
 class NullParameter(BaseModel):
-    pass
+    resource_name: Optional[Literal["NullParameter"]] = "NullParameter"
 
 
 class PiecewiseConstantParameter(BaseModel):
+    resource_name: Optional[
+        Literal["PiecewiseConstantParameter"]
+    ] = "PiecewiseConstantParameter"
     times: List[float]
     constraint: Optional[CONSTRAINT] = None
 
 
 class Payoff(BaseModel):
-    pass
+    resource_name: Optional[Literal["Payoff"]] = "Payoff"
 
 
 class Option(BaseModel):
-    pass
+    resource_name: Optional[Literal["Option"]] = "Option"
 
 
 class Barrier(BaseModel):
-    pass
+    resource_name: Optional[Literal["Barrier"]] = "Barrier"
 
 
 class DoubleBarrier(BaseModel):
-    pass
+    resource_name: Optional[Literal["DoubleBarrier"]] = "DoubleBarrier"
 
 
 class TypePayoff(BaseModel):
-    pass
+    resource_name: Optional[Literal["TypePayoff"]] = "TypePayoff"
 
 
 class StrikedTypePayoff(BaseModel):
-    pass
+    resource_name: Optional[Literal["StrikedTypePayoff"]] = "StrikedTypePayoff"
 
 
 class OneAssetOption(BaseModel):
-    pass
+    resource_name: Optional[Literal["OneAssetOption"]] = "OneAssetOption"
 
 
 class MultiAssetOption(BaseModel):
-    pass
+    resource_name: Optional[Literal["MultiAssetOption"]] = "MultiAssetOption"
 
 
 class AnalyticEuropeanEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticEuropeanEngine"]
+    ] = "AnalyticEuropeanEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class HestonModel(BaseModel):
+    resource_name: Optional[Literal["HestonModel"]] = "HestonModel"
     process: HESTONPROCESS
 
 
 class HestonModelHandle(BaseModel):
+    resource_name: Optional[Literal["HestonModelHandle"]] = "HestonModelHandle"
     value: Optional[HESTONMODEL] = None
 
 
 class PiecewiseTimeDependentHestonModel(BaseModel):
+    resource_name: Optional[
+        Literal["PiecewiseTimeDependentHestonModel"]
+    ] = "PiecewiseTimeDependentHestonModel"
     riskFreeRate: YieldTermStructureHandle
     dividendYield: YieldTermStructureHandle
     s0: QuoteHandle
@@ -2120,25 +2471,30 @@ class PiecewiseTimeDependentHestonModel(BaseModel):
 
 
 class COSHestonEngine(BaseModel):
+    resource_name: Optional[Literal["COSHestonEngine"]] = "COSHestonEngine"
     model: HESTONMODEL
     L: Optional[float] = None
     N: Optional[int] = None
 
 
 class BatesModel(BaseModel):
+    resource_name: Optional[Literal["BatesModel"]] = "BatesModel"
     process: BatesProcess
 
 
 class BatesEngine(BaseModel):
+    resource_name: Optional[Literal["BatesEngine"]] = "BatesEngine"
     model: BatesModel
     integrationOrder: Optional[int] = None
 
 
 class IntegralEngine(BaseModel):
+    resource_name: Optional[Literal["IntegralEngine"]] = "IntegralEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class FDBermudanEngine(BaseModel):
+    resource_name: Optional[Literal["FDBermudanEngine"]] = "FDBermudanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     timeSteps: Optional[int] = None
     gridPoints: Optional[int] = None
@@ -2146,6 +2502,7 @@ class FDBermudanEngine(BaseModel):
 
 
 class FDEuropeanEngine(BaseModel):
+    resource_name: Optional[Literal["FDEuropeanEngine"]] = "FDEuropeanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     timeSteps: Optional[int] = None
     gridPoints: Optional[int] = None
@@ -2153,31 +2510,47 @@ class FDEuropeanEngine(BaseModel):
 
 
 class BinomialCRRVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BinomialCRRVanillaEngine"]
+    ] = "BinomialCRRVanillaEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
     steps: int
 
 
 class BinomialJRVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BinomialJRVanillaEngine"]
+    ] = "BinomialJRVanillaEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
     steps: int
 
 
 class BinomialTrigeorgisVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BinomialTrigeorgisVanillaEngine"]
+    ] = "BinomialTrigeorgisVanillaEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
     steps: int
 
 
 class BinomialTianVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BinomialTianVanillaEngine"]
+    ] = "BinomialTianVanillaEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
     steps: int
 
 
 class BinomialJoshi4VanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BinomialJoshi4VanillaEngine"]
+    ] = "BinomialJoshi4VanillaEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
     steps: int
 
 
 class FDAmericanEngine(BaseModel):
+    resource_name: Optional[Literal["FDAmericanEngine"]] = "FDAmericanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     timeSteps: Optional[int] = None
     gridPoints: Optional[int] = None
@@ -2185,6 +2558,7 @@ class FDAmericanEngine(BaseModel):
 
 
 class FDShoutEngine(BaseModel):
+    resource_name: Optional[Literal["FDShoutEngine"]] = "FDShoutEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     timeSteps: Optional[int] = None
     gridPoints: Optional[int] = None
@@ -2192,12 +2566,18 @@ class FDShoutEngine(BaseModel):
 
 
 class ContinuousArithmeticAsianLevyEngine(BaseModel):
+    resource_name: Optional[
+        Literal["ContinuousArithmeticAsianLevyEngine"]
+    ] = "ContinuousArithmeticAsianLevyEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     runningAverage: QuoteHandle
     startDate: Date
 
 
 class FdBlackScholesAsianEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FdBlackScholesAsianEngine"]
+    ] = "FdBlackScholesAsianEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     tGrid: int
     xGrid: int
@@ -2205,34 +2585,54 @@ class FdBlackScholesAsianEngine(BaseModel):
 
 
 class BaroneAdesiWhaleyApproximationEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BaroneAdesiWhaleyApproximationEngine"]
+    ] = "BaroneAdesiWhaleyApproximationEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class BjerksundStenslandApproximationEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BjerksundStenslandApproximationEngine"]
+    ] = "BjerksundStenslandApproximationEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class JuQuadraticApproximationEngine(BaseModel):
+    resource_name: Optional[
+        Literal["JuQuadraticApproximationEngine"]
+    ] = "JuQuadraticApproximationEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class AnalyticDigitalAmericanEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDigitalAmericanEngine"]
+    ] = "AnalyticDigitalAmericanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class AnalyticDigitalAmericanKOEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDigitalAmericanKOEngine"]
+    ] = "AnalyticDigitalAmericanKOEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class AnalyticDividendEuropeanEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDividendEuropeanEngine"]
+    ] = "AnalyticDividendEuropeanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class AnalyticBarrierEngine(BaseModel):
+    resource_name: Optional[Literal["AnalyticBarrierEngine"]] = "AnalyticBarrierEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class FdmQuantoHelper(BaseModel):
+    resource_name: Optional[Literal["FdmQuantoHelper"]] = "FdmQuantoHelper"
     rTS: YIELDTERMSTRUCTURE
     fTS: YIELDTERMSTRUCTURE
     fxVolTS: BLACKVOLTERMSTRUCTURE
@@ -2241,6 +2641,7 @@ class FdmQuantoHelper(BaseModel):
 
 
 class AnalyticCEVEngine(BaseModel):
+    resource_name: Optional[Literal["AnalyticCEVEngine"]] = "AnalyticCEVEngine"
     f0: float
     alpha: float
     beta: float
@@ -2248,14 +2649,19 @@ class AnalyticCEVEngine(BaseModel):
 
 
 class AnalyticBinaryBarrierEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticBinaryBarrierEngine"]
+    ] = "AnalyticBinaryBarrierEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class ForwardEuropeanEngine(BaseModel):
+    resource_name: Optional[Literal["ForwardEuropeanEngine"]] = "ForwardEuropeanEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class QuantoEuropeanEngine(BaseModel):
+    resource_name: Optional[Literal["QuantoEuropeanEngine"]] = "QuantoEuropeanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     foreignRiskFreeRate: YieldTermStructureHandle
     exchangeRateVolatility: BlackVolTermStructureHandle
@@ -2263,6 +2669,9 @@ class QuantoEuropeanEngine(BaseModel):
 
 
 class QuantoForwardEuropeanEngine(BaseModel):
+    resource_name: Optional[
+        Literal["QuantoForwardEuropeanEngine"]
+    ] = "QuantoForwardEuropeanEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     foreignRiskFreeRate: YieldTermStructureHandle
     exchangeRateVolatility: BlackVolTermStructureHandle
@@ -2270,6 +2679,7 @@ class QuantoForwardEuropeanEngine(BaseModel):
 
 
 class BlackCalculator(BaseModel):
+    resource_name: Optional[Literal["BlackCalculator"]] = "BlackCalculator"
     payoff: STRIKEDTYPEPAYOFF
     forward: float
     stdDev: float
@@ -2277,41 +2687,64 @@ class BlackCalculator(BaseModel):
 
 
 class AnalyticContinuousGeometricAveragePriceAsianEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticContinuousGeometricAveragePriceAsianEngine"]
+    ] = "AnalyticContinuousGeometricAveragePriceAsianEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class AnalyticDiscreteGeometricAveragePriceAsianEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDiscreteGeometricAveragePriceAsianEngine"]
+    ] = "AnalyticDiscreteGeometricAveragePriceAsianEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class AnalyticDiscreteGeometricAverageStrikeAsianEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDiscreteGeometricAverageStrikeAsianEngine"]
+    ] = "AnalyticDiscreteGeometricAverageStrikeAsianEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class VarianceGammaEngine(BaseModel):
+    resource_name: Optional[Literal["VarianceGammaEngine"]] = "VarianceGammaEngine"
     process: VarianceGammaProcess
 
 
 class FFTVarianceGammaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FFTVarianceGammaEngine"]
+    ] = "FFTVarianceGammaEngine"
     process: VarianceGammaProcess
     logStrikeSpacing: Optional[float] = None
 
 
 class AnalyticDoubleBarrierEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDoubleBarrierEngine"]
+    ] = "AnalyticDoubleBarrierEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     series: Optional[int] = None
 
 
 class WulinYongDoubleBarrierEngine(BaseModel):
+    resource_name: Optional[
+        Literal["WulinYongDoubleBarrierEngine"]
+    ] = "WulinYongDoubleBarrierEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     series: Optional[int] = None
 
 
 class AnalyticDoubleBarrierBinaryEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticDoubleBarrierBinaryEngine"]
+    ] = "AnalyticDoubleBarrierBinaryEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class VanillaSwingOption(BaseModel):
+    resource_name: Optional[Literal["VanillaSwingOption"]] = "VanillaSwingOption"
     payoff: PAYOFF
     ex: SwingExercise
     minExerciseRights: int
@@ -2319,113 +2752,137 @@ class VanillaSwingOption(BaseModel):
 
 
 class FdSimpleExtOUJumpSwingEngine(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FdSimpleExtOUJumpSwingEngine"]
+    ] = "FdSimpleExtOUJumpSwingEngine"
 
 
 class PlainVanillaPayoff(BaseModel):
+    resource_name: Optional[Literal["PlainVanillaPayoff"]] = "PlainVanillaPayoff"
     type: enums.OptionType
     strike: float
 
 
 class PercentageStrikePayoff(BaseModel):
+    resource_name: Optional[
+        Literal["PercentageStrikePayoff"]
+    ] = "PercentageStrikePayoff"
     type: enums.OptionType
     moneyness: float
 
 
 class CashOrNothingPayoff(BaseModel):
+    resource_name: Optional[Literal["CashOrNothingPayoff"]] = "CashOrNothingPayoff"
     type: enums.OptionType
     strike: float
     payoff: float
 
 
 class AssetOrNothingPayoff(BaseModel):
+    resource_name: Optional[Literal["AssetOrNothingPayoff"]] = "AssetOrNothingPayoff"
     type: enums.OptionType
     strike: float
 
 
 class SuperSharePayoff(BaseModel):
+    resource_name: Optional[Literal["SuperSharePayoff"]] = "SuperSharePayoff"
     type: enums.OptionType
     strike: float
     increment: float
 
 
 class GapPayoff(BaseModel):
+    resource_name: Optional[Literal["GapPayoff"]] = "GapPayoff"
     type: enums.OptionType
     strike: float
     strikePayoff: float
 
 
 class VanillaForwardPayoff(BaseModel):
+    resource_name: Optional[Literal["VanillaForwardPayoff"]] = "VanillaForwardPayoff"
     type: enums.OptionType
     strike: float
 
 
 class BasketPayoff(BaseModel):
-    pass
+    resource_name: Optional[Literal["BasketPayoff"]] = "BasketPayoff"
 
 
 class MinBasketPayoff(BaseModel):
+    resource_name: Optional[Literal["MinBasketPayoff"]] = "MinBasketPayoff"
     p: PAYOFF
 
 
 class MaxBasketPayoff(BaseModel):
+    resource_name: Optional[Literal["MaxBasketPayoff"]] = "MaxBasketPayoff"
     p: PAYOFF
 
 
 class AverageBasketPayoff(BaseModel):
+    resource_name: Optional[Literal["AverageBasketPayoff"]] = "AverageBasketPayoff"
     p: PAYOFF
     a: Array
 
 
 class SpreadBasketPayoff(BaseModel):
+    resource_name: Optional[Literal["SpreadBasketPayoff"]] = "SpreadBasketPayoff"
     p: PAYOFF
 
 
 class StulzEngine(BaseModel):
+    resource_name: Optional[Literal["StulzEngine"]] = "StulzEngine"
     process1: GENERALIZEDBLACKSCHOLESPROCESS
     process2: GENERALIZEDBLACKSCHOLESPROCESS
     correlation: float
 
 
 class KirkEngine(BaseModel):
+    resource_name: Optional[Literal["KirkEngine"]] = "KirkEngine"
     process1: BlackProcess
     process2: BlackProcess
     correlation: float
 
 
 class HimalayaOption(BaseModel):
+    resource_name: Optional[Literal["HimalayaOption"]] = "HimalayaOption"
     fixingDates: List[Date]
     strike: float
 
 
 class CallabilityPrice(BaseModel):
+    resource_name: Optional[Literal["CallabilityPrice"]] = "CallabilityPrice"
     amount: float
     type: enums.CallabilityPriceType
 
 
 class Callability(BaseModel):
+    resource_name: Optional[Literal["Callability"]] = "Callability"
     price: CallabilityPrice
     type: enums.CallabilityType
     date: Date
 
 
 class SoftCallability(BaseModel):
+    resource_name: Optional[Literal["SoftCallability"]] = "SoftCallability"
     price: CallabilityPrice
     date: Date
     trigger: float
 
 
 class TimeBasket(BaseModel):
+    resource_name: Optional[Literal["TimeBasket"]] = "TimeBasket"
     arg_0: Optional[List[Date]] = None
     arg_1: Optional[List[float]] = None
 
 
 class Swap(BaseModel):
+    resource_name: Optional[Literal["Swap"]] = "Swap"
     firstLeg: List[CASHFLOW]
     secondLeg: List[CASHFLOW]
 
 
 class VanillaSwap(BaseModel):
+    resource_name: Optional[Literal["VanillaSwap"]] = "VanillaSwap"
     type: enums.VanillaSwapType
     nominal: float
     fixedSchedule: Schedule
@@ -2438,6 +2895,7 @@ class VanillaSwap(BaseModel):
 
 
 class MakeVanillaSwap(BaseModel):
+    resource_name: Optional[Literal["MakeVanillaSwap"]] = "MakeVanillaSwap"
     swapTenor: Period
     index: IBORINDEX
     fixedRate: float
@@ -2445,6 +2903,7 @@ class MakeVanillaSwap(BaseModel):
 
 
 class NonstandardSwap(BaseModel):
+    resource_name: Optional[Literal["NonstandardSwap"]] = "NonstandardSwap"
     type: enums.VanillaSwapType
     fixedNominal: List[float]
     floatingNominal: List[float]
@@ -2462,6 +2921,7 @@ class NonstandardSwap(BaseModel):
 
 
 class DiscountingSwapEngine(BaseModel):
+    resource_name: Optional[Literal["DiscountingSwapEngine"]] = "DiscountingSwapEngine"
     discountCurve: YieldTermStructureHandle
     includeSettlementDateFlows: bool
     settlementDate: Optional[Date] = None
@@ -2469,6 +2929,7 @@ class DiscountingSwapEngine(BaseModel):
 
 
 class FloatFloatSwap(BaseModel):
+    resource_name: Optional[Literal["FloatFloatSwap"]] = "FloatFloatSwap"
     type: enums.VanillaSwapType
     nominal1: List[float]
     nominal2: List[float]
@@ -2493,6 +2954,7 @@ class FloatFloatSwap(BaseModel):
 
 
 class MakeOIS(BaseModel):
+    resource_name: Optional[Literal["MakeOIS"]] = "MakeOIS"
     swapTenor: Period
     overnightIndex: OVERNIGHTINDEX
     fixedRate: Optional[float] = None
@@ -2500,6 +2962,9 @@ class MakeOIS(BaseModel):
 
 
 class OvernightIndexedSwapIndex(BaseModel):
+    resource_name: Optional[
+        Literal["OvernightIndexedSwapIndex"]
+    ] = "OvernightIndexedSwapIndex"
     familyName: str
     tenor: Period
     settlementDays: float
@@ -2509,49 +2974,66 @@ class OvernightIndexedSwapIndex(BaseModel):
 
 
 class Seasonality(BaseModel):
-    pass
+    resource_name: Optional[Literal["Seasonality"]] = "Seasonality"
 
 
 class MultiplicativePriceSeasonality(BaseModel):
+    resource_name: Optional[
+        Literal["MultiplicativePriceSeasonality"]
+    ] = "MultiplicativePriceSeasonality"
     seasonalityBaseDate: Date
     frequency: float
     seasonalityFactors: List[float]
 
 
 class InflationTermStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["InflationTermStructure"]
+    ] = "InflationTermStructure"
 
 
 class YoYInflationTermStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["YoYInflationTermStructure"]
+    ] = "YoYInflationTermStructure"
 
 
 class YoYInflationTermStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["YoYInflationTermStructureHandle"]
+    ] = "YoYInflationTermStructureHandle"
     value: Optional[YoYInflationTermStructure] = None
 
 
 class ZeroInflationTermStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["ZeroInflationTermStructure"]
+    ] = "ZeroInflationTermStructure"
 
 
 class ZeroInflationTermStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["ZeroInflationTermStructureHandle"]
+    ] = "ZeroInflationTermStructureHandle"
     value: Optional[ZeroInflationTermStructure] = None
 
 
 class Region(BaseModel):
-    pass
+    resource_name: Optional[Literal["Region"]] = "Region"
 
 
 class CustomRegion(BaseModel):
+    resource_name: Optional[Literal["CustomRegion"]] = "CustomRegion"
     name: str
     code: str
 
 
 class InflationIndex(BaseModel):
-    pass
+    resource_name: Optional[Literal["InflationIndex"]] = "InflationIndex"
 
 
 class ZeroInflationIndex(BaseModel):
+    resource_name: Optional[Literal["ZeroInflationIndex"]] = "ZeroInflationIndex"
     familyName: str
     region: REGION
     revised: bool
@@ -2563,118 +3045,139 @@ class ZeroInflationIndex(BaseModel):
 
 
 class YoYInflationIndex(BaseModel):
-    pass
+    resource_name: Optional[Literal["YoYInflationIndex"]] = "YoYInflationIndex"
 
 
 class EUHICP(BaseModel):
+    resource_name: Optional[Literal["EUHICP"]] = "EUHICP"
     interpolated: bool
     h: Optional[ZeroInflationTermStructureHandle] = None
 
 
 class EUHICPXT(BaseModel):
+    resource_name: Optional[Literal["EUHICPXT"]] = "EUHICPXT"
     interpolated: bool
     h: Optional[ZeroInflationTermStructureHandle] = None
 
 
 class FRHICP(BaseModel):
+    resource_name: Optional[Literal["FRHICP"]] = "FRHICP"
     interpolated: bool
     h: Optional[ZeroInflationTermStructureHandle] = None
 
 
 class UKRPI(BaseModel):
+    resource_name: Optional[Literal["UKRPI"]] = "UKRPI"
     interpolated: bool
     h: Optional[ZeroInflationTermStructureHandle] = None
 
 
 class USCPI(BaseModel):
+    resource_name: Optional[Literal["USCPI"]] = "USCPI"
     interpolated: bool
     h: Optional[ZeroInflationTermStructureHandle] = None
 
 
 class ZACPI(BaseModel):
+    resource_name: Optional[Literal["ZACPI"]] = "ZACPI"
     interpolated: bool
     h: Optional[ZeroInflationTermStructureHandle] = None
 
 
 class YYEUHICP(BaseModel):
+    resource_name: Optional[Literal["YYEUHICP"]] = "YYEUHICP"
     interpolated: bool
     h: Optional[YoYInflationTermStructureHandle] = None
 
 
 class YYEUHICPXT(BaseModel):
+    resource_name: Optional[Literal["YYEUHICPXT"]] = "YYEUHICPXT"
     interpolated: bool
     h: Optional[YoYInflationTermStructureHandle] = None
 
 
 class YYFRHICP(BaseModel):
+    resource_name: Optional[Literal["YYFRHICP"]] = "YYFRHICP"
     interpolated: bool
     h: Optional[YoYInflationTermStructureHandle] = None
 
 
 class YYUKRPI(BaseModel):
+    resource_name: Optional[Literal["YYUKRPI"]] = "YYUKRPI"
     interpolated: bool
     h: Optional[YoYInflationTermStructureHandle] = None
 
 
 class YYUSCPI(BaseModel):
+    resource_name: Optional[Literal["YYUSCPI"]] = "YYUSCPI"
     interpolated: bool
     h: Optional[YoYInflationTermStructureHandle] = None
 
 
 class YYZACPI(BaseModel):
+    resource_name: Optional[Literal["YYZACPI"]] = "YYZACPI"
     interpolated: bool
     h: Optional[YoYInflationTermStructureHandle] = None
 
 
 class CPI(BaseModel):
-    pass
+    resource_name: Optional[Literal["CPI"]] = "CPI"
 
 
 class InflationCoupon(BaseModel):
-    pass
+    resource_name: Optional[Literal["InflationCoupon"]] = "InflationCoupon"
 
 
 class CPICoupon(BaseModel):
-    pass
+    resource_name: Optional[Literal["CPICoupon"]] = "CPICoupon"
 
 
 class ZeroCouponInflationSwapHelper(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["ZeroCouponInflationSwapHelper"]
+    ] = "ZeroCouponInflationSwapHelper"
 
 
 class YearOnYearInflationSwapHelper(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["YearOnYearInflationSwapHelper"]
+    ] = "YearOnYearInflationSwapHelper"
 
 
 class YoYInflationCap(BaseModel):
+    resource_name: Optional[Literal["YoYInflationCap"]] = "YoYInflationCap"
     leg: List[CASHFLOW]
     capRates: List[float]
 
 
 class YoYInflationFloor(BaseModel):
+    resource_name: Optional[Literal["YoYInflationFloor"]] = "YoYInflationFloor"
     leg: List[CASHFLOW]
     floorRates: List[float]
 
 
 class YoYInflationCollar(BaseModel):
+    resource_name: Optional[Literal["YoYInflationCollar"]] = "YoYInflationCollar"
     leg: List[CASHFLOW]
     capRates: List[float]
     floorRates: List[float]
 
 
 class ShortRateModel(BaseModel):
-    pass
+    resource_name: Optional[Literal["ShortRateModel"]] = "ShortRateModel"
 
 
 class ShortRateModelHandle(BaseModel):
+    resource_name: Optional[Literal["ShortRateModelHandle"]] = "ShortRateModelHandle"
     value: Optional[SHORTRATEMODEL] = None
 
 
 class OneFactorAffineModel(BaseModel):
-    pass
+    resource_name: Optional[Literal["OneFactorAffineModel"]] = "OneFactorAffineModel"
 
 
 class Vasicek(BaseModel):
+    resource_name: Optional[Literal["Vasicek"]] = "Vasicek"
     r0: Optional[float] = None
     a: Optional[float] = None
     b: Optional[float] = None
@@ -2683,18 +3186,21 @@ class Vasicek(BaseModel):
 
 
 class HullWhite(BaseModel):
+    resource_name: Optional[Literal["HullWhite"]] = "HullWhite"
     termStructure: YieldTermStructureHandle
     a: Optional[float] = None
     sigma: Optional[float] = None
 
 
 class BlackKarasinski(BaseModel):
+    resource_name: Optional[Literal["BlackKarasinski"]] = "BlackKarasinski"
     termStructure: YieldTermStructureHandle
     a: Optional[float] = None
     sigma: Optional[float] = None
 
 
 class G2(BaseModel):
+    resource_name: Optional[Literal["G2"]] = "G2"
     termStructure: YieldTermStructureHandle
     a: Optional[float] = None
     sigma: Optional[float] = None
@@ -2704,34 +3210,44 @@ class G2(BaseModel):
 
 
 class JamshidianSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["JamshidianSwaptionEngine"]
+    ] = "JamshidianSwaptionEngine"
     model: ONEFACTORAFFINEMODEL
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
 class TreeSwaptionEngine(BaseModel):
+    resource_name: Optional[Literal["TreeSwaptionEngine"]] = "TreeSwaptionEngine"
     model: ShortRateModelHandle
     timeSteps: int
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
 class AnalyticCapFloorEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticCapFloorEngine"]
+    ] = "AnalyticCapFloorEngine"
     model: ONEFACTORAFFINEMODEL
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
 class TreeCapFloorEngine(BaseModel):
+    resource_name: Optional[Literal["TreeCapFloorEngine"]] = "TreeCapFloorEngine"
     model: SHORTRATEMODEL
     grid: TimeGrid
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
 class G2SwaptionEngine(BaseModel):
+    resource_name: Optional[Literal["G2SwaptionEngine"]] = "G2SwaptionEngine"
     model: G2
     range: float
     intervals: int
 
 
 class ZeroCouponBond(BaseModel):
+    resource_name: Optional[Literal["ZeroCouponBond"]] = "ZeroCouponBond"
     settlementDays: float
     calendar: CALENDAR
     faceAmount: float
@@ -2742,6 +3258,7 @@ class ZeroCouponBond(BaseModel):
 
 
 class FixedRateBond(BaseModel):
+    resource_name: Optional[Literal["FixedRateBond"]] = "FixedRateBond"
     settlementDays: int
     couponCalendar: CALENDAR
     faceAmount: float
@@ -2765,6 +3282,9 @@ class FixedRateBond(BaseModel):
 
 
 class AmortizingFixedRateBond(BaseModel):
+    resource_name: Optional[
+        Literal["AmortizingFixedRateBond"]
+    ] = "AmortizingFixedRateBond"
     settlementDays: int
     paymentCalendar: CALENDAR
     faceAmount: float
@@ -2778,6 +3298,9 @@ class AmortizingFixedRateBond(BaseModel):
 
 
 class AmortizingFloatingRateBond(BaseModel):
+    resource_name: Optional[
+        Literal["AmortizingFloatingRateBond"]
+    ] = "AmortizingFloatingRateBond"
     settlementDays: int
     notional: List[float]
     schedule: Schedule
@@ -2794,6 +3317,7 @@ class AmortizingFloatingRateBond(BaseModel):
 
 
 class FloatingRateBond(BaseModel):
+    resource_name: Optional[Literal["FloatingRateBond"]] = "FloatingRateBond"
     settlementDays: int
     faceAmount: float
     schedule: Schedule
@@ -2815,6 +3339,7 @@ class FloatingRateBond(BaseModel):
 
 
 class CmsRateBond(BaseModel):
+    resource_name: Optional[Literal["CmsRateBond"]] = "CmsRateBond"
     settlementDays: int
     faceAmount: float
     schedule: Schedule
@@ -2832,14 +3357,16 @@ class CmsRateBond(BaseModel):
 
 
 class DiscountingBondEngine(BaseModel):
+    resource_name: Optional[Literal["DiscountingBondEngine"]] = "DiscountingBondEngine"
     discountCurve: YieldTermStructureHandle
 
 
 class CallableBond(BaseModel):
-    pass
+    resource_name: Optional[Literal["CallableBond"]] = "CallableBond"
 
 
 class CallableFixedRateBond(BaseModel):
+    resource_name: Optional[Literal["CallableFixedRateBond"]] = "CallableFixedRateBond"
     settlementDays: int
     faceAmount: float
     schedule: Schedule
@@ -2852,83 +3379,100 @@ class CallableFixedRateBond(BaseModel):
 
 
 class TreeCallableFixedRateBondEngine(BaseModel):
+    resource_name: Optional[
+        Literal["TreeCallableFixedRateBondEngine"]
+    ] = "TreeCallableFixedRateBondEngine"
     model: SHORTRATEMODEL
     grid: TimeGrid
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
 class BlackCallableFixedRateBondEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BlackCallableFixedRateBondEngine"]
+    ] = "BlackCallableFixedRateBondEngine"
     fwdYieldVol: QuoteHandle
     discountCurve: YieldTermStructureHandle
 
 
 class BondFunctions(BaseModel):
-    pass
+    resource_name: Optional[Literal["BondFunctions"]] = "BondFunctions"
 
 
 class CapFloor(BaseModel):
+    resource_name: Optional[Literal["CapFloor"]] = "CapFloor"
     Cap = 0
     Collar = 2
     Floor = 1
 
 
 class Cap(BaseModel):
+    resource_name: Optional[Literal["Cap"]] = "Cap"
     leg: List[CASHFLOW]
     capRates: List[float]
 
 
 class Floor(BaseModel):
+    resource_name: Optional[Literal["Floor"]] = "Floor"
     leg: List[CASHFLOW]
     floorRates: List[float]
 
 
 class Collar(BaseModel):
+    resource_name: Optional[Literal["Collar"]] = "Collar"
     leg: List[CASHFLOW]
     capRates: List[float]
     floorRates: List[float]
 
 
 class BlackCapFloorEngine(BaseModel):
+    resource_name: Optional[Literal["BlackCapFloorEngine"]] = "BlackCapFloorEngine"
     termStructure: YieldTermStructureHandle
     vol: QuoteHandle
 
 
 class BachelierCapFloorEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BachelierCapFloorEngine"]
+    ] = "BachelierCapFloorEngine"
     termStructure: YieldTermStructureHandle
     vol: QuoteHandle
 
 
 class Dividend(BaseModel):
-    pass
+    resource_name: Optional[Literal["Dividend"]] = "Dividend"
 
 
 class FixedDividend(BaseModel):
+    resource_name: Optional[Literal["FixedDividend"]] = "FixedDividend"
     amount: float
     date: Date
 
 
 class FractionalDividend(BaseModel):
+    resource_name: Optional[Literal["FractionalDividend"]] = "FractionalDividend"
     rate: float
     date: Date
 
 
 class Futures(BaseModel):
-    pass
+    resource_name: Optional[Literal["Futures"]] = "Futures"
 
 
 class OvernightIndexFuture(BaseModel):
-    pass
+    resource_name: Optional[Literal["OvernightIndexFuture"]] = "OvernightIndexFuture"
 
 
 class Pillar(BaseModel):
-    pass
+    resource_name: Optional[Literal["Pillar"]] = "Pillar"
 
 
 class RateHelper(BaseModel):
-    pass
+    resource_name: Optional[Literal["RateHelper"]] = "RateHelper"
 
 
 class DepositRateHelper(BaseModel):
+    resource_name: Optional[Literal["DepositRateHelper"]] = "DepositRateHelper"
     rate: QuoteHandle
     tenor: Period
     fixingDays: float
@@ -2939,6 +3483,7 @@ class DepositRateHelper(BaseModel):
 
 
 class FixedRateBondHelper(BaseModel):
+    resource_name: Optional[Literal["FixedRateBondHelper"]] = "FixedRateBondHelper"
     cleanPrice: QuoteHandle
     settlementDays: int
     faceAmount: float
@@ -2957,6 +3502,7 @@ class FixedRateBondHelper(BaseModel):
 
 
 class DatedOISRateHelper(BaseModel):
+    resource_name: Optional[Literal["DatedOISRateHelper"]] = "DatedOISRateHelper"
     startDate: Date
     endDate: Date
     rate: QuoteHandle
@@ -2965,6 +3511,7 @@ class DatedOISRateHelper(BaseModel):
 
 
 class FxSwapRateHelper(BaseModel):
+    resource_name: Optional[Literal["FxSwapRateHelper"]] = "FxSwapRateHelper"
     fwdPoint: QuoteHandle
     spotFx: QuoteHandle
     tenor: Period
@@ -2978,82 +3525,104 @@ class FxSwapRateHelper(BaseModel):
 
 
 class Discount(BaseModel):
-    pass
+    resource_name: Optional[Literal["Discount"]] = "Discount"
 
 
 class ZeroYield(BaseModel):
-    pass
+    resource_name: Optional[Literal["ZeroYield"]] = "ZeroYield"
 
 
 class ForwardRate(BaseModel):
-    pass
+    resource_name: Optional[Literal["ForwardRate"]] = "ForwardRate"
 
 
 class IterativeBootstrap(BaseModel):
+    resource_name: Optional[Literal["IterativeBootstrap"]] = "IterativeBootstrap"
     accuracy: Optional[Optional[float]] = None
     minValue: Optional[Optional[float]] = None
     maxValue: Optional[Optional[float]] = None
 
 
 class PiecewiseFlatForward(BaseModel):
-    pass
+    resource_name: Optional[Literal["PiecewiseFlatForward"]] = "PiecewiseFlatForward"
 
 
 class PiecewiseLogLinearDiscount(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseLogLinearDiscount"]
+    ] = "PiecewiseLogLinearDiscount"
 
 
 class PiecewiseLinearForward(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseLinearForward"]
+    ] = "PiecewiseLinearForward"
 
 
 class PiecewiseLinearZero(BaseModel):
-    pass
+    resource_name: Optional[Literal["PiecewiseLinearZero"]] = "PiecewiseLinearZero"
 
 
 class PiecewiseCubicZero(BaseModel):
-    pass
+    resource_name: Optional[Literal["PiecewiseCubicZero"]] = "PiecewiseCubicZero"
 
 
 class PiecewiseLogCubicDiscount(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseLogCubicDiscount"]
+    ] = "PiecewiseLogCubicDiscount"
 
 
 class PiecewiseSplineCubicDiscount(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseSplineCubicDiscount"]
+    ] = "PiecewiseSplineCubicDiscount"
 
 
 class PiecewiseKrugerZero(BaseModel):
-    pass
+    resource_name: Optional[Literal["PiecewiseKrugerZero"]] = "PiecewiseKrugerZero"
 
 
 class PiecewiseKrugerLogDiscount(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseKrugerLogDiscount"]
+    ] = "PiecewiseKrugerLogDiscount"
 
 
 class PiecewiseConvexMonotoneZero(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseConvexMonotoneZero"]
+    ] = "PiecewiseConvexMonotoneZero"
 
 
 class GlobalBootstrap(BaseModel):
+    resource_name: Optional[Literal["GlobalBootstrap"]] = "GlobalBootstrap"
     additionalHelpers: List[RATEHELPER]
     additionalDates: List[Date]
     accuracy: Optional[Optional[float]] = None
 
 
 class GlobalLinearSimpleZeroCurve(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["GlobalLinearSimpleZeroCurve"]
+    ] = "GlobalLinearSimpleZeroCurve"
 
 
 class DefaultProbabilityTermStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["DefaultProbabilityTermStructure"]
+    ] = "DefaultProbabilityTermStructure"
 
 
 class DefaultProbabilityTermStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["DefaultProbabilityTermStructureHandle"]
+    ] = "DefaultProbabilityTermStructureHandle"
     value: Optional[DEFAULTPROBABILITYTERMSTRUCTURE] = None
 
 
 class FlatHazardRate(BaseModel):
+    resource_name: Optional[Literal["FlatHazardRate"]] = "FlatHazardRate"
     settlementDays: int
     calendar: CALENDAR
     hazardRate: QuoteHandle
@@ -3061,10 +3630,13 @@ class FlatHazardRate(BaseModel):
 
 
 class DefaultProbabilityHelper(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["DefaultProbabilityHelper"]
+    ] = "DefaultProbabilityHelper"
 
 
 class SpreadCdsHelper(BaseModel):
+    resource_name: Optional[Literal["SpreadCdsHelper"]] = "SpreadCdsHelper"
     spread: float
     tenor: Period
     settlementDays: int
@@ -3080,6 +3652,7 @@ class SpreadCdsHelper(BaseModel):
 
 
 class UpfrontCdsHelper(BaseModel):
+    resource_name: Optional[Literal["UpfrontCdsHelper"]] = "UpfrontCdsHelper"
     upfront: float
     spread: float
     tenor: Period
@@ -3097,36 +3670,40 @@ class UpfrontCdsHelper(BaseModel):
 
 
 class HazardRate(BaseModel):
-    pass
+    resource_name: Optional[Literal["HazardRate"]] = "HazardRate"
 
 
 class DefaultDensity(BaseModel):
-    pass
+    resource_name: Optional[Literal["DefaultDensity"]] = "DefaultDensity"
 
 
 class PiecewiseFlatHazardRate(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["PiecewiseFlatHazardRate"]
+    ] = "PiecewiseFlatHazardRate"
 
 
 class Protection(BaseModel):
-    pass
+    resource_name: Optional[Literal["Protection"]] = "Protection"
 
 
 class Claim(BaseModel):
-    pass
+    resource_name: Optional[Literal["Claim"]] = "Claim"
 
 
 class FaceValueClaim(BaseModel):
-    pass
+    resource_name: Optional[Literal["FaceValueClaim"]] = "FaceValueClaim"
 
 
 class MidPointCdsEngine(BaseModel):
+    resource_name: Optional[Literal["MidPointCdsEngine"]] = "MidPointCdsEngine"
     probability: DefaultProbabilityTermStructureHandle
     recoveryRate: float
     discountCurve: YieldTermStructureHandle
 
 
 class IntegralCdsEngine(BaseModel):
+    resource_name: Optional[Literal["IntegralCdsEngine"]] = "IntegralCdsEngine"
     integrationStep: Period
     probability: DefaultProbabilityTermStructureHandle
     recoveryRate: float
@@ -3135,6 +3712,7 @@ class IntegralCdsEngine(BaseModel):
 
 
 class BlackCdsOptionEngine(BaseModel):
+    resource_name: Optional[Literal["BlackCdsOptionEngine"]] = "BlackCdsOptionEngine"
     value: DefaultProbabilityTermStructureHandle
     recoveryRate: float
     termStructure: YieldTermStructureHandle
@@ -3142,57 +3720,89 @@ class BlackCdsOptionEngine(BaseModel):
 
 
 class NormalDistribution(BaseModel):
+    resource_name: Optional[Literal["NormalDistribution"]] = "NormalDistribution"
     average: Optional[float] = None
     sigma: Optional[float] = None
 
 
 class CumulativeNormalDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["CumulativeNormalDistribution"]
+    ] = "CumulativeNormalDistribution"
     average: Optional[float] = None
     sigma: Optional[float] = None
 
 
 class InverseCumulativeNormal(BaseModel):
+    resource_name: Optional[
+        Literal["InverseCumulativeNormal"]
+    ] = "InverseCumulativeNormal"
     average: Optional[float] = None
     sigma: Optional[float] = None
 
 
 class MoroInverseCumulativeNormal(BaseModel):
+    resource_name: Optional[
+        Literal["MoroInverseCumulativeNormal"]
+    ] = "MoroInverseCumulativeNormal"
     average: Optional[float] = None
     sigma: Optional[float] = None
 
 
 class BivariateCumulativeNormalDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["BivariateCumulativeNormalDistribution"]
+    ] = "BivariateCumulativeNormalDistribution"
     rho: float
 
 
 class BinomialDistribution(BaseModel):
+    resource_name: Optional[Literal["BinomialDistribution"]] = "BinomialDistribution"
     p: float
     n: float
 
 
 class CumulativeBinomialDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["CumulativeBinomialDistribution"]
+    ] = "CumulativeBinomialDistribution"
     p: float
     n: float
 
 
 class BivariateCumulativeNormalDistributionDr78(BaseModel):
+    resource_name: Optional[
+        Literal["BivariateCumulativeNormalDistributionDr78"]
+    ] = "BivariateCumulativeNormalDistributionDr78"
     rho: float
 
 
 class BivariateCumulativeNormalDistributionWe04DP(BaseModel):
+    resource_name: Optional[
+        Literal["BivariateCumulativeNormalDistributionWe04DP"]
+    ] = "BivariateCumulativeNormalDistributionWe04DP"
     rho: float
 
 
 class CumulativeChiSquareDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["CumulativeChiSquareDistribution"]
+    ] = "CumulativeChiSquareDistribution"
     df: float
 
 
 class NonCentralCumulativeChiSquareDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["NonCentralCumulativeChiSquareDistribution"]
+    ] = "NonCentralCumulativeChiSquareDistribution"
     df: float
     ncp: float
 
 
 class InverseNonCentralCumulativeChiSquareDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["InverseNonCentralCumulativeChiSquareDistribution"]
+    ] = "InverseNonCentralCumulativeChiSquareDistribution"
     df: float
     ncp: float
     maxEvaluations: Optional[int] = None
@@ -3200,63 +3810,84 @@ class InverseNonCentralCumulativeChiSquareDistribution(BaseModel):
 
 
 class CumulativeGammaDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["CumulativeGammaDistribution"]
+    ] = "CumulativeGammaDistribution"
     a: float
 
 
 class GammaFunction(BaseModel):
-    pass
+    resource_name: Optional[Literal["GammaFunction"]] = "GammaFunction"
 
 
 class PoissonDistribution(BaseModel):
+    resource_name: Optional[Literal["PoissonDistribution"]] = "PoissonDistribution"
     mu: float
 
 
 class CumulativePoissonDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["CumulativePoissonDistribution"]
+    ] = "CumulativePoissonDistribution"
     mu: float
 
 
 class InverseCumulativePoisson(BaseModel):
+    resource_name: Optional[
+        Literal["InverseCumulativePoisson"]
+    ] = "InverseCumulativePoisson"
     lambda_: float = Field(..., alias="lambda")
 
 
 class StudentDistribution(BaseModel):
+    resource_name: Optional[Literal["StudentDistribution"]] = "StudentDistribution"
     n: int
 
 
 class CumulativeStudentDistribution(BaseModel):
+    resource_name: Optional[
+        Literal["CumulativeStudentDistribution"]
+    ] = "CumulativeStudentDistribution"
     n: int
 
 
 class InverseCumulativeStudent(BaseModel):
+    resource_name: Optional[
+        Literal["InverseCumulativeStudent"]
+    ] = "InverseCumulativeStudent"
     n: int
     accuracy: Optional[float] = None
     maxIterations: Optional[int] = None
 
 
 class Money(BaseModel):
+    resource_name: Optional[Literal["Money"]] = "Money"
     currency: CURRENCY
     value: float
 
 
 class ExchangeRate(BaseModel):
+    resource_name: Optional[Literal["ExchangeRate"]] = "ExchangeRate"
     source: CURRENCY
     target: CURRENCY
     rate: float
 
 
 class ExchangeRateManager(BaseModel):
-    pass
+    resource_name: Optional[Literal["ExchangeRateManager"]] = "ExchangeRateManager"
 
 
 class Settings(BaseModel):
-    pass
+    resource_name: Optional[Literal["Settings"]] = "Settings"
 
 
 class Fdm1dMesher(BaseModel):
+    resource_name: Optional[Literal["Fdm1dMesher"]] = "Fdm1dMesher"
     size: int
 
 
 class FdmBlackScholesMesher(BaseModel):
+    resource_name: Optional[Literal["FdmBlackScholesMesher"]] = "FdmBlackScholesMesher"
     size: int
     process: GENERALIZEDBLACKSCHOLESPROCESS
     maturity: float
@@ -3272,6 +3903,7 @@ class FdmBlackScholesMesher(BaseModel):
 
 
 class Concentrating1dMesher(BaseModel):
+    resource_name: Optional[Literal["Concentrating1dMesher"]] = "Concentrating1dMesher"
     start: float
     end: float
     size: int
@@ -3280,6 +3912,9 @@ class Concentrating1dMesher(BaseModel):
 
 
 class ExponentialJump1dMesher(BaseModel):
+    resource_name: Optional[
+        Literal["ExponentialJump1dMesher"]
+    ] = "ExponentialJump1dMesher"
     steps: int
     beta: float
     jumpIntensity: float
@@ -3288,6 +3923,7 @@ class ExponentialJump1dMesher(BaseModel):
 
 
 class FdmCEV1dMesher(BaseModel):
+    resource_name: Optional[Literal["FdmCEV1dMesher"]] = "FdmCEV1dMesher"
     size: int
     f0: float
     alpha: float
@@ -3299,6 +3935,9 @@ class FdmCEV1dMesher(BaseModel):
 
 
 class FdmHestonVarianceMesher(BaseModel):
+    resource_name: Optional[
+        Literal["FdmHestonVarianceMesher"]
+    ] = "FdmHestonVarianceMesher"
     size: int
     process: HESTONPROCESS
     maturity: float
@@ -3307,6 +3946,9 @@ class FdmHestonVarianceMesher(BaseModel):
 
 
 class FdmHestonLocalVolatilityVarianceMesher(BaseModel):
+    resource_name: Optional[
+        Literal["FdmHestonLocalVolatilityVarianceMesher"]
+    ] = "FdmHestonLocalVolatilityVarianceMesher"
     size: int
     process: HESTONPROCESS
     leverageFct: LOCALVOLTERMSTRUCTURE
@@ -3316,6 +3958,9 @@ class FdmHestonLocalVolatilityVarianceMesher(BaseModel):
 
 
 class FdmSimpleProcess1dMesher(BaseModel):
+    resource_name: Optional[
+        Literal["FdmSimpleProcess1dMesher"]
+    ] = "FdmSimpleProcess1dMesher"
     size: int
     process: STOCHASTICPROCESS1D
     maturity: float
@@ -3325,33 +3970,37 @@ class FdmSimpleProcess1dMesher(BaseModel):
 
 
 class Uniform1dMesher(BaseModel):
+    resource_name: Optional[Literal["Uniform1dMesher"]] = "Uniform1dMesher"
     start: float
     end: float
     size: int
 
 
 class Predefined1dMesher(BaseModel):
+    resource_name: Optional[Literal["Predefined1dMesher"]] = "Predefined1dMesher"
     x: List[float]
 
 
 class Glued1dMesher(BaseModel):
+    resource_name: Optional[Literal["Glued1dMesher"]] = "Glued1dMesher"
     leftMesher: FDM1DMESHER
     rightMesher: FDM1DMESHER
 
 
 class FdmLinearOpIterator(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmLinearOpIterator"]] = "FdmLinearOpIterator"
 
 
 class FdmLinearOpLayout(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmLinearOpLayout"]] = "FdmLinearOpLayout"
 
 
 class FdmMesher(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmMesher"]] = "FdmMesher"
 
 
 class FdmMesherComposite(BaseModel):
+    resource_name: Optional[Literal["FdmMesherComposite"]] = "FdmMesherComposite"
     m1: FDM1DMESHER
     m2: FDM1DMESHER
     m3: Optional[FDM1DMESHER] = None
@@ -3359,22 +4008,25 @@ class FdmMesherComposite(BaseModel):
 
 
 class FdmLinearOp(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmLinearOp"]] = "FdmLinearOp"
 
 
 class FdmLinearOpComposite(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmLinearOpComposite"]] = "FdmLinearOpComposite"
 
 
 class FdmBoundaryCondition(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmBoundaryCondition"]] = "FdmBoundaryCondition"
 
 
 class FdmTimeDepDirichletBoundary(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FdmTimeDepDirichletBoundary"]
+    ] = "FdmTimeDepDirichletBoundary"
 
 
 class FdmBlackScholesOp(BaseModel):
+    resource_name: Optional[Literal["FdmBlackScholesOp"]] = "FdmBlackScholesOp"
     mesher: FDMMESHER
     process: GENERALIZEDBLACKSCHOLESPROCESS
     strike: float
@@ -3385,6 +4037,7 @@ class FdmBlackScholesOp(BaseModel):
 
 
 class Fdm2dBlackScholesOp(BaseModel):
+    resource_name: Optional[Literal["Fdm2dBlackScholesOp"]] = "Fdm2dBlackScholesOp"
     mesher: FDMMESHER
     p1: GENERALIZEDBLACKSCHOLESPROCESS
     p2: GENERALIZEDBLACKSCHOLESPROCESS
@@ -3395,6 +4048,7 @@ class Fdm2dBlackScholesOp(BaseModel):
 
 
 class FdmCEVOp(BaseModel):
+    resource_name: Optional[Literal["FdmCEVOp"]] = "FdmCEVOp"
     mesher: FDMMESHER
     rTS: YIELDTERMSTRUCTURE
     f0: float
@@ -3404,6 +4058,7 @@ class FdmCEVOp(BaseModel):
 
 
 class FdmG2Op(BaseModel):
+    resource_name: Optional[Literal["FdmG2Op"]] = "FdmG2Op"
     mesher: FDMMESHER
     model: G2
     direction1: int
@@ -3411,6 +4066,7 @@ class FdmG2Op(BaseModel):
 
 
 class FdmHestonHullWhiteOp(BaseModel):
+    resource_name: Optional[Literal["FdmHestonHullWhiteOp"]] = "FdmHestonHullWhiteOp"
     mesher: FDMMESHER
     hestonProcess: HESTONPROCESS
     hwProcess: HullWhiteProcess
@@ -3418,6 +4074,7 @@ class FdmHestonHullWhiteOp(BaseModel):
 
 
 class FdmHestonOp(BaseModel):
+    resource_name: Optional[Literal["FdmHestonOp"]] = "FdmHestonOp"
     mesher: FDMMESHER
     hestonProcess: HESTONPROCESS
     quantoHelper: Optional[FdmQuantoHelper] = None
@@ -3425,12 +4082,14 @@ class FdmHestonOp(BaseModel):
 
 
 class FdmHullWhiteOp(BaseModel):
+    resource_name: Optional[Literal["FdmHullWhiteOp"]] = "FdmHullWhiteOp"
     mesher: FDMMESHER
     model: HullWhite
     direction: int
 
 
 class FdmLocalVolFwdOp(BaseModel):
+    resource_name: Optional[Literal["FdmLocalVolFwdOp"]] = "FdmLocalVolFwdOp"
     mesher: FDMMESHER
     spot: QUOTE
     rTS: YIELDTERMSTRUCTURE
@@ -3440,6 +4099,9 @@ class FdmLocalVolFwdOp(BaseModel):
 
 
 class FdmOrnsteinUhlenbeckOp(BaseModel):
+    resource_name: Optional[
+        Literal["FdmOrnsteinUhlenbeckOp"]
+    ] = "FdmOrnsteinUhlenbeckOp"
     mesher: FDMMESHER
     p: OrnsteinUhlenbeckProcess
     rTS: YIELDTERMSTRUCTURE
@@ -3447,6 +4109,7 @@ class FdmOrnsteinUhlenbeckOp(BaseModel):
 
 
 class FdmSabrOp(BaseModel):
+    resource_name: Optional[Literal["FdmSabrOp"]] = "FdmSabrOp"
     mesher: FDMMESHER
     rTS: YIELDTERMSTRUCTURE
     f0: float
@@ -3457,6 +4120,7 @@ class FdmSabrOp(BaseModel):
 
 
 class FdmZabrOp(BaseModel):
+    resource_name: Optional[Literal["FdmZabrOp"]] = "FdmZabrOp"
     mesher: FDMMESHER
     beta: float
     nu: float
@@ -3465,11 +4129,13 @@ class FdmZabrOp(BaseModel):
 
 
 class FdmDupire1dOp(BaseModel):
+    resource_name: Optional[Literal["FdmDupire1dOp"]] = "FdmDupire1dOp"
     mesher: FDMMESHER
     localVolatility: Array
 
 
 class FdmBlackScholesFwdOp(BaseModel):
+    resource_name: Optional[Literal["FdmBlackScholesFwdOp"]] = "FdmBlackScholesFwdOp"
     mesher: FDMMESHER
     process: GENERALIZEDBLACKSCHOLESPROCESS
     strike: float
@@ -3479,33 +4145,41 @@ class FdmBlackScholesFwdOp(BaseModel):
 
 
 class TripleBandLinearOp(BaseModel):
+    resource_name: Optional[Literal["TripleBandLinearOp"]] = "TripleBandLinearOp"
     direction: int
     mesher: FDMMESHER
 
 
 class FirstDerivativeOp(BaseModel):
+    resource_name: Optional[Literal["FirstDerivativeOp"]] = "FirstDerivativeOp"
     direction: int
     mesher: FDMMESHER
 
 
 class SecondDerivativeOp(BaseModel):
+    resource_name: Optional[Literal["SecondDerivativeOp"]] = "SecondDerivativeOp"
     direction: int
     mesher: FDMMESHER
 
 
 class NinePointLinearOp(BaseModel):
+    resource_name: Optional[Literal["NinePointLinearOp"]] = "NinePointLinearOp"
     d0: int
     d1: int
     mesher: FDMMESHER
 
 
 class SecondOrderMixedDerivativeOp(BaseModel):
+    resource_name: Optional[
+        Literal["SecondOrderMixedDerivativeOp"]
+    ] = "SecondOrderMixedDerivativeOp"
     d0: int
     d1: int
     mesher: FDMMESHER
 
 
 class NthOrderDerivativeOp(BaseModel):
+    resource_name: Optional[Literal["NthOrderDerivativeOp"]] = "NthOrderDerivativeOp"
     direction: int
     order: int
     nPoints: int
@@ -3513,42 +4187,59 @@ class NthOrderDerivativeOp(BaseModel):
 
 
 class FdmInnerValueCalculator(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FdmInnerValueCalculator"]
+    ] = "FdmInnerValueCalculator"
 
 
 class FdmCellAveragingInnerValue(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FdmCellAveragingInnerValue"]
+    ] = "FdmCellAveragingInnerValue"
 
 
 class FdmLogInnerValue(BaseModel):
+    resource_name: Optional[Literal["FdmLogInnerValue"]] = "FdmLogInnerValue"
     payoff: PAYOFF
     mesher: FDMMESHER
     direction: int
 
 
 class FdmLogBasketInnerValue(BaseModel):
+    resource_name: Optional[
+        Literal["FdmLogBasketInnerValue"]
+    ] = "FdmLogBasketInnerValue"
     payoff: BASKETPAYOFF
     mesher: FDMMESHER
 
 
 class FdmZeroInnerValue(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmZeroInnerValue"]] = "FdmZeroInnerValue"
 
 
 class FdmSnapshotCondition(BaseModel):
+    resource_name: Optional[Literal["FdmSnapshotCondition"]] = "FdmSnapshotCondition"
     t: float
 
 
 class FdmStepConditionComposite(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FdmStepConditionComposite"]
+    ] = "FdmStepConditionComposite"
 
 
 class FdmAmericanStepCondition(BaseModel):
+    resource_name: Optional[
+        Literal["FdmAmericanStepCondition"]
+    ] = "FdmAmericanStepCondition"
     mesher: FDMMESHER
     calculator: FDMINNERVALUECALCULATOR
 
 
 class FdmArithmeticAverageCondition(BaseModel):
+    resource_name: Optional[
+        Literal["FdmArithmeticAverageCondition"]
+    ] = "FdmArithmeticAverageCondition"
     averageTimes: List[float]
     real: float
     pastFixings: int
@@ -3557,6 +4248,9 @@ class FdmArithmeticAverageCondition(BaseModel):
 
 
 class FdmBermudanStepCondition(BaseModel):
+    resource_name: Optional[
+        Literal["FdmBermudanStepCondition"]
+    ] = "FdmBermudanStepCondition"
     exerciseDates: List[Date]
     referenceDate: Date
     dayCounter: DAYCOUNTER
@@ -3565,6 +4259,9 @@ class FdmBermudanStepCondition(BaseModel):
 
 
 class FdmSimpleStorageCondition(BaseModel):
+    resource_name: Optional[
+        Literal["FdmSimpleStorageCondition"]
+    ] = "FdmSimpleStorageCondition"
     exerciseTimes: List[float]
     mesher: FDMMESHER
     calculator: FDMINNERVALUECALCULATOR
@@ -3572,6 +4269,9 @@ class FdmSimpleStorageCondition(BaseModel):
 
 
 class FdmSimpleSwingCondition(BaseModel):
+    resource_name: Optional[
+        Literal["FdmSimpleSwingCondition"]
+    ] = "FdmSimpleSwingCondition"
     exerciseTimes: List[float]
     mesher: FDMMESHER
     calculator: FDMINNERVALUECALCULATOR
@@ -3580,6 +4280,7 @@ class FdmSimpleSwingCondition(BaseModel):
 
 
 class FdmDividendHandler(BaseModel):
+    resource_name: Optional[Literal["FdmDividendHandler"]] = "FdmDividendHandler"
     schedule: List[DIVIDEND]
     mesher: FDMMESHER
     referenceDate: Date
@@ -3588,54 +4289,65 @@ class FdmDividendHandler(BaseModel):
 
 
 class FdmSolverDesc(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmSolverDesc"]] = "FdmSolverDesc"
 
 
 class Fdm2dBlackScholesSolver(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["Fdm2dBlackScholesSolver"]
+    ] = "Fdm2dBlackScholesSolver"
 
 
 class FdmG2Solver(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmG2Solver"]] = "FdmG2Solver"
 
 
 class FdmHestonHullWhiteSolver(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["FdmHestonHullWhiteSolver"]
+    ] = "FdmHestonHullWhiteSolver"
 
 
 class FdmHestonSolver(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmHestonSolver"]] = "FdmHestonSolver"
 
 
 class FdmHullWhiteSolver(BaseModel):
-    pass
+    resource_name: Optional[Literal["FdmHullWhiteSolver"]] = "FdmHullWhiteSolver"
 
 
 class RiskNeutralDensityCalculator(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["RiskNeutralDensityCalculator"]
+    ] = "RiskNeutralDensityCalculator"
 
 
 class BSMRNDCalculator(BaseModel):
+    resource_name: Optional[Literal["BSMRNDCalculator"]] = "BSMRNDCalculator"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class CEVRNDCalculator(BaseModel):
+    resource_name: Optional[Literal["CEVRNDCalculator"]] = "CEVRNDCalculator"
     f0: float
     alpha: float
     beta: float
 
 
 class GBSMRNDCalculator(BaseModel):
+    resource_name: Optional[Literal["GBSMRNDCalculator"]] = "GBSMRNDCalculator"
     process: GENERALIZEDBLACKSCHOLESPROCESS
 
 
 class HestonRNDCalculator(BaseModel):
+    resource_name: Optional[Literal["HestonRNDCalculator"]] = "HestonRNDCalculator"
     hestonProcess: HESTONPROCESS
     integrationEps: Optional[float] = None
     maxIntegrationIterations: Optional[int] = None
 
 
 class LocalVolRNDCalculator(BaseModel):
+    resource_name: Optional[Literal["LocalVolRNDCalculator"]] = "LocalVolRNDCalculator"
     spot: QUOTE
     rTS: YIELDTERMSTRUCTURE
     qTS: YIELDTERMSTRUCTURE
@@ -3649,6 +4361,9 @@ class LocalVolRNDCalculator(BaseModel):
 
 
 class SquareRootProcessRNDCalculator(BaseModel):
+    resource_name: Optional[
+        Literal["SquareRootProcessRNDCalculator"]
+    ] = "SquareRootProcessRNDCalculator"
     v0: float
     kappa: float
     theta: float
@@ -3656,47 +4371,57 @@ class SquareRootProcessRNDCalculator(BaseModel):
 
 
 class FittingMethod(BaseModel):
-    pass
+    resource_name: Optional[Literal["FittingMethod"]] = "FittingMethod"
 
 
 class ExponentialSplinesFitting(BaseModel):
+    resource_name: Optional[
+        Literal["ExponentialSplinesFitting"]
+    ] = "ExponentialSplinesFitting"
     constrainAtZero: Optional[bool] = None
     weights: Optional[Array] = None
 
 
 class NelsonSiegelFitting(BaseModel):
+    resource_name: Optional[Literal["NelsonSiegelFitting"]] = "NelsonSiegelFitting"
     weights: Optional[Array] = None
 
 
 class SvenssonFitting(BaseModel):
+    resource_name: Optional[Literal["SvenssonFitting"]] = "SvenssonFitting"
     weights: Optional[Array] = None
 
 
 class CubicBSplinesFitting(BaseModel):
+    resource_name: Optional[Literal["CubicBSplinesFitting"]] = "CubicBSplinesFitting"
     knotVector: List[float]
     constrainAtZero: Optional[bool] = None
     weights: Optional[Array] = None
 
 
 class SimplePolynomialFitting(BaseModel):
+    resource_name: Optional[
+        Literal["SimplePolynomialFitting"]
+    ] = "SimplePolynomialFitting"
     degree: float
     constrainAtZero: Optional[bool] = None
     weights: Optional[Array] = None
 
 
 class Forward(BaseModel):
-    pass
+    resource_name: Optional[Literal["Forward"]] = "Forward"
 
 
 class Position(BaseModel):
-    pass
+    resource_name: Optional[Literal["Position"]] = "Position"
 
 
 class Gaussian1dModel(BaseModel):
-    pass
+    resource_name: Optional[Literal["Gaussian1dModel"]] = "Gaussian1dModel"
 
 
 class Gsr(BaseModel):
+    resource_name: Optional[Literal["Gsr"]] = "Gsr"
     termStructure: YieldTermStructureHandle
     volstepdates: List[Date]
     volatilities: List[QuoteHandle]
@@ -3705,6 +4430,9 @@ class Gsr(BaseModel):
 
 
 class MarkovFunctionalModelSettings(BaseModel):
+    resource_name: Optional[
+        Literal["MarkovFunctionalModelSettings"]
+    ] = "MarkovFunctionalModelSettings"
     yGridPoints: Optional[int] = None
     yStdDevs: Optional[float] = None
     gaussHermitePoints: Optional[int] = None
@@ -3717,30 +4445,40 @@ class MarkovFunctionalModelSettings(BaseModel):
 
 
 class Gaussian1dJamshidianSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["Gaussian1dJamshidianSwaptionEngine"]
+    ] = "Gaussian1dJamshidianSwaptionEngine"
     model: GAUSSIAN1DMODEL
 
 
 class SegmentIntegral(BaseModel):
+    resource_name: Optional[Literal["SegmentIntegral"]] = "SegmentIntegral"
     intervals: int
 
 
 class SimpsonIntegral(BaseModel):
+    resource_name: Optional[Literal["SimpsonIntegral"]] = "SimpsonIntegral"
     accuracy: float
     maxIterations: int
 
 
 class GaussKronrodAdaptive(BaseModel):
+    resource_name: Optional[Literal["GaussKronrodAdaptive"]] = "GaussKronrodAdaptive"
     tolerance: float
     maxFunctionEvaluations: Optional[int] = None
 
 
 class GaussKronrodNonAdaptive(BaseModel):
+    resource_name: Optional[
+        Literal["GaussKronrodNonAdaptive"]
+    ] = "GaussKronrodNonAdaptive"
     absoluteAccuracy: float
     maxEvaluations: int
     relativeAccuracy: float
 
 
 class GaussLobattoIntegral(BaseModel):
+    resource_name: Optional[Literal["GaussLobattoIntegral"]] = "GaussLobattoIntegral"
     maxIterations: int
     absAccuracy: float
     relAccuracy: Optional[float] = None
@@ -3748,63 +4486,99 @@ class GaussLobattoIntegral(BaseModel):
 
 
 class GaussLaguerreIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussLaguerreIntegration"]
+    ] = "GaussLaguerreIntegration"
     n: int
     s: Optional[float] = None
 
 
 class GaussHermiteIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussHermiteIntegration"]
+    ] = "GaussHermiteIntegration"
     n: int
     mu: Optional[float] = None
 
 
 class GaussJacobiIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussJacobiIntegration"]
+    ] = "GaussJacobiIntegration"
     n: int
     alpha: float
     beta: float
 
 
 class GaussHyperbolicIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussHyperbolicIntegration"]
+    ] = "GaussHyperbolicIntegration"
     n: int
 
 
 class GaussLegendreIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussLegendreIntegration"]
+    ] = "GaussLegendreIntegration"
     n: int
 
 
 class GaussChebyshevIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussChebyshevIntegration"]
+    ] = "GaussChebyshevIntegration"
     n: int
 
 
 class GaussChebyshev2ndIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussChebyshev2ndIntegration"]
+    ] = "GaussChebyshev2ndIntegration"
     n: int
 
 
 class GaussGegenbauerIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["GaussGegenbauerIntegration"]
+    ] = "GaussGegenbauerIntegration"
     n: int
     lambda_: float = Field(..., alias="lambda")
 
 
 class LecuyerUniformRng(BaseModel):
+    resource_name: Optional[Literal["LecuyerUniformRng"]] = "LecuyerUniformRng"
     seed: Optional[int] = None
 
 
 class KnuthUniformRng(BaseModel):
+    resource_name: Optional[Literal["KnuthUniformRng"]] = "KnuthUniformRng"
     seed: Optional[int] = None
 
 
 class MersenneTwisterUniformRng(BaseModel):
+    resource_name: Optional[
+        Literal["MersenneTwisterUniformRng"]
+    ] = "MersenneTwisterUniformRng"
     seed: Optional[int] = None
 
 
 class UniformRandomGenerator(BaseModel):
+    resource_name: Optional[
+        Literal["UniformRandomGenerator"]
+    ] = "UniformRandomGenerator"
     seed: Optional[int] = None
 
 
 class GaussianRandomGenerator(BaseModel):
+    resource_name: Optional[
+        Literal["GaussianRandomGenerator"]
+    ] = "GaussianRandomGenerator"
     rng: UniformRandomGenerator
 
 
 class HaltonRsg(BaseModel):
+    resource_name: Optional[Literal["HaltonRsg"]] = "HaltonRsg"
     dimensionality: int
     seed: Optional[int] = None
     randomStart: Optional[bool] = None
@@ -3812,125 +4586,162 @@ class HaltonRsg(BaseModel):
 
 
 class SobolBrownianBridgeRsg(BaseModel):
+    resource_name: Optional[
+        Literal["SobolBrownianBridgeRsg"]
+    ] = "SobolBrownianBridgeRsg"
     factors: int
     steps: int
 
 
 class UniformRandomSequenceGenerator(BaseModel):
+    resource_name: Optional[
+        Literal["UniformRandomSequenceGenerator"]
+    ] = "UniformRandomSequenceGenerator"
     dimensionality: int
     rng: UniformRandomGenerator
 
 
 class GaussianRandomSequenceGenerator(BaseModel):
+    resource_name: Optional[
+        Literal["GaussianRandomSequenceGenerator"]
+    ] = "GaussianRandomSequenceGenerator"
     uniformSequenceGenerator: UniformRandomSequenceGenerator
 
 
 class Path(BaseModel):
-    pass
+    resource_name: Optional[Literal["Path"]] = "Path"
 
 
 class MultiPath(BaseModel):
-    pass
+    resource_name: Optional[Literal["MultiPath"]] = "MultiPath"
 
 
 class GaussianMultiPathGenerator(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["GaussianMultiPathGenerator"]
+    ] = "GaussianMultiPathGenerator"
 
 
 class BrownianBridge(BaseModel):
+    resource_name: Optional[Literal["BrownianBridge"]] = "BrownianBridge"
     steps: int
 
 
 class DefaultBoundaryCondition(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["DefaultBoundaryCondition"]
+    ] = "DefaultBoundaryCondition"
 
 
 class TridiagonalOperator(BaseModel):
+    resource_name: Optional[Literal["TridiagonalOperator"]] = "TridiagonalOperator"
     low: Array
     mid: Array
     high: Array
 
 
 class DPlus(BaseModel):
+    resource_name: Optional[Literal["DPlus"]] = "DPlus"
     gridPoints: int
     h: float
 
 
 class DMinus(BaseModel):
+    resource_name: Optional[Literal["DMinus"]] = "DMinus"
     gridPoints: int
     h: float
 
 
 class DZero(BaseModel):
+    resource_name: Optional[Literal["DZero"]] = "DZero"
     gridPoints: int
     h: float
 
 
 class DPlusDMinus(BaseModel):
+    resource_name: Optional[Literal["DPlusDMinus"]] = "DPlusDMinus"
     gridPoints: int
     h: float
 
 
 class SampledCurve(BaseModel):
+    resource_name: Optional[Literal["SampledCurve"]] = "SampledCurve"
     value: Optional[Array] = None
 
 
 class HestonSLVProcess(BaseModel):
+    resource_name: Optional[Literal["HestonSLVProcess"]] = "HestonSLVProcess"
     hestonProcess: HESTONPROCESS
     leverageFct: LOCALVOLTERMSTRUCTURE
 
 
 class BrownianGeneratorFactory(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["BrownianGeneratorFactory"]
+    ] = "BrownianGeneratorFactory"
 
 
 class MTBrownianGeneratorFactory(BaseModel):
+    resource_name: Optional[
+        Literal["MTBrownianGeneratorFactory"]
+    ] = "MTBrownianGeneratorFactory"
     seed: Optional[int] = None
 
 
 class SobolBrownianGenerator(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["SobolBrownianGenerator"]
+    ] = "SobolBrownianGenerator"
 
 
 class HestonSLVMCModel(BaseModel):
-    pass
+    resource_name: Optional[Literal["HestonSLVMCModel"]] = "HestonSLVMCModel"
 
 
 class FdmHestonGreensFct(BaseModel):
+    resource_name: Optional[Literal["FdmHestonGreensFct"]] = "FdmHestonGreensFct"
     Gaussian = 1
     SemiAnalytical = 2
     ZeroCorrelation = 0
 
 
 class HestonSLVFokkerPlanckFdmParams(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["HestonSLVFokkerPlanckFdmParams"]
+    ] = "HestonSLVFokkerPlanckFdmParams"
 
 
 class HestonSLVFDMModel(BaseModel):
-    pass
+    resource_name: Optional[Literal["HestonSLVFDMModel"]] = "HestonSLVFDMModel"
 
 
 class Statistics(BaseModel):
-    pass
+    resource_name: Optional[Literal["Statistics"]] = "Statistics"
 
 
 class IncrementalStatistics(BaseModel):
-    pass
+    resource_name: Optional[Literal["IncrementalStatistics"]] = "IncrementalStatistics"
 
 
 class RiskStatistics(BaseModel):
-    pass
+    resource_name: Optional[Literal["RiskStatistics"]] = "RiskStatistics"
 
 
 class CapFloorTermVolatilityStructure(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["CapFloorTermVolatilityStructure"]
+    ] = "CapFloorTermVolatilityStructure"
 
 
 class CapFloorTermVolatilityStructureHandle(BaseModel):
+    resource_name: Optional[
+        Literal["CapFloorTermVolatilityStructureHandle"]
+    ] = "CapFloorTermVolatilityStructureHandle"
     value: Optional[CAPFLOORTERMVOLATILITYSTRUCTURE] = None
 
 
 class CapFloorTermVolCurve(BaseModel):
+    resource_name: Optional[Literal["CapFloorTermVolCurve"]] = "CapFloorTermVolCurve"
     settlementDays: float
     calendar: CALENDAR
     bdc: enums.BusinessDayConvention
@@ -3940,6 +4751,9 @@ class CapFloorTermVolCurve(BaseModel):
 
 
 class CapFloorTermVolSurface(BaseModel):
+    resource_name: Optional[
+        Literal["CapFloorTermVolSurface"]
+    ] = "CapFloorTermVolSurface"
     settlementDays: float
     calendar: CALENDAR
     bdc: enums.BusinessDayConvention
@@ -3950,18 +4764,22 @@ class CapFloorTermVolSurface(BaseModel):
 
 
 class StrippedOptionletBase(BaseModel):
-    pass
+    resource_name: Optional[Literal["StrippedOptionletBase"]] = "StrippedOptionletBase"
 
 
 class StrippedOptionletAdapter(BaseModel):
+    resource_name: Optional[
+        Literal["StrippedOptionletAdapter"]
+    ] = "StrippedOptionletAdapter"
     value: STRIPPEDOPTIONLETBASE
 
 
 class Settlement(BaseModel):
-    pass
+    resource_name: Optional[Literal["Settlement"]] = "Settlement"
 
 
 class BlackSwaptionEngine(BaseModel):
+    resource_name: Optional[Literal["BlackSwaptionEngine"]] = "BlackSwaptionEngine"
     discountCurve: YieldTermStructureHandle
     vol: QuoteHandle
     dc: Optional[DAYCOUNTER] = None
@@ -3969,43 +4787,54 @@ class BlackSwaptionEngine(BaseModel):
 
 
 class BachelierSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["BachelierSwaptionEngine"]
+    ] = "BachelierSwaptionEngine"
     discountCurve: YieldTermStructureHandle
     vol: QuoteHandle
     dc: Optional[DAYCOUNTER] = None
 
 
 class ConstantEstimator(BaseModel):
+    resource_name: Optional[Literal["ConstantEstimator"]] = "ConstantEstimator"
     size: int
 
 
 class ParkinsonSigma(BaseModel):
+    resource_name: Optional[Literal["ParkinsonSigma"]] = "ParkinsonSigma"
     yearFraction: float
 
 
 class GarmanKlassSigma1(BaseModel):
+    resource_name: Optional[Literal["GarmanKlassSigma1"]] = "GarmanKlassSigma1"
     yearFraction: float
     marketOpenFraction: float
 
 
 class GarmanKlassSigma3(BaseModel):
+    resource_name: Optional[Literal["GarmanKlassSigma3"]] = "GarmanKlassSigma3"
     yearFraction: float
     marketOpenFraction: float
 
 
 class GarmanKlassSigma4(BaseModel):
+    resource_name: Optional[Literal["GarmanKlassSigma4"]] = "GarmanKlassSigma4"
     yearFraction: float
 
 
 class GarmanKlassSigma5(BaseModel):
+    resource_name: Optional[Literal["GarmanKlassSigma5"]] = "GarmanKlassSigma5"
     yearFraction: float
 
 
 class GarmanKlassSigma6(BaseModel):
+    resource_name: Optional[Literal["GarmanKlassSigma6"]] = "GarmanKlassSigma6"
     yearFraction: float
     marketOpenFraction: float
 
 
 class ZeroCurve(BaseModel):
+    resource_name: Optional[Literal["ZeroCurve"]] = "ZeroCurve"
     dates: List[Date]
     yields: List[float]
     dayCounter: DAYCOUNTER
@@ -4016,6 +4845,9 @@ class ZeroCurve(BaseModel):
 
 
 class LogLinearInterpolatedZeroCurve(BaseModel):
+    resource_name: Optional[
+        Literal["LogLinearInterpolatedZeroCurve"]
+    ] = "LogLinearInterpolatedZeroCurve"
     dates: List[Date]
     yields: List[float]
     dayCounter: DAYCOUNTER
@@ -4026,6 +4858,9 @@ class LogLinearInterpolatedZeroCurve(BaseModel):
 
 
 class CubicInterpolatedZeroCurve(BaseModel):
+    resource_name: Optional[
+        Literal["CubicInterpolatedZeroCurve"]
+    ] = "CubicInterpolatedZeroCurve"
     dates: List[Date]
     yields: List[float]
     dayCounter: DAYCOUNTER
@@ -4036,6 +4871,9 @@ class CubicInterpolatedZeroCurve(BaseModel):
 
 
 class SplineCubicInterpolatedZeroCurve(BaseModel):
+    resource_name: Optional[
+        Literal["SplineCubicInterpolatedZeroCurve"]
+    ] = "SplineCubicInterpolatedZeroCurve"
     dates: List[Date]
     yields: List[float]
     dayCounter: DAYCOUNTER
@@ -4046,6 +4884,9 @@ class SplineCubicInterpolatedZeroCurve(BaseModel):
 
 
 class DefaultLogCubicInterpolatedZeroCurve(BaseModel):
+    resource_name: Optional[
+        Literal["DefaultLogCubicInterpolatedZeroCurve"]
+    ] = "DefaultLogCubicInterpolatedZeroCurve"
     dates: List[Date]
     yields: List[float]
     dayCounter: DAYCOUNTER
@@ -4056,6 +4897,9 @@ class DefaultLogCubicInterpolatedZeroCurve(BaseModel):
 
 
 class MonotonicCubicInterpolatedZeroCurve(BaseModel):
+    resource_name: Optional[
+        Literal["MonotonicCubicInterpolatedZeroCurve"]
+    ] = "MonotonicCubicInterpolatedZeroCurve"
     dates: List[Date]
     yields: List[float]
     dayCounter: DAYCOUNTER
@@ -4066,6 +4910,9 @@ class MonotonicCubicInterpolatedZeroCurve(BaseModel):
 
 
 class Gaussian1dNonstandardSwaptionEngineProbabilities(BaseModel):
+    resource_name: Optional[
+        Literal["Gaussian1dNonstandardSwaptionEngineProbabilities"]
+    ] = "Gaussian1dNonstandardSwaptionEngineProbabilities"
     Digital = 2
     Naive = 1
     NoProb = 0
@@ -4084,6 +4931,9 @@ class GaussianQuadrature(BaseModel):
 
 
 class FdmBoundaryConditionSet(BaseModel):
+    resource_name: Optional[
+        Literal["FdmBoundaryConditionSet"]
+    ] = "FdmBoundaryConditionSet"
     Lower = 2
     NoSide = 0
     Upper = 1
@@ -4094,6 +4944,9 @@ class FdmDiscountDirichletBoundarySide(BaseModel):
 
 
 class DefaultBoundaryConditionSide(BaseModel):
+    resource_name: Optional[
+        Literal["DefaultBoundaryConditionSide"]
+    ] = "DefaultBoundaryConditionSide"
     Lower = 2
     NoSide = 0
     Upper = 1
@@ -4132,10 +4985,12 @@ class AnalyticPTDHestonEngineIntegration(BaseModel):
 
 
 class Exercise(BaseModel):
+    resource_name: Optional[Literal["Exercise"]] = "Exercise"
     type: enums.ExerciseType
 
 
 class RebatedExercise(BaseModel):
+    resource_name: Optional[Literal["RebatedExercise"]] = "RebatedExercise"
     exercise: EXERCISE
     rebates: List[float]
     rebateSettlementDays: Optional[float] = None
@@ -4144,6 +4999,7 @@ class RebatedExercise(BaseModel):
 
 
 class JointCalendar(BaseModel):
+    resource_name: Optional[Literal["JointCalendar"]] = "JointCalendar"
     arg_0: CALENDAR
     arg_1: CALENDAR
     arg_2: CALENDAR
@@ -4152,19 +5008,25 @@ class JointCalendar(BaseModel):
 
 
 class Actual365Fixed(BaseModel):
+    resource_name: Optional[Literal["Actual365Fixed"]] = "Actual365Fixed"
     c: Optional[enums.Actual365FixedConvention] = None
 
 
 class Thirty360(BaseModel):
+    resource_name: Optional[Literal["Thirty360"]] = "Thirty360"
     c: Optional[enums.Thirty360Convention] = None
 
 
 class ActualActual(BaseModel):
+    resource_name: Optional[Literal["ActualActual"]] = "ActualActual"
     c: Optional[enums.ActualActualConvention] = None
     schedule: Optional[Schedule] = None
 
 
 class GaussianSimulatedAnnealing(BaseModel):
+    resource_name: Optional[
+        Literal["GaussianSimulatedAnnealing"]
+    ] = "GaussianSimulatedAnnealing"
     sampler: SamplerGaussian
     probability: ProbabilityBoltzmannDownhill
     temperature: TemperatureExponential
@@ -4177,6 +5039,9 @@ class GaussianSimulatedAnnealing(BaseModel):
 
 
 class MirrorGaussianSimulatedAnnealing(BaseModel):
+    resource_name: Optional[
+        Literal["MirrorGaussianSimulatedAnnealing"]
+    ] = "MirrorGaussianSimulatedAnnealing"
     sampler: SamplerMirrorGaussian
     probability: ProbabilityBoltzmannDownhill
     temperature: TemperatureExponential
@@ -4189,6 +5054,9 @@ class MirrorGaussianSimulatedAnnealing(BaseModel):
 
 
 class LogNormalSimulatedAnnealing(BaseModel):
+    resource_name: Optional[
+        Literal["LogNormalSimulatedAnnealing"]
+    ] = "LogNormalSimulatedAnnealing"
     sampler: SamplerLogNormal
     probability: ProbabilityBoltzmannDownhill
     temperature: TemperatureExponential
@@ -4201,6 +5069,9 @@ class LogNormalSimulatedAnnealing(BaseModel):
 
 
 class ConstantOptionletVolatility(BaseModel):
+    resource_name: Optional[
+        Literal["ConstantOptionletVolatility"]
+    ] = "ConstantOptionletVolatility"
     settlementDays: float
     cal: CALENDAR
     bdc: enums.BusinessDayConvention
@@ -4211,6 +5082,9 @@ class ConstantOptionletVolatility(BaseModel):
 
 
 class ConstantSwaptionVolatility(BaseModel):
+    resource_name: Optional[
+        Literal["ConstantSwaptionVolatility"]
+    ] = "ConstantSwaptionVolatility"
     referenceDate: Date
     cal: CALENDAR
     bdc: enums.BusinessDayConvention
@@ -4221,6 +5095,9 @@ class ConstantSwaptionVolatility(BaseModel):
 
 
 class SwaptionVolatilityMatrix(BaseModel):
+    resource_name: Optional[
+        Literal["SwaptionVolatilityMatrix"]
+    ] = "SwaptionVolatilityMatrix"
     calendar: CALENDAR
     bdc: enums.BusinessDayConvention
     optionTenors: List[Period]
@@ -4233,6 +5110,7 @@ class SwaptionVolatilityMatrix(BaseModel):
 
 
 class FlatSmileSection(BaseModel):
+    resource_name: Optional[Literal["FlatSmileSection"]] = "FlatSmileSection"
     exerciseTime: float
     vol: float
     dc: DAYCOUNTER
@@ -4242,6 +5120,9 @@ class FlatSmileSection(BaseModel):
 
 
 class AndreasenHugeVolatilityInterpl(BaseModel):
+    resource_name: Optional[
+        Literal["AndreasenHugeVolatilityInterpl"]
+    ] = "AndreasenHugeVolatilityInterpl"
     calibrationSet: AndreasenHugeVolatilityInterplCalibrationSet
     spot: QuoteHandle
     rTS: YieldTermStructureHandle
@@ -4258,15 +5139,22 @@ class AndreasenHugeVolatilityInterpl(BaseModel):
 
 
 class AndreasenHugeVolatilityAdapter(BaseModel):
+    resource_name: Optional[
+        Literal["AndreasenHugeVolatilityAdapter"]
+    ] = "AndreasenHugeVolatilityAdapter"
     volInterpl: AndreasenHugeVolatilityInterpl
     eps: Optional[float] = None
 
 
 class AndreasenHugeLocalVolAdapter(BaseModel):
+    resource_name: Optional[
+        Literal["AndreasenHugeLocalVolAdapter"]
+    ] = "AndreasenHugeLocalVolAdapter"
     localVol: AndreasenHugeVolatilityInterpl
 
 
 class CmsMarket(BaseModel):
+    resource_name: Optional[Literal["CmsMarket"]] = "CmsMarket"
     swapLengths: List[Period]
     swapIndexes: List[SWAPINDEX]
     iborIndex: IBORINDEX
@@ -4276,6 +5164,7 @@ class CmsMarket(BaseModel):
 
 
 class CmsMarketCalibration(BaseModel):
+    resource_name: Optional[Literal["CmsMarketCalibration"]] = "CmsMarketCalibration"
     volCube: SwaptionVolatilityStructureHandle
     cmsMarket: CmsMarket
     weights: Matrix
@@ -4283,6 +5172,7 @@ class CmsMarketCalibration(BaseModel):
 
 
 class ExtOUWithJumpsProcess(BaseModel):
+    resource_name: Optional[Literal["ExtOUWithJumpsProcess"]] = "ExtOUWithJumpsProcess"
     process: ExtendedOrnsteinUhlenbeckProcess
     Y0: float
     beta: float
@@ -4291,12 +5181,14 @@ class ExtOUWithJumpsProcess(BaseModel):
 
 
 class KlugeExtOUProcess(BaseModel):
+    resource_name: Optional[Literal["KlugeExtOUProcess"]] = "KlugeExtOUProcess"
     rho: float
     kluge: ExtOUWithJumpsProcess
     extOU: ExtendedOrnsteinUhlenbeckProcess
 
 
 class GJRGARCHProcess(BaseModel):
+    resource_name: Optional[Literal["GJRGARCHProcess"]] = "GJRGARCHProcess"
     riskFreeRate: YieldTermStructureHandle
     dividendYield: YieldTermStructureHandle
     s0: QuoteHandle
@@ -4311,12 +5203,14 @@ class GJRGARCHProcess(BaseModel):
 
 
 class AnalyticHaganPricer(BaseModel):
+    resource_name: Optional[Literal["AnalyticHaganPricer"]] = "AnalyticHaganPricer"
     v: SwaptionVolatilityStructureHandle
     model: enums.GFunctionFactoryYieldCurveModel
     meanReversion: QuoteHandle
 
 
 class NumericHaganPricer(BaseModel):
+    resource_name: Optional[Literal["NumericHaganPricer"]] = "NumericHaganPricer"
     v: SwaptionVolatilityStructureHandle
     model: enums.GFunctionFactoryYieldCurveModel
     meanReversion: QuoteHandle
@@ -4326,6 +5220,7 @@ class NumericHaganPricer(BaseModel):
 
 
 class LinearTsrPricer(BaseModel):
+    resource_name: Optional[Literal["LinearTsrPricer"]] = "LinearTsrPricer"
     swaptionVol: SwaptionVolatilityStructureHandle
     meanReversion: QuoteHandle
     couponDiscountCurve: Optional[YieldTermStructureHandle] = None
@@ -4333,6 +5228,9 @@ class LinearTsrPricer(BaseModel):
 
 
 class LognormalCmsSpreadPricer(BaseModel):
+    resource_name: Optional[
+        Literal["LognormalCmsSpreadPricer"]
+    ] = "LognormalCmsSpreadPricer"
     cmsPricer: CMSCOUPONPRICER
     correlation: QuoteHandle
     couponDiscountCurve: Optional[YieldTermStructureHandle] = None
@@ -4343,6 +5241,7 @@ class LognormalCmsSpreadPricer(BaseModel):
 
 
 class SwaptionHelper(BaseModel):
+    resource_name: Optional[Literal["SwaptionHelper"]] = "SwaptionHelper"
     exerciseDate: Date
     endDate: Date
     volatility: QuoteHandle
@@ -4359,6 +5258,7 @@ class SwaptionHelper(BaseModel):
 
 
 class CapHelper(BaseModel):
+    resource_name: Optional[Literal["CapHelper"]] = "CapHelper"
     length: Period
     volatility: QuoteHandle
     index: IBORINDEX
@@ -4372,6 +5272,7 @@ class CapHelper(BaseModel):
 
 
 class HestonModelHelper(BaseModel):
+    resource_name: Optional[Literal["HestonModelHelper"]] = "HestonModelHelper"
     maturity: Period
     calendar: CALENDAR
     s0: float
@@ -4383,16 +5284,19 @@ class HestonModelHelper(BaseModel):
 
 
 class VanillaOption(BaseModel):
+    resource_name: Optional[Literal["VanillaOption"]] = "VanillaOption"
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
 
 
 class EuropeanOption(BaseModel):
+    resource_name: Optional[Literal["EuropeanOption"]] = "EuropeanOption"
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
 
 
 class ForwardVanillaOption(BaseModel):
+    resource_name: Optional[Literal["ForwardVanillaOption"]] = "ForwardVanillaOption"
     moneyness: float
     resetDate: Date
     payoff: STRIKEDTYPEPAYOFF
@@ -4400,11 +5304,15 @@ class ForwardVanillaOption(BaseModel):
 
 
 class QuantoVanillaOption(BaseModel):
+    resource_name: Optional[Literal["QuantoVanillaOption"]] = "QuantoVanillaOption"
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
 
 
 class QuantoForwardVanillaOption(BaseModel):
+    resource_name: Optional[
+        Literal["QuantoForwardVanillaOption"]
+    ] = "QuantoForwardVanillaOption"
     moneyness: float
     resetDate: Date
     payoff: STRIKEDTYPEPAYOFF
@@ -4412,11 +5320,17 @@ class QuantoForwardVanillaOption(BaseModel):
 
 
 class AnalyticHestonEngineIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticHestonEngineIntegration"]
+    ] = "AnalyticHestonEngineIntegration"
     intAlgo: enums.AnalyticHestonEngineIntegrationAlgorithm
     quadrature: GaussianQuadrature
 
 
 class AnalyticPTDHestonEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticPTDHestonEngine"]
+    ] = "AnalyticPTDHestonEngine"
     model: PiecewiseTimeDependentHestonModel
     cpxLog: enums.AnalyticPTDHestonEngineComplexLogFormula
     itg: AnalyticPTDHestonEngineIntegration
@@ -4424,6 +5338,7 @@ class AnalyticPTDHestonEngine(BaseModel):
 
 
 class DividendVanillaOption(BaseModel):
+    resource_name: Optional[Literal["DividendVanillaOption"]] = "DividendVanillaOption"
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
     dividendDates: List[Date]
@@ -4431,6 +5346,7 @@ class DividendVanillaOption(BaseModel):
 
 
 class BarrierOption(BaseModel):
+    resource_name: Optional[Literal["BarrierOption"]] = "BarrierOption"
     barrierType: enums.BarrierType
     barrier: float
     rebate: float
@@ -4439,12 +5355,16 @@ class BarrierOption(BaseModel):
 
 
 class FdmSchemeDesc(BaseModel):
+    resource_name: Optional[Literal["FdmSchemeDesc"]] = "FdmSchemeDesc"
     type: enums.FdmSchemeDescFdmSchemeType
     theta: float
     mu: float
 
 
 class FdBlackScholesVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FdBlackScholesVanillaEngine"]
+    ] = "FdBlackScholesVanillaEngine"
     value: GENERALIZEDBLACKSCHOLESPROCESS
     quantoHelper: FdmQuantoHelper
     tGrid: Optional[int] = None
@@ -4459,6 +5379,9 @@ class FdBlackScholesVanillaEngine(BaseModel):
 
 
 class FdOrnsteinUhlenbeckVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FdOrnsteinUhlenbeckVanillaEngine"]
+    ] = "FdOrnsteinUhlenbeckVanillaEngine"
     value: OrnsteinUhlenbeckProcess
     rTS: YIELDTERMSTRUCTURE
     tGrid: Optional[int] = None
@@ -4469,6 +5392,7 @@ class FdOrnsteinUhlenbeckVanillaEngine(BaseModel):
 
 
 class FdBatesVanillaEngine(BaseModel):
+    resource_name: Optional[Literal["FdBatesVanillaEngine"]] = "FdBatesVanillaEngine"
     model: BatesModel
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -4478,6 +5402,7 @@ class FdBatesVanillaEngine(BaseModel):
 
 
 class FdHestonVanillaEngine(BaseModel):
+    resource_name: Optional[Literal["FdHestonVanillaEngine"]] = "FdHestonVanillaEngine"
     model: HESTONMODEL
     quantoHelper: FdmQuantoHelper
     tGrid: Optional[int] = None
@@ -4489,6 +5414,7 @@ class FdHestonVanillaEngine(BaseModel):
 
 
 class FdCEVVanillaEngine(BaseModel):
+    resource_name: Optional[Literal["FdCEVVanillaEngine"]] = "FdCEVVanillaEngine"
     f0: float
     alpha: float
     beta: float
@@ -4502,6 +5428,7 @@ class FdCEVVanillaEngine(BaseModel):
 
 
 class FdSabrVanillaEngine(BaseModel):
+    resource_name: Optional[Literal["FdSabrVanillaEngine"]] = "FdSabrVanillaEngine"
     f0: float
     alpha: float
     beta: float
@@ -4518,6 +5445,9 @@ class FdSabrVanillaEngine(BaseModel):
 
 
 class FdBlackScholesBarrierEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FdBlackScholesBarrierEngine"]
+    ] = "FdBlackScholesBarrierEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -4528,12 +5458,18 @@ class FdBlackScholesBarrierEngine(BaseModel):
 
 
 class ContinuousAveragingAsianOption(BaseModel):
+    resource_name: Optional[
+        Literal["ContinuousAveragingAsianOption"]
+    ] = "ContinuousAveragingAsianOption"
     averageType: enums.AverageType
     payoff: STRIKEDTYPEPAYOFF
     exercise: EXERCISE
 
 
 class DiscreteAveragingAsianOption(BaseModel):
+    resource_name: Optional[
+        Literal["DiscreteAveragingAsianOption"]
+    ] = "DiscreteAveragingAsianOption"
     averageType: enums.AverageType
     runningAccumulator: float
     pastFixings: int
@@ -4543,6 +5479,7 @@ class DiscreteAveragingAsianOption(BaseModel):
 
 
 class DoubleBarrierOption(BaseModel):
+    resource_name: Optional[Literal["DoubleBarrierOption"]] = "DoubleBarrierOption"
     barrierType: enums.DoubleBarrierType
     barrier_lo: float
     barrier_hi: float
@@ -4552,6 +5489,9 @@ class DoubleBarrierOption(BaseModel):
 
 
 class QuantoDoubleBarrierOption(BaseModel):
+    resource_name: Optional[
+        Literal["QuantoDoubleBarrierOption"]
+    ] = "QuantoDoubleBarrierOption"
     barrierType: enums.DoubleBarrierType
     barrier_lo: float
     barrier_hi: float
@@ -4561,6 +5501,7 @@ class QuantoDoubleBarrierOption(BaseModel):
 
 
 class DeltaVolQuote(BaseModel):
+    resource_name: Optional[Literal["DeltaVolQuote"]] = "DeltaVolQuote"
     delta: float
     vol: QuoteHandle
     maturity: float
@@ -4568,10 +5509,14 @@ class DeltaVolQuote(BaseModel):
 
 
 class DeltaVolQuoteHandle(BaseModel):
+    resource_name: Optional[Literal["DeltaVolQuoteHandle"]] = "DeltaVolQuoteHandle"
     value: Optional[DeltaVolQuote] = None
 
 
 class VannaVolgaBarrierEngine(BaseModel):
+    resource_name: Optional[
+        Literal["VannaVolgaBarrierEngine"]
+    ] = "VannaVolgaBarrierEngine"
     atmVol: DeltaVolQuoteHandle
     vol25Put: DeltaVolQuoteHandle
     vol25Call: DeltaVolQuoteHandle
@@ -4583,6 +5528,7 @@ class VannaVolgaBarrierEngine(BaseModel):
 
 
 class FdSimpleBSSwingEngine(BaseModel):
+    resource_name: Optional[Literal["FdSimpleBSSwingEngine"]] = "FdSimpleBSSwingEngine"
     process: GENERALIZEDBLACKSCHOLESPROCESS
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -4590,19 +5536,27 @@ class FdSimpleBSSwingEngine(BaseModel):
 
 
 class GJRGARCHModel(BaseModel):
+    resource_name: Optional[Literal["GJRGARCHModel"]] = "GJRGARCHModel"
     process: GJRGARCHProcess
 
 
 class AnalyticGJRGARCHEngine(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticGJRGARCHEngine"]
+    ] = "AnalyticGJRGARCHEngine"
     process: GJRGARCHModel
 
 
 class BasketOption(BaseModel):
+    resource_name: Optional[Literal["BasketOption"]] = "BasketOption"
     payoff: BASKETPAYOFF
     exercise: EXERCISE
 
 
 class Fd2dBlackScholesVanillaEngine(BaseModel):
+    resource_name: Optional[
+        Literal["Fd2dBlackScholesVanillaEngine"]
+    ] = "Fd2dBlackScholesVanillaEngine"
     p1: GENERALIZEDBLACKSCHOLESPROCESS
     p2: GENERALIZEDBLACKSCHOLESPROCESS
     correlation: float
@@ -4616,12 +5570,14 @@ class Fd2dBlackScholesVanillaEngine(BaseModel):
 
 
 class EverestOption(BaseModel):
+    resource_name: Optional[Literal["EverestOption"]] = "EverestOption"
     notional: float
     guarantee: float
     exercise: EXERCISE
 
 
 class BlackDeltaCalculator(BaseModel):
+    resource_name: Optional[Literal["BlackDeltaCalculator"]] = "BlackDeltaCalculator"
     ot: enums.OptionType
     dt: enums.DeltaVolQuoteDeltaType
     spot: float
@@ -4631,6 +5587,7 @@ class BlackDeltaCalculator(BaseModel):
 
 
 class OvernightIndexedSwap(BaseModel):
+    resource_name: Optional[Literal["OvernightIndexedSwap"]] = "OvernightIndexedSwap"
     type: enums.OvernightIndexedSwapType
     nominals: List[float]
     schedule: Schedule
@@ -4645,6 +5602,9 @@ class OvernightIndexedSwap(BaseModel):
 
 
 class ZeroCouponInflationSwap(BaseModel):
+    resource_name: Optional[
+        Literal["ZeroCouponInflationSwap"]
+    ] = "ZeroCouponInflationSwap"
     type: enums.ZeroCouponInflationSwapType
     nominal: float
     start: Date
@@ -4661,6 +5621,9 @@ class ZeroCouponInflationSwap(BaseModel):
 
 
 class YearOnYearInflationSwap(BaseModel):
+    resource_name: Optional[
+        Literal["YearOnYearInflationSwap"]
+    ] = "YearOnYearInflationSwap"
     type: enums.YearOnYearInflationSwapType
     nominal: float
     fixedSchedule: Schedule
@@ -4676,6 +5639,7 @@ class YearOnYearInflationSwap(BaseModel):
 
 
 class CPISwap(BaseModel):
+    resource_name: Optional[Literal["CPISwap"]] = "CPISwap"
     type: enums.CPISwapType
     nominal: float
     subtractInflationNominal: bool
@@ -4697,6 +5661,7 @@ class CPISwap(BaseModel):
 
 
 class FdG2SwaptionEngine(BaseModel):
+    resource_name: Optional[Literal["FdG2SwaptionEngine"]] = "FdG2SwaptionEngine"
     model: G2
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -4707,6 +5672,9 @@ class FdG2SwaptionEngine(BaseModel):
 
 
 class FdHullWhiteSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FdHullWhiteSwaptionEngine"]
+    ] = "FdHullWhiteSwaptionEngine"
     model: HullWhite
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -4716,6 +5684,7 @@ class FdHullWhiteSwaptionEngine(BaseModel):
 
 
 class Bond(BaseModel):
+    resource_name: Optional[Literal["Bond"]] = "Bond"
     settlementDays: float
     calendar: CALENDAR
     issueDate: Optional[Date] = None
@@ -4723,6 +5692,7 @@ class Bond(BaseModel):
 
 
 class CPIBond(BaseModel):
+    resource_name: Optional[Literal["CPIBond"]] = "CPIBond"
     settlementDays: float
     faceAmount: float
     growthOnly: bool
@@ -4743,6 +5713,9 @@ class CPIBond(BaseModel):
 
 
 class ConvertibleZeroCouponBond(BaseModel):
+    resource_name: Optional[
+        Literal["ConvertibleZeroCouponBond"]
+    ] = "ConvertibleZeroCouponBond"
     exercise: EXERCISE
     conversionRatio: float
     dividends: List[DIVIDEND]
@@ -4756,6 +5729,9 @@ class ConvertibleZeroCouponBond(BaseModel):
 
 
 class ConvertibleFixedCouponBond(BaseModel):
+    resource_name: Optional[
+        Literal["ConvertibleFixedCouponBond"]
+    ] = "ConvertibleFixedCouponBond"
     exercise: EXERCISE
     conversionRatio: float
     dividends: List[DIVIDEND]
@@ -4770,6 +5746,9 @@ class ConvertibleFixedCouponBond(BaseModel):
 
 
 class ConvertibleFloatingRateBond(BaseModel):
+    resource_name: Optional[
+        Literal["ConvertibleFloatingRateBond"]
+    ] = "ConvertibleFloatingRateBond"
     exercise: EXERCISE
     conversionRatio: float
     dividends: List[DIVIDEND]
@@ -4786,6 +5765,7 @@ class ConvertibleFloatingRateBond(BaseModel):
 
 
 class FraRateHelper(BaseModel):
+    resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
     rate: float
     immOffsetStart: float
     immOffsetEnd: float
@@ -4796,6 +5776,7 @@ class FraRateHelper(BaseModel):
 
 
 class FuturesRateHelper(BaseModel):
+    resource_name: Optional[Literal["FuturesRateHelper"]] = "FuturesRateHelper"
     price: float
     iborStartDate: Date
     index: IBORINDEX
@@ -4804,6 +5785,7 @@ class FuturesRateHelper(BaseModel):
 
 
 class SwapRateHelper(BaseModel):
+    resource_name: Optional[Literal["SwapRateHelper"]] = "SwapRateHelper"
     rate: float
     index: SWAPINDEX
     spread: Optional[QuoteHandle] = None
@@ -4814,12 +5796,14 @@ class SwapRateHelper(BaseModel):
 
 
 class BondHelper(BaseModel):
+    resource_name: Optional[Literal["BondHelper"]] = "BondHelper"
     cleanPrice: QuoteHandle
     bond: BOND
     useCleanPrice: Optional[bool] = None
 
 
 class OISRateHelper(BaseModel):
+    resource_name: Optional[Literal["OISRateHelper"]] = "OISRateHelper"
     settlementDays: float
     tenor: Period
     rate: QuoteHandle
@@ -4837,6 +5821,9 @@ class OISRateHelper(BaseModel):
 
 
 class OvernightIndexFutureRateHelper(BaseModel):
+    resource_name: Optional[
+        Literal["OvernightIndexFutureRateHelper"]
+    ] = "OvernightIndexFutureRateHelper"
     price: QuoteHandle
     valueDate: Date
     maturityDate: Date
@@ -4846,6 +5833,7 @@ class OvernightIndexFutureRateHelper(BaseModel):
 
 
 class SofrFutureRateHelper(BaseModel):
+    resource_name: Optional[Literal["SofrFutureRateHelper"]] = "SofrFutureRateHelper"
     price: float
     referenceMonth: conint(ge=1, le=12)  # type: ignore
     referenceYear: conint(ge=1900, le=2999)  # type: ignore
@@ -4856,10 +5844,12 @@ class SofrFutureRateHelper(BaseModel):
 
 
 class FaceValueAccrualClaim(BaseModel):
+    resource_name: Optional[Literal["FaceValueAccrualClaim"]] = "FaceValueAccrualClaim"
     bond: BOND
 
 
 class CreditDefaultSwap(BaseModel):
+    resource_name: Optional[Literal["CreditDefaultSwap"]] = "CreditDefaultSwap"
     side: enums.ProtectionSide
     notional: float
     upfront: float
@@ -4877,6 +5867,7 @@ class CreditDefaultSwap(BaseModel):
 
 
 class IsdaCdsEngine(BaseModel):
+    resource_name: Optional[Literal["IsdaCdsEngine"]] = "IsdaCdsEngine"
     probability: DefaultProbabilityTermStructureHandle
     recoveryRate: float
     discountCurve: YieldTermStructureHandle
@@ -4887,12 +5878,14 @@ class IsdaCdsEngine(BaseModel):
 
 
 class CdsOption(BaseModel):
+    resource_name: Optional[Literal["CdsOption"]] = "CdsOption"
     swap: CreditDefaultSwap
     exercise: EXERCISE
     knocksOut: Optional[bool] = None
 
 
 class FdmDirichletBoundary(BaseModel):
+    resource_name: Optional[Literal["FdmDirichletBoundary"]] = "FdmDirichletBoundary"
     mesher: FDMMESHER
     valueOnBoundary: float
     direction: int
@@ -4900,6 +5893,9 @@ class FdmDirichletBoundary(BaseModel):
 
 
 class FdmDiscountDirichletBoundary(BaseModel):
+    resource_name: Optional[
+        Literal["FdmDiscountDirichletBoundary"]
+    ] = "FdmDiscountDirichletBoundary"
     mesher: FDMMESHER
     rTS: YIELDTERMSTRUCTURE
     maturityTime: float
@@ -4909,6 +5905,7 @@ class FdmDiscountDirichletBoundary(BaseModel):
 
 
 class FdmBatesOp(BaseModel):
+    resource_name: Optional[Literal["FdmBatesOp"]] = "FdmBatesOp"
     mesher: FDMMESHER
     batesProcess: BatesProcess
     bcSet: FdmBoundaryConditionSet
@@ -4917,6 +5914,7 @@ class FdmBatesOp(BaseModel):
 
 
 class FdmSquareRootFwdOp(BaseModel):
+    resource_name: Optional[Literal["FdmSquareRootFwdOp"]] = "FdmSquareRootFwdOp"
     mesher: FDMMESHER
     kappa: float
     theta: float
@@ -4926,6 +5924,7 @@ class FdmSquareRootFwdOp(BaseModel):
 
 
 class FdmHestonFwdOp(BaseModel):
+    resource_name: Optional[Literal["FdmHestonFwdOp"]] = "FdmHestonFwdOp"
     mesher: FDMMESHER
     process: HESTONPROCESS
     type: Optional[enums.FdmSquareRootFwdOpTransformationType] = None
@@ -4933,6 +5932,7 @@ class FdmHestonFwdOp(BaseModel):
 
 
 class CraigSneydScheme(BaseModel):
+    resource_name: Optional[Literal["CraigSneydScheme"]] = "CraigSneydScheme"
     theta: float
     mu: float
     map: FDMLINEAROPCOMPOSITE
@@ -4940,6 +5940,7 @@ class CraigSneydScheme(BaseModel):
 
 
 class ImplicitEulerScheme(BaseModel):
+    resource_name: Optional[Literal["ImplicitEulerScheme"]] = "ImplicitEulerScheme"
     map: FDMLINEAROPCOMPOSITE
     bcSet: Optional[FdmBoundaryConditionSet] = None
     relTol: Optional[float] = None
@@ -4947,6 +5948,7 @@ class ImplicitEulerScheme(BaseModel):
 
 
 class CrankNicolsonScheme(BaseModel):
+    resource_name: Optional[Literal["CrankNicolsonScheme"]] = "CrankNicolsonScheme"
     theta: float
     map: FDMLINEAROPCOMPOSITE
     bcSet: Optional[FdmBoundaryConditionSet] = None
@@ -4955,17 +5957,20 @@ class CrankNicolsonScheme(BaseModel):
 
 
 class DouglasScheme(BaseModel):
+    resource_name: Optional[Literal["DouglasScheme"]] = "DouglasScheme"
     theta: float
     map: FDMLINEAROPCOMPOSITE
     bcSet: Optional[FdmBoundaryConditionSet] = None
 
 
 class ExplicitEulerScheme(BaseModel):
+    resource_name: Optional[Literal["ExplicitEulerScheme"]] = "ExplicitEulerScheme"
     map: FDMLINEAROPCOMPOSITE
     bcSet: Optional[FdmBoundaryConditionSet] = None
 
 
 class HundsdorferScheme(BaseModel):
+    resource_name: Optional[Literal["HundsdorferScheme"]] = "HundsdorferScheme"
     theta: float
     mu: float
     map: FDMLINEAROPCOMPOSITE
@@ -4973,6 +5978,7 @@ class HundsdorferScheme(BaseModel):
 
 
 class MethodOfLinesScheme(BaseModel):
+    resource_name: Optional[Literal["MethodOfLinesScheme"]] = "MethodOfLinesScheme"
     eps: float
     relInitStepSize: float
     map: FDMLINEAROPCOMPOSITE
@@ -4980,6 +5986,9 @@ class MethodOfLinesScheme(BaseModel):
 
 
 class ModifiedCraigSneydScheme(BaseModel):
+    resource_name: Optional[
+        Literal["ModifiedCraigSneydScheme"]
+    ] = "ModifiedCraigSneydScheme"
     theta: float
     mu: float
     map: FDMLINEAROPCOMPOSITE
@@ -4987,12 +5996,14 @@ class ModifiedCraigSneydScheme(BaseModel):
 
 
 class Fdm1DimSolver(BaseModel):
+    resource_name: Optional[Literal["Fdm1DimSolver"]] = "Fdm1DimSolver"
     solverDesc: FdmSolverDesc
     schemeDesc: FdmSchemeDesc
     op: FDMLINEAROPCOMPOSITE
 
 
 class FdmBackwardSolver(BaseModel):
+    resource_name: Optional[Literal["FdmBackwardSolver"]] = "FdmBackwardSolver"
     map: FDMLINEAROPCOMPOSITE
     bcSet: FdmBoundaryConditionSet
     condition: FdmStepConditionComposite
@@ -5000,24 +6011,30 @@ class FdmBackwardSolver(BaseModel):
 
 
 class Fdm2DimSolver(BaseModel):
+    resource_name: Optional[Literal["Fdm2DimSolver"]] = "Fdm2DimSolver"
     solverDesc: FdmSolverDesc
     schemeDesc: FdmSchemeDesc
     op: FDMLINEAROPCOMPOSITE
 
 
 class Fdm3DimSolver(BaseModel):
+    resource_name: Optional[Literal["Fdm3DimSolver"]] = "Fdm3DimSolver"
     solverDesc: FdmSolverDesc
     schemeDesc: FdmSchemeDesc
     op: FDMLINEAROPCOMPOSITE
 
 
 class FdmIndicesOnBoundary(BaseModel):
+    resource_name: Optional[Literal["FdmIndicesOnBoundary"]] = "FdmIndicesOnBoundary"
     l: FdmLinearOpLayout
     direction: int
     side: FdmDirichletBoundarySide
 
 
 class FittedBondDiscountCurve(BaseModel):
+    resource_name: Optional[
+        Literal["FittedBondDiscountCurve"]
+    ] = "FittedBondDiscountCurve"
     referenceDate: Date
     helpers: List[BONDHELPER]
     dayCounter: DAYCOUNTER
@@ -5029,6 +6046,7 @@ class FittedBondDiscountCurve(BaseModel):
 
 
 class FixedRateBondForward(BaseModel):
+    resource_name: Optional[Literal["FixedRateBondForward"]] = "FixedRateBondForward"
     valueDate: Date
     maturityDate: Date
     type: enums.PositionType
@@ -5043,6 +6061,7 @@ class FixedRateBondForward(BaseModel):
 
 
 class ForwardRateAgreement(BaseModel):
+    resource_name: Optional[Literal["ForwardRateAgreement"]] = "ForwardRateAgreement"
     valueDate: Date
     maturityDate: Date
     type: enums.PositionType
@@ -5054,6 +6073,7 @@ class ForwardRateAgreement(BaseModel):
 
 
 class MarkovFunctional(BaseModel):
+    resource_name: Optional[Literal["MarkovFunctional"]] = "MarkovFunctional"
     termStructure: YieldTermStructureHandle
     reversion: float
     volstepdates: List[Date]
@@ -5065,6 +6085,9 @@ class MarkovFunctional(BaseModel):
 
 
 class Gaussian1dSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["Gaussian1dSwaptionEngine"]
+    ] = "Gaussian1dSwaptionEngine"
     model: GAUSSIAN1DMODEL
     integrationPoints: Optional[int] = None
     stddevs: Optional[float] = None
@@ -5075,6 +6098,9 @@ class Gaussian1dSwaptionEngine(BaseModel):
 
 
 class Gaussian1dNonstandardSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["Gaussian1dNonstandardSwaptionEngine"]
+    ] = "Gaussian1dNonstandardSwaptionEngine"
     model: GAUSSIAN1DMODEL
     integrationPoints: Optional[int] = None
     stddevs: Optional[float] = None
@@ -5086,6 +6112,9 @@ class Gaussian1dNonstandardSwaptionEngine(BaseModel):
 
 
 class Gaussian1dFloatFloatSwaptionEngine(BaseModel):
+    resource_name: Optional[
+        Literal["Gaussian1dFloatFloatSwaptionEngine"]
+    ] = "Gaussian1dFloatFloatSwaptionEngine"
     model: GAUSSIAN1DMODEL
     integrationPoints: Optional[int] = None
     stddevs: Optional[float] = None
@@ -5100,38 +6129,51 @@ class Gaussian1dFloatFloatSwaptionEngine(BaseModel):
 
 
 class SobolRsg(BaseModel):
+    resource_name: Optional[Literal["SobolRsg"]] = "SobolRsg"
     dimensionality: int
     seed: Optional[int] = None
     directionIntegers: Optional[enums.SobolRsgDirectionIntegers] = None
 
 
 class UniformLowDiscrepancySequenceGenerator(BaseModel):
+    resource_name: Optional[
+        Literal["UniformLowDiscrepancySequenceGenerator"]
+    ] = "UniformLowDiscrepancySequenceGenerator"
     dimensionality: int
     seed: Optional[int] = None
     directionIntegers: Optional[enums.SobolRsgDirectionIntegers] = None
 
 
 class GaussianLowDiscrepancySequenceGenerator(BaseModel):
+    resource_name: Optional[
+        Literal["GaussianLowDiscrepancySequenceGenerator"]
+    ] = "GaussianLowDiscrepancySequenceGenerator"
     u: UniformLowDiscrepancySequenceGenerator
 
 
 class NeumannBC(BaseModel):
+    resource_name: Optional[Literal["NeumannBC"]] = "NeumannBC"
     value: float
     side: DefaultBoundaryConditionSide
 
 
 class DirichletBC(BaseModel):
+    resource_name: Optional[Literal["DirichletBC"]] = "DirichletBC"
     value: float
     side: DefaultBoundaryConditionSide
 
 
 class SobolBrownianGeneratorFactory(BaseModel):
+    resource_name: Optional[
+        Literal["SobolBrownianGeneratorFactory"]
+    ] = "SobolBrownianGeneratorFactory"
     ordering: enums.SobolBrownianGeneratorOrdering
     seed: Optional[int] = None
     directionIntegers: Optional[enums.SobolRsgDirectionIntegers] = None
 
 
 class FdHestonBarrierEngine(BaseModel):
+    resource_name: Optional[Literal["FdHestonBarrierEngine"]] = "FdHestonBarrierEngine"
     model: HESTONMODEL
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -5142,6 +6184,9 @@ class FdHestonBarrierEngine(BaseModel):
 
 
 class FdHestonDoubleBarrierEngine(BaseModel):
+    resource_name: Optional[
+        Literal["FdHestonDoubleBarrierEngine"]
+    ] = "FdHestonDoubleBarrierEngine"
     model: HESTONMODEL
     tGrid: Optional[int] = None
     xGrid: Optional[int] = None
@@ -5152,6 +6197,7 @@ class FdHestonDoubleBarrierEngine(BaseModel):
 
 
 class OptionletStripper1(BaseModel):
+    resource_name: Optional[Literal["OptionletStripper1"]] = "OptionletStripper1"
     parVolSurface: CapFloorTermVolSurface
     index: IBORINDEX
     switchStrikes: Optional[float] = None
@@ -5164,6 +6210,7 @@ class OptionletStripper1(BaseModel):
 
 
 class Swaption(BaseModel):
+    resource_name: Optional[Literal["Swaption"]] = "Swaption"
     swap: VanillaSwap
     exercise: EXERCISE
     type: Optional[enums.SettlementType] = None
@@ -5171,6 +6218,7 @@ class Swaption(BaseModel):
 
 
 class NonstandardSwaption(BaseModel):
+    resource_name: Optional[Literal["NonstandardSwaption"]] = "NonstandardSwaption"
     swap: NonstandardSwap
     exercise: EXERCISE
     type: Optional[enums.SettlementType] = None
@@ -5178,6 +6226,7 @@ class NonstandardSwaption(BaseModel):
 
 
 class FloatFloatSwaption(BaseModel):
+    resource_name: Optional[Literal["FloatFloatSwaption"]] = "FloatFloatSwaption"
     swap: FloatFloatSwap
     exercise: EXERCISE
     delivery: Optional[enums.SettlementType] = None
@@ -5185,16 +6234,20 @@ class FloatFloatSwaption(BaseModel):
 
 
 class AnalyticHestonEngineComplexLogFormula(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["AnalyticHestonEngineComplexLogFormula"]
+    ] = "AnalyticHestonEngineComplexLogFormula"
 
 
 class HestonBlackVolSurface(BaseModel):
+    resource_name: Optional[Literal["HestonBlackVolSurface"]] = "HestonBlackVolSurface"
     hestonModel: HestonModelHandle
     cpxLogFormula: Optional[AnalyticHestonEngineComplexLogFormula] = None
     integration: Optional[AnalyticHestonEngineIntegration] = None
 
 
 class AnalyticHestonEngine(BaseModel):
+    resource_name: Optional[Literal["AnalyticHestonEngine"]] = "AnalyticHestonEngine"
     model: HESTONMODEL
     cpxLog: AnalyticHestonEngineComplexLogFormula
     itg: AnalyticHestonEngineIntegration
@@ -5202,6 +6255,7 @@ class AnalyticHestonEngine(BaseModel):
 
 
 class AssetSwap(BaseModel):
+    resource_name: Optional[Literal["AssetSwap"]] = "AssetSwap"
     payFixedRate: bool
     bond: BOND
     bondCleanPrice: float
@@ -5213,11 +6267,13 @@ class AssetSwap(BaseModel):
 
 
 class ExtendedOrnsteinUhlenbeckProcess(BaseModel):
-    pass
+    resource_name: Optional[
+        Literal["ExtendedOrnsteinUhlenbeckProcess"]
+    ] = "ExtendedOrnsteinUhlenbeckProcess"
 
 
 class YoYInflationCapFloor(BaseModel):
-    pass
+    resource_name: Optional[Literal["YoYInflationCapFloor"]] = "YoYInflationCapFloor"
 
 
 CashFlows.update_forward_refs()
