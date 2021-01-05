@@ -14,52 +14,32 @@ import QuantLib as ql
 import pydantic_quantlib as pql
 
 # global data
-todays_date = pql.Date(d=15, m=pql.enums.Months.May.value, y=1998)
-settlement_date = pql.Date(d=17, m=pql.enums.Months.May.value, y=1998)
+todays_date = pql.Date(d=4, m=1, y=2021)
+settlement_date = pql.Date(d=6, m=1, y=2021)
+
+# options parameters
+option_type = pql.enums.OptionType.Put
+maturity = pql.Date(d=4, m=1, y=2022)
+daycounter = pql.Actual365Fixed()
+
 
 risk_free_rate = pql.FlatForward(
-    referenceDate=settlement_date, forward=0.06, dayCounter=pql.Actual365Fixed()
+    referenceDate=settlement_date, forward=0.06, dayCounter=daycounter
 )
 
 # option parameters
-exercise = pql.AmericanExercise(
-    earliestDate=settlement_date,
-    latestDate=pql.Date(d=17, m=pql.enums.Months.May.value, y=1999),
-)
-payoff = pql.PlainVanillaPayoff(type=pql.enums.OptionType.Put, strike=40.0)
+exercise = pql.AmericanExercise(earliestDate=settlement_date, latestDate=maturity,)
+payoff = pql.PlainVanillaPayoff(type=pql.enums.OptionType.Put, strike=40)
 
 # market data
-underlying = pql.SimpleQuote(value=36.0)
+underlying = pql.SimpleQuote(value=36)
 volatility = pql.BlackConstantVol(
-    referenceDate=todays_date,
-    c=pql.UnitedStates(),
-    volatility=0.20,
-    dayCounter=pql.Actual365Fixed(),
+    referenceDate=todays_date, c=pql.TARGET(), volatility=0.20, dayCounter=daycounter,
 )
 dividend_yield = pql.FlatForward(
-    referenceDate=settlement_date, forward=0.00, dayCounter=pql.Actual365Fixed()
+    referenceDate=settlement_date, forward=0.00, dayCounter=daycounter
 )
 
-# # report
-# header = '%19s' % 'method' + ' |' + \
-#          ' |'.join(['%17s' % tag for tag in ['value',
-#                                              'estimated error',
-#                                              'actual error']])
-# print()
-# print(header)
-# print('-' * len(header))
-#
-# refValue = None
-#
-# def report(method, x, dx=None):
-#     e = '%.4f' % abs(x - refValue)
-#     x = '%.5f' % x
-#     if dx:
-#         dx = '%.4f' % dx
-#     else:
-#         dx = 'n/a'
-#     print('%19s' % method + ' |' +
-#           ' |'.join(['%17s' % y for y in [x, dx, e]]))
 
 # good to go
 
@@ -72,24 +52,19 @@ process = pql.BlackScholesMertonProcess(
 
 option = pql.VanillaOption(payoff=payoff, exercise=exercise)
 
-refValue = 4.48667344
-# report('reference value', refValue)
-
-# method: analytic
+_option = option.to_quantlib()
+ql.Settings.instance().evaluation_date = todays_date.to_quantlib()
 
 
-def compute_npv(option, engine, date):
-    _option = option.to_quantlib()
+def compute_npv(engine):
     _engine = engine.to_quantlib()
-    _date = date.to_quantlib()
-    ql.Settings.instance().evaluation_date = _date
     _option.setPricingEngine(_engine)
     return _option.NPV()
 
 
 def test_barone_adesi_whaley():  # Barone-Adesi-Whaley
     engine = pql.BaroneAdesiWhaleyApproximationEngine(process=process)
-    assert compute_npv(option, engine, todays_date) == 0
+    assert compute_npv(engine) == 4.463028111890139
 
 
 def test_crank_nicolson():
@@ -101,22 +76,22 @@ def test_crank_nicolson():
     engine = pql.FDAmericanEngine(
         process=process, timeSteps=time_steps, gridPoints=grid_points
     )
-    assert compute_npv(option, engine, todays_date) == 0
+    assert compute_npv(engine) == 4.491333609168073
 
 
 def test_bjerksund_stensland():
 
     engine = pql.BjerksundStenslandApproximationEngine(process=process)
-    assert compute_npv(option, engine, todays_date) == 0
+    assert compute_npv(engine) == 4.456252976863002
 
 
 @pytest.mark.parametrize(
     "method, expected",
     [
-        (pql.BinomialJRVanillaEngine, 0),
-        (pql.BinomialCRRVanillaEngine, 0),
-        (pql.BinomialTrigeorgisVanillaEngine, 0),
-        (pql.BinomialTianVanillaEngine, 0),
+        (pql.BinomialJRVanillaEngine, 4.4840051360265285),
+        (pql.BinomialCRRVanillaEngine, 4.483783154218361),
+        (pql.BinomialTrigeorgisVanillaEngine, 4.483828512119),
+        (pql.BinomialTianVanillaEngine, 4.483744968939698),
     ],
 )
 def test_binomial(method, expected):
@@ -125,4 +100,4 @@ def test_binomial(method, expected):
     # ('lr', 0)
 
     engine = method(value=process, steps=timeSteps)
-    assert compute_npv(option, engine, todays_date) == expected
+    assert compute_npv(engine) == expected
