@@ -7,7 +7,7 @@ import QuantLib as ql
 import pydantic_quantlib as pql
 
 settings = ql.Settings.instance()
-calendar = pql.UnitedStates()
+calendar = pql.TARGET()
 
 offset = 366
 
