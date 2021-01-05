@@ -21,7 +21,12 @@ class BaseModel(_BaseModel):
 
         if field is None:  # convert the whole object
             ql_obj = getattr(ql, self.__repr_name__())
-            return ql_obj(*filter(None, map(self.to_quantlib, self.__fields__)))
+            args = map(self.to_quantlib, self.__fields__)
+            args = [arg for arg in args if arg is not None]
+            try:
+                return ql_obj(*args)
+            except Exception as e:
+                raise Exception(ql_obj, args, e)
 
         attr = getattr(self, field)
         if isinstance(attr, BaseModel):
