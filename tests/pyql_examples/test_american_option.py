@@ -14,29 +14,29 @@ import QuantLib as ql
 import pydantic_quantlib as pql
 
 # global data
-todays_date = pql.Date(d=4, m=1, y=2021)
-settlement_date = pql.Date(d=6, m=1, y=2021)
+todays_date = pql.Date0(d=4, m=1, y=2021)
+settlement_date = pql.Date0(d=6, m=1, y=2021)
 
 # options parameters
-option_type = pql.enums.OptionType.Put
-maturity = pql.Date(d=4, m=1, y=2022)
+option_type = pql.OptionType.Put
+maturity = pql.Date0(d=4, m=1, y=2022)
 daycounter = pql.Actual365Fixed()
 
 
-risk_free_rate = pql.FlatForward(
+risk_free_rate = pql.FlatForward2(
     referenceDate=settlement_date, forward=0.06, dayCounter=daycounter
 )
 
 # option parameters
 exercise = pql.AmericanExercise(earliestDate=settlement_date, latestDate=maturity,)
-payoff = pql.PlainVanillaPayoff(type=pql.enums.OptionType.Put, strike=40)
+payoff = pql.PlainVanillaPayoff(type=pql.OptionType.Put, strike=40)
 
 # market data
 underlying = pql.SimpleQuote(value=36)
-volatility = pql.BlackConstantVol(
+volatility = pql.BlackConstantVol0(
     referenceDate=todays_date, c=pql.TARGET(), volatility=0.20, dayCounter=daycounter,
 )
-dividend_yield = pql.FlatForward(
+dividend_yield = pql.FlatForward2(
     referenceDate=settlement_date, forward=0.00, dayCounter=daycounter
 )
 
@@ -50,7 +50,7 @@ process = pql.BlackScholesMertonProcess(
     volTS=pql.BlackVolTermStructureHandle(value=volatility),
 )
 
-option = pql.VanillaOption(payoff=payoff, exercise=exercise)
+option = pql.EuropeanOption(payoff=payoff, exercise=exercise)
 
 _option = option.to_quantlib()
 ql.Settings.instance().evaluation_date = todays_date.to_quantlib()
