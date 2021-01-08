@@ -4,8 +4,9 @@ from enum import Enum
 from typing import List, Literal, Optional, Union
 
 import QuantLib as ql
-from core import BaseModel
 from pydantic import Field, conint
+
+from .core import BaseModel
 
 
 class Frequency(Enum):
