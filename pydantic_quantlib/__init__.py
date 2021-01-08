@@ -540,9 +540,9 @@ class Period1(BaseModel):
 
 class Date0(BaseModel):
     resource_name: Optional[Literal["Date"]] = "Date"
-    d: conint(ge=1, le=31)
-    m: conint(ge=1, le=12)
-    y: conint(ge=1900, le=2999)
+    d: conint(ge=1, le=31)  # type: ignore
+    m: conint(ge=1, le=12)  # type: ignore
+    y: conint(ge=1900, le=2999)  # type: ignore
 
 
 class Date1(BaseModel):
@@ -6805,8 +6805,8 @@ class OvernightIndexFutureRateHelperBase(BaseModel):
 class SofrFutureRateHelper0(BaseModel):
     resource_name: Optional[Literal["SofrFutureRateHelper"]] = "SofrFutureRateHelper"
     price: float
-    referenceMonth: conint(ge=1, le=12)
-    referenceYear: conint(ge=1900, le=2999)
+    referenceMonth: conint(ge=1, le=12)  # type: ignore
+    referenceYear: conint(ge=1900, le=2999)  # type: ignore
     referenceFreq: float
     index: OvernightIndex
     convexityAdjustment: Optional[float] = None
@@ -6816,8 +6816,8 @@ class SofrFutureRateHelper0(BaseModel):
 class SofrFutureRateHelper1(BaseModel):
     resource_name: Optional[Literal["SofrFutureRateHelper"]] = "SofrFutureRateHelper"
     price: QuoteHandle
-    referenceMonth: conint(ge=1, le=12)
-    referenceYear: conint(ge=1900, le=2999)
+    referenceMonth: conint(ge=1, le=12)  # type: ignore
+    referenceYear: conint(ge=1900, le=2999)  # type: ignore
     referenceFreq: float
     index: OvernightIndex
     convexityAdjustment: Optional[QuoteHandle] = None
