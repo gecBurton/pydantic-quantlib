@@ -10,6 +10,7 @@ class BaseModel(_BaseModel):
 
     def to_quantlib(self, field=None):
         """recover QuantLib object for computation
+        >>> from typing import Optional
         >>> class Date(BaseModel):
         ...     resource_name: Optional[str] = "Date"
         ...     d: int
