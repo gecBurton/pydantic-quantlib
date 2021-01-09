@@ -10,7 +10,9 @@ class BaseModel(_BaseModel):
 
     def to_quantlib(self, field=None):
         """recover QuantLib object for computation
+        >>> from typing import Optional
         >>> class Date(BaseModel):
+        ...     resource_name: Optional[str] = "Date"
         ...     d: int
         ...     m: int
         ...     y: int
@@ -20,7 +22,7 @@ class BaseModel(_BaseModel):
         """
 
         if field is None:  # convert the whole object
-            ql_obj = getattr(ql, self.__repr_name__())
+            ql_obj = getattr(ql, self.resource_name)
             args = (self.to_quantlib(key) for key, _value in self.__repr_args__())
             return ql_obj(*(arg for arg in args if arg is not None))
 

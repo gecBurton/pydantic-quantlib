@@ -36,11 +36,11 @@ In the following example we construct a European Option.
 
     import pydantic_quantlib as pql
 
-    payoff = pql.PlainVanillaPayoff(type=pql.enums.OptionType.Put, strike=40)
+    payoff = pql.PlainVanillaPayoff(type=pql.OptionType.Put, strike=40)
 
-    european_exercise = pql.EuropeanExercise(date=pql.Date(d=4, m=1, y=2022))
+    european_exercise = pql.EuropeanExercise(date=pql.Date0(d=4, m=1, y=2022))
 
-    european_option = pql.VanillaOption(payoff=payoff, exercise=european_exercise)
+    european_option = pql.VanillaOptionBase(payoff=payoff, exercise=european_exercise)
 
 The option can be converted to the usual QuantLib_ object for computation as seen in this fuller example_.
 
@@ -55,7 +55,7 @@ it can also be printed:
 .. code-block:: python
 
     >>> print(european_option)
-    'PlainVanillaPayoff(type=<OptionType.Put: -1>, strike=40.0) exercise=EuropeanExercise(date=Date(d=4.0, m=1.0, y=2022.0))'
+    'PlainVanillaPayoff(type=<OptionType.Put: -1>, strike=40.0) exercise=EuropeanExercise(date=Date0(d=4.0, m=1.0, y=2022.0))'
 
 it can be converted to JSON:
 
