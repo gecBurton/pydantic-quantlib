@@ -62,7 +62,7 @@ pricing_engine = pql.DiscountingBondEngine(discountCurve=ytsh)
 
 
 @pytest.fixture()
-def _bond():
+def instrument():
     settings = ql.Settings.instance()
     settings.evaluation_date = todays_date.to_quantlib()
     __bond = bond.to_quantlib()
@@ -70,17 +70,17 @@ def _bond():
     return __bond
 
 
-def test_Settlement_date(_bond):
-    assert _bond.settlementDate() == ql.Date(13, 1, 2021)
+def test_settlement_date(instrument):
+    assert instrument.settlementDate() == ql.Date(13, 1, 2021)
 
 
-def test_Maturity_date(_bond):
-    assert _bond.maturityDate() == ql.Date(11, 7, 2016)
+def test_maturity_date(instrument):
+    assert instrument.maturityDate() == ql.Date(11, 7, 2016)
 
 
-def test_Accrued_amount(_bond):
-    assert _bond.accruedAmount(_bond.settlementDate()) == 0
+def test_accrued_amount(instrument):
+    assert instrument.accruedAmount(instrument.settlementDate()) == 0
 
 
-def test_Cleanprice(_bond):
+def test_clean_price(_bond):
     assert _bond.cleanPrice() == 0
