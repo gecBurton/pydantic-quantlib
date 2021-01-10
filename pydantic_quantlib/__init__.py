@@ -535,7 +535,7 @@ class Model(BaseModel):
 
 class Period1(BaseModel):
     resource_name: Optional[Literal["Period"]] = "Period"
-    frequency: float
+    frequency: Frequency
 
 
 class Date0(BaseModel):
@@ -4632,7 +4632,7 @@ class FlatForward0(BaseModel):
     forward: float
     dayCounter: DayCounter
     compounding: Optional[Compounding] = None
-    frequency: Optional[float] = None
+    frequency: Optional[Frequency] = None
 
 
 class FlatForward1(BaseModel):
