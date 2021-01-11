@@ -47,11 +47,14 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style with flake8
+lint: ## check style with isort, black, & flake8
+	isort pydantic_quantlib tests
+	black pydantic_quantlib tests
 	flake8 pydantic_quantlib tests
 
 test: ## run tests quickly with the default Python
-	pytest
+	pytest --cov=pydantic_quantlib
+	pytest --doctest-modules pydantic_quantlib
 
 test-all: ## run tests on every Python version with tox
 	tox
