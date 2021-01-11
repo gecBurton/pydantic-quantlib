@@ -8,12 +8,12 @@ import QuantLib as ql
 
 import pydantic_quantlib as pql
 
-todays_date = pql.Date0(d=25, m=pql.Months.August.value, y=2011)
+todays_date = pql.Date0(d=25, m=pql.Months.August.value, y=2021)
 
 
 calendar = pql.TARGET()
-effective_date = pql.Date0(d=10, m=pql.Months.July.value, y=2006)
-termination_date = pql.Date0(d=10, m=pql.Months.July.value, y=2016)
+effective_date = pql.Date0(d=10, m=pql.Months.July.value, y=2016)
+termination_date = pql.Date0(d=10, m=pql.Months.July.value, y=2026)
 
 
 settlement_days = 3
@@ -63,24 +63,27 @@ pricing_engine = pql.DiscountingBondEngine(discountCurve=ytsh)
 
 @pytest.fixture()
 def instrument():
-    settings = ql.Settings.instance()
-    settings.evaluation_date = todays_date.to_quantlib()
+    ql.Settings.instance().evaluation_date = todays_date.to_quantlib()
     __bond = bond.to_quantlib()
     __bond.setPricingEngine(pricing_engine.to_quantlib())
     return __bond
 
 
 def test_settlement_date(instrument):
-    assert instrument.settlementDate() == ql.Date(13, 1, 2021)
+    assert instrument.settlementDate() == ql.Date(14, 1, 2021)
 
 
 def test_maturity_date(instrument):
-    assert instrument.maturityDate() == ql.Date(11, 7, 2016)
+    assert instrument.maturityDate() == ql.Date(10, 7, 2026)
 
 
 def test_accrued_amount(instrument):
-    assert instrument.accruedAmount(instrument.settlementDate()) == 0
+    assert instrument.accruedAmount(instrument.settlementDate()) == 2.5613079019073615
 
 
-def test_clean_price(_bond):
-    assert _bond.cleanPrice() == 0
+def test_clean_price(instrument):
+    assert instrument.cleanPrice() == 102.36568054588133
+
+
+def test_npv(instrument):
+    assert instrument.NPV() == 104.90169403139318
