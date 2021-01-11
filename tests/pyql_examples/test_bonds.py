@@ -8,12 +8,12 @@ import QuantLib as ql
 
 import pydantic_quantlib as pql
 
-todays_date = pql.Date0(d=25, m=pql.Months.August.value, y=2021)
+todays_date = pql.Date(d=25, m=pql.Months.August.value, y=2021)
 
 
 calendar = pql.TARGET()
-effective_date = pql.Date0(d=10, m=pql.Months.July.value, y=2016)
-termination_date = pql.Date0(d=10, m=pql.Months.July.value, y=2026)
+effective_date = pql.Date(d=10, m=pql.Months.July.value, y=2016)
+termination_date = pql.Date(d=10, m=pql.Months.July.value, y=2026)
 
 
 settlement_days = 3

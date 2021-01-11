@@ -537,16 +537,11 @@ class Period1(BaseModel):
     frequency: Frequency
 
 
-class Date0(BaseModel):
+class Date(BaseModel):
     resource_name: Optional[Literal["Date"]] = "Date"
     d: conint(ge=1, le=31)  # type: ignore
     m: conint(ge=1, le=12)  # type: ignore
     y: conint(ge=1900, le=2999)  # type: ignore
-
-
-class Date1(BaseModel):
-    resource_name: Optional[Literal["Date"]] = "Date"
-    serialNumber: int
 
 
 class DateParser(BaseModel):
@@ -7472,7 +7467,6 @@ FdmLinearOpComposite = Union[
 ]
 AverageBasketPayoff = Union[AverageBasketPayoff0, AverageBasketPayoff1]
 HestonProcess = Union[BatesProcess, HestonProcessBase]
-Date = Union[Date0, Date1]
 Currency = Union[
     ARSCurrency,
     ATSCurrency,

@@ -14,12 +14,12 @@ import QuantLib as ql
 import pydantic_quantlib as pql
 
 # global data
-todays_date = pql.Date0(d=4, m=1, y=2021)
-settlement_date = pql.Date0(d=6, m=1, y=2021)
+todays_date = pql.Date(d=4, m=1, y=2021)
+settlement_date = pql.Date(d=6, m=1, y=2021)
 
 # options parameters
 option_type = pql.OptionType.Put
-maturity = pql.Date0(d=4, m=1, y=2022)
+maturity = pql.Date(d=4, m=1, y=2022)
 daycounter = pql.Actual365Fixed()
 
 
