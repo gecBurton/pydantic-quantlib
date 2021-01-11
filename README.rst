@@ -38,7 +38,7 @@ In the following example we construct a European Option.
 
     payoff = pql.PlainVanillaPayoff(type=pql.OptionType.Put, strike=40)
 
-    european_exercise = pql.EuropeanExercise(date=pql.Date0(d=4, m=1, y=2022))
+    european_exercise = pql.EuropeanExercise(date=pql.Date(d=4, m=1, y=2022))
 
     european_option = pql.VanillaOptionBase(payoff=payoff, exercise=european_exercise)
 

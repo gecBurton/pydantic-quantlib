@@ -11,8 +11,8 @@ calendar = pql.TARGET()
 
 offset = 366
 
-todays_date = pql.Date0(d=4, m=1, y=2021)
-settlement_date = pql.Date0(d=6, m=1, y=2021)
+todays_date = pql.Date(d=4, m=1, y=2021)
+settlement_date = pql.Date(d=6, m=1, y=2021)
 
 # options parameters
 option_type = pql.OptionType.Put
@@ -21,26 +21,26 @@ strike = 40
 dividend_yield = 0.00
 risk_free_rate = 0.06
 volatility = 0.20
-maturity = pql.Date0(d=4, m=1, y=2022)
+maturity = pql.Date(d=4, m=1, y=2022)
 daycounter = pql.Actual365Fixed()
 
 underlyingH = pql.QuoteHandle(value=pql.SimpleQuote(value=underlying))
 
 # bootstrap the yield/dividend/vol curves
 flat_term_structure = pql.YieldTermStructureHandle(
-    value=pql.FlatForward2(
+    value=pql.FlatForward0(
         referenceDate=settlement_date, forward=risk_free_rate, dayCounter=daycounter
     )
 )
 
 flat_dividend_ts = pql.YieldTermStructureHandle(
-    value=pql.FlatForward2(
+    value=pql.FlatForward0(
         referenceDate=settlement_date, forward=0.01, dayCounter=daycounter
     )
 )
 
 flat_vol_ts = pql.BlackVolTermStructureHandle(
-    value=pql.BlackConstantVol0(
+    value=pql.BlackConstantVol1(
         referenceDate=settlement_date,
         c=calendar,
         volatility=volatility,

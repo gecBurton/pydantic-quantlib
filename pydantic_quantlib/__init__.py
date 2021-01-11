@@ -14,18 +14,18 @@ class Frequency(Enum):
 
 
 class Months(Enum):
-    January = ql.January
-    February = ql.February
-    March = ql.March
-    April = ql.April
-    May = ql.May
-    June = ql.June
-    July = ql.July
-    August = ql.August
-    September = ql.September
-    October = ql.October
-    November = ql.November
-    December = ql.December
+    January = 1
+    February = 2
+    March = 3
+    April = 4
+    May = 5
+    June = 6
+    July = 7
+    August = 8
+    September = 9
+    October = 10
+    November = 11
+    December = 12
 
 
 class TimeUnit(Enum):
@@ -535,19 +535,14 @@ class Model(BaseModel):
 
 class Period1(BaseModel):
     resource_name: Optional[Literal["Period"]] = "Period"
-    frequency: float
+    frequency: Frequency
 
 
-class Date0(BaseModel):
+class Date(BaseModel):
     resource_name: Optional[Literal["Date"]] = "Date"
     d: conint(ge=1, le=31)  # type: ignore
     m: conint(ge=1, le=12)  # type: ignore
     y: conint(ge=1900, le=2999)  # type: ignore
-
-
-class Date1(BaseModel):
-    resource_name: Optional[Literal["Date"]] = "Date"
-    serialNumber: int
 
 
 class DateParser(BaseModel):
@@ -1857,9 +1852,9 @@ class RelinkableSwaptionVolatilityStructureHandle(BaseModel):
 
 class BlackConstantVol0(BaseModel):
     resource_name: Optional[Literal["BlackConstantVol"]] = "BlackConstantVol"
-    referenceDate: Date
-    c: Calendar
-    volatility: float
+    settlementDays: float
+    calendar: Calendar
+    volatility: Union[float, QuoteHandle]
     dayCounter: DayCounter
 
 
@@ -1867,23 +1862,7 @@ class BlackConstantVol1(BaseModel):
     resource_name: Optional[Literal["BlackConstantVol"]] = "BlackConstantVol"
     referenceDate: Date
     c: Calendar
-    volatility: QuoteHandle
-    dayCounter: DayCounter
-
-
-class BlackConstantVol2(BaseModel):
-    resource_name: Optional[Literal["BlackConstantVol"]] = "BlackConstantVol"
-    settlementDays: float
-    calendar: Calendar
-    volatility: float
-    dayCounter: DayCounter
-
-
-class BlackConstantVol3(BaseModel):
-    resource_name: Optional[Literal["BlackConstantVol"]] = "BlackConstantVol"
-    settlementDays: float
-    calendar: Calendar
-    volatility: QuoteHandle
+    volatility: Union[float, QuoteHandle]
     dayCounter: DayCounter
 
 
@@ -1898,48 +1877,25 @@ class BlackVarianceCurve(BaseModel):
 
 class LocalConstantVol0(BaseModel):
     resource_name: Optional[Literal["LocalConstantVol"]] = "LocalConstantVol"
-    referenceDate: Date
-    volatility: float
+    settlementDays: int
+    calendar: Calendar
+    volatility: Union[float, QuoteHandle]
     dayCounter: DayCounter
 
 
 class LocalConstantVol1(BaseModel):
     resource_name: Optional[Literal["LocalConstantVol"]] = "LocalConstantVol"
     referenceDate: Date
-    volatility: QuoteHandle
+    volatility: Union[float, QuoteHandle]
     dayCounter: DayCounter
 
 
-class LocalConstantVol2(BaseModel):
-    resource_name: Optional[Literal["LocalConstantVol"]] = "LocalConstantVol"
-    settlementDays: int
-    calendar: Calendar
-    volatility: float
-    dayCounter: DayCounter
-
-
-class LocalConstantVol3(BaseModel):
-    resource_name: Optional[Literal["LocalConstantVol"]] = "LocalConstantVol"
-    settlementDays: int
-    calendar: Calendar
-    volatility: QuoteHandle
-    dayCounter: DayCounter
-
-
-class LocalVolSurface0(BaseModel):
+class LocalVolSurface(BaseModel):
     resource_name: Optional[Literal["LocalVolSurface"]] = "LocalVolSurface"
     blackTS: BlackVolTermStructureHandle
     riskFreeTS: YieldTermStructureHandle
     dividendTS: YieldTermStructureHandle
-    underlying: QuoteHandle
-
-
-class LocalVolSurface1(BaseModel):
-    resource_name: Optional[Literal["LocalVolSurface"]] = "LocalVolSurface"
-    blackTS: BlackVolTermStructureHandle
-    riskFreeTS: YieldTermStructureHandle
-    dividendTS: YieldTermStructureHandle
-    underlying: float
+    underlying: Union[QuoteHandle, float]
 
 
 class SabrSmileSection0(BaseModel):
@@ -2992,7 +2948,7 @@ class JamshidianSwaptionEngine(BaseModel):
 
 class TreeSwaptionEngine0(BaseModel):
     resource_name: Optional[Literal["TreeSwaptionEngine"]] = "TreeSwaptionEngine"
-    model: ShortRateModelHandle
+    model: Union[ShortRateModelHandle, ShortRateModel]
     timeSteps: int
     termStructure: Optional[YieldTermStructureHandle] = None
 
@@ -3001,13 +2957,6 @@ class TreeSwaptionEngine1(BaseModel):
     resource_name: Optional[Literal["TreeSwaptionEngine"]] = "TreeSwaptionEngine"
     model: ShortRateModel
     grid: TimeGrid
-    termStructure: Optional[YieldTermStructureHandle] = None
-
-
-class TreeSwaptionEngine2(BaseModel):
-    resource_name: Optional[Literal["TreeSwaptionEngine"]] = "TreeSwaptionEngine"
-    model: ShortRateModel
-    timeSteps: int
     termStructure: Optional[YieldTermStructureHandle] = None
 
 
@@ -3094,32 +3043,18 @@ class Collar(BaseModel):
     floorRates: List[float]
 
 
-class BlackCapFloorEngine0(BaseModel):
+class BlackCapFloorEngine(BaseModel):
     resource_name: Optional[Literal["BlackCapFloorEngine"]] = "BlackCapFloorEngine"
     termStructure: YieldTermStructureHandle
-    vol: QuoteHandle
+    vol: Union[QuoteHandle, OptionletVolatilityStructureHandle]
 
 
-class BlackCapFloorEngine1(BaseModel):
-    resource_name: Optional[Literal["BlackCapFloorEngine"]] = "BlackCapFloorEngine"
-    termStructure: YieldTermStructureHandle
-    vol: OptionletVolatilityStructureHandle
-
-
-class BachelierCapFloorEngine0(BaseModel):
+class BachelierCapFloorEngine(BaseModel):
     resource_name: Optional[
         Literal["BachelierCapFloorEngine"]
     ] = "BachelierCapFloorEngine"
     termStructure: YieldTermStructureHandle
-    vol: QuoteHandle
-
-
-class BachelierCapFloorEngine1(BaseModel):
-    resource_name: Optional[
-        Literal["BachelierCapFloorEngine"]
-    ] = "BachelierCapFloorEngine"
-    termStructure: YieldTermStructureHandle
-    vol: OptionletVolatilityStructureHandle
+    vol: Union[QuoteHandle, OptionletVolatilityStructureHandle]
 
 
 class FixedDividend(BaseModel):
@@ -3557,22 +3492,21 @@ class Glued1dMesher(BaseModel):
     rightMesher: Fdm1dMesher
 
 
+class MesherItem(BaseModel):
+    resource_name: Optional[Literal["MesherItem"]] = "MesherItem"
+
+
 class FdmMesherComposite0(BaseModel):
+    resource_name: Optional[Literal["FdmMesherComposite"]] = "FdmMesherComposite"
+    mesher: Union[MesherItem, Fdm1dMesher]
+
+
+class FdmMesherComposite1(BaseModel):
     resource_name: Optional[Literal["FdmMesherComposite"]] = "FdmMesherComposite"
     m1: Fdm1dMesher
     m2: Fdm1dMesher
     m3: Optional[Fdm1dMesher] = None
     m4: Optional[Fdm1dMesher] = None
-
-
-class FdmMesherComposite2(BaseModel):
-    resource_name: Optional[Literal["FdmMesherComposite"]] = "FdmMesherComposite"
-    mesher: List[Fdm1dMesher]
-
-
-class FdmMesherComposite3(BaseModel):
-    resource_name: Optional[Literal["FdmMesherComposite"]] = "FdmMesherComposite"
-    mesher: Fdm1dMesher
 
 
 class FdmBlackScholesOp(BaseModel):
@@ -4323,6 +4257,72 @@ class GarmanKlassSigma6(BaseModel):
     marketOpenFraction: float
 
 
+class Gaussian1dNonstandardSwaptionEngineProbabilities(BaseModel):
+    resource_name: Optional[
+        Literal["Gaussian1dNonstandardSwaptionEngineProbabilities"]
+    ] = "Gaussian1dNonstandardSwaptionEngineProbabilities"
+
+
+class ExtendedOrnsteinUhlenbeckProcess(BaseModel):
+    resource_name: Optional[
+        Literal["ExtendedOrnsteinUhlenbeckProcess"]
+    ] = "ExtendedOrnsteinUhlenbeckProcess"
+
+
+class FdmSolverDesc(BaseModel):
+    resource_name: Optional[Literal["FdmSolverDesc"]] = "FdmSolverDesc"
+
+
+class AndreasenHugeVolatilityInterplCalibrationType(BaseModel):
+    resource_name: Optional[
+        Literal["AndreasenHugeVolatilityInterplCalibrationType"]
+    ] = "AndreasenHugeVolatilityInterplCalibrationType"
+
+
+class FdmDirichletBoundarySide(BaseModel):
+    resource_name: Optional[
+        Literal["FdmDirichletBoundarySide"]
+    ] = "FdmDirichletBoundarySide"
+
+
+class Leg(BaseModel):
+    resource_name: Optional[Literal["Leg"]] = "Leg"
+
+
+class FdmLinearOpLayout(BaseModel):
+    resource_name: Optional[Literal["FdmLinearOpLayout"]] = "FdmLinearOpLayout"
+
+
+class Integrator(BaseModel):
+    resource_name: Optional[Literal["Integrator"]] = "Integrator"
+
+
+class IsdaCdsEngineAccrualBias(BaseModel):
+    resource_name: Optional[
+        Literal["IsdaCdsEngineAccrualBias"]
+    ] = "IsdaCdsEngineAccrualBias"
+
+
+class Market(BaseModel):
+    resource_name: Optional[Literal["Market"]] = "Market"
+
+
+class AndreasenHugeVolatilityInterplCalibrationSet(BaseModel):
+    resource_name: Optional[
+        Literal["AndreasenHugeVolatilityInterplCalibrationSet"]
+    ] = "AndreasenHugeVolatilityInterplCalibrationSet"
+
+
+class AnalyticPTDHestonEngineIntegration(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticPTDHestonEngineIntegration"]
+    ] = "AnalyticPTDHestonEngineIntegration"
+
+
+class SettlementMethod(BaseModel):
+    resource_name: Optional[Literal["SettlementMethod"]] = "SettlementMethod"
+
+
 class DeltaVolQuoteAtmType(BaseModel):
     resource_name: Optional[Literal["DeltaVolQuoteAtmType"]] = "DeltaVolQuoteAtmType"
 
@@ -4333,56 +4333,8 @@ class IsdaCdsEngineForwardsInCouponPeriod(BaseModel):
     ] = "IsdaCdsEngineForwardsInCouponPeriod"
 
 
-class Leg(BaseModel):
-    resource_name: Optional[Literal["Leg"]] = "Leg"
-
-
-class AnalyticHestonEngineComplexLogFormula(BaseModel):
-    resource_name: Optional[
-        Literal["AnalyticHestonEngineComplexLogFormula"]
-    ] = "AnalyticHestonEngineComplexLogFormula"
-
-
-class FdmDirichletBoundarySide(BaseModel):
-    resource_name: Optional[
-        Literal["FdmDirichletBoundarySide"]
-    ] = "FdmDirichletBoundarySide"
-
-
-class Market(BaseModel):
-    resource_name: Optional[Literal["Market"]] = "Market"
-
-
-class IsdaCdsEngineAccrualBias(BaseModel):
-    resource_name: Optional[
-        Literal["IsdaCdsEngineAccrualBias"]
-    ] = "IsdaCdsEngineAccrualBias"
-
-
-class FdmStepConditionComposite(BaseModel):
-    resource_name: Optional[
-        Literal["FdmStepConditionComposite"]
-    ] = "FdmStepConditionComposite"
-
-
-class AndreasenHugeVolatilityInterplCalibrationSet(BaseModel):
-    resource_name: Optional[
-        Literal["AndreasenHugeVolatilityInterplCalibrationSet"]
-    ] = "AndreasenHugeVolatilityInterplCalibrationSet"
-
-
-class SettlementMethod(BaseModel):
-    resource_name: Optional[Literal["SettlementMethod"]] = "SettlementMethod"
-
-
 class GaussianQuadrature(BaseModel):
     resource_name: Optional[Literal["GaussianQuadrature"]] = "GaussianQuadrature"
-
-
-class AndreasenHugeVolatilityInterplCalibrationType(BaseModel):
-    resource_name: Optional[
-        Literal["AndreasenHugeVolatilityInterplCalibrationType"]
-    ] = "AndreasenHugeVolatilityInterplCalibrationType"
 
 
 class FdmBoundaryConditionSet(BaseModel):
@@ -4391,34 +4343,8 @@ class FdmBoundaryConditionSet(BaseModel):
     ] = "FdmBoundaryConditionSet"
 
 
-class Integrator(BaseModel):
-    resource_name: Optional[Literal["Integrator"]] = "Integrator"
-
-
-class AnalyticPTDHestonEngineIntegration(BaseModel):
-    resource_name: Optional[
-        Literal["AnalyticPTDHestonEngineIntegration"]
-    ] = "AnalyticPTDHestonEngineIntegration"
-
-
 class DiscountFactor(BaseModel):
     resource_name: Optional[Literal["DiscountFactor"]] = "DiscountFactor"
-
-
-class FdmSolverDesc(BaseModel):
-    resource_name: Optional[Literal["FdmSolverDesc"]] = "FdmSolverDesc"
-
-
-class Gaussian1dNonstandardSwaptionEngineProbabilities(BaseModel):
-    resource_name: Optional[
-        Literal["Gaussian1dNonstandardSwaptionEngineProbabilities"]
-    ] = "Gaussian1dNonstandardSwaptionEngineProbabilities"
-
-
-class DefaultBoundaryConditionSide(BaseModel):
-    resource_name: Optional[
-        Literal["DefaultBoundaryConditionSide"]
-    ] = "DefaultBoundaryConditionSide"
 
 
 class FdmDiscountDirichletBoundarySide(BaseModel):
@@ -4427,14 +4353,22 @@ class FdmDiscountDirichletBoundarySide(BaseModel):
     ] = "FdmDiscountDirichletBoundarySide"
 
 
-class FdmLinearOpLayout(BaseModel):
-    resource_name: Optional[Literal["FdmLinearOpLayout"]] = "FdmLinearOpLayout"
-
-
-class ExtendedOrnsteinUhlenbeckProcess(BaseModel):
+class DefaultBoundaryConditionSide(BaseModel):
     resource_name: Optional[
-        Literal["ExtendedOrnsteinUhlenbeckProcess"]
-    ] = "ExtendedOrnsteinUhlenbeckProcess"
+        Literal["DefaultBoundaryConditionSide"]
+    ] = "DefaultBoundaryConditionSide"
+
+
+class FdmStepConditionComposite(BaseModel):
+    resource_name: Optional[
+        Literal["FdmStepConditionComposite"]
+    ] = "FdmStepConditionComposite"
+
+
+class AnalyticHestonEngineComplexLogFormula(BaseModel):
+    resource_name: Optional[
+        Literal["AnalyticHestonEngineComplexLogFormula"]
+    ] = "AnalyticHestonEngineComplexLogFormula"
 
 
 class Period0(BaseModel):
@@ -4627,40 +4561,21 @@ class ZeroSpreadedTermStructure(BaseModel):
 
 class FlatForward0(BaseModel):
     resource_name: Optional[Literal["FlatForward"]] = "FlatForward"
-    settlementDays: int
-    calendar: Calendar
-    forward: float
+    referenceDate: Date
+    forward: Union[float, QuoteHandle]
     dayCounter: DayCounter
     compounding: Optional[Compounding] = None
-    frequency: Optional[float] = None
+    frequency: Optional[Frequency] = None
 
 
 class FlatForward1(BaseModel):
     resource_name: Optional[Literal["FlatForward"]] = "FlatForward"
     settlementDays: int
     calendar: Calendar
-    forward: QuoteHandle
+    forward: Union[float, QuoteHandle]
     dayCounter: DayCounter
     compounding: Optional[Compounding] = None
-    frequency: Optional[float] = None
-
-
-class FlatForward2(BaseModel):
-    resource_name: Optional[Literal["FlatForward"]] = "FlatForward"
-    referenceDate: Date
-    forward: float
-    dayCounter: DayCounter
-    compounding: Optional[Compounding] = None
-    frequency: Optional[float] = None
-
-
-class FlatForward3(BaseModel):
-    resource_name: Optional[Literal["FlatForward"]] = "FlatForward"
-    referenceDate: Date
-    forward: QuoteHandle
-    dayCounter: DayCounter
-    compounding: Optional[Compounding] = None
-    frequency: Optional[float] = None
+    frequency: Optional[Frequency] = None
 
 
 class IborIndexBase(BaseModel):
@@ -5071,10 +4986,10 @@ class ConstantOptionletVolatility0(BaseModel):
     resource_name: Optional[
         Literal["ConstantOptionletVolatility"]
     ] = "ConstantOptionletVolatility"
-    settlementDays: float
+    referenceDate: Date
     cal: Calendar
     bdc: BusinessDayConvention
-    volatility: QuoteHandle
+    volatility: Union[QuoteHandle, float]
     dayCounter: DayCounter
     type: Optional[VolatilityType] = None
     shift: Optional[float] = None
@@ -5087,33 +5002,7 @@ class ConstantOptionletVolatility1(BaseModel):
     settlementDays: float
     cal: Calendar
     bdc: BusinessDayConvention
-    volatility: float
-    dayCounter: DayCounter
-    type: Optional[VolatilityType] = None
-    shift: Optional[float] = None
-
-
-class ConstantOptionletVolatility2(BaseModel):
-    resource_name: Optional[
-        Literal["ConstantOptionletVolatility"]
-    ] = "ConstantOptionletVolatility"
-    referenceDate: Date
-    cal: Calendar
-    bdc: BusinessDayConvention
-    volatility: QuoteHandle
-    dayCounter: DayCounter
-    type: Optional[VolatilityType] = None
-    shift: Optional[float] = None
-
-
-class ConstantOptionletVolatility3(BaseModel):
-    resource_name: Optional[
-        Literal["ConstantOptionletVolatility"]
-    ] = "ConstantOptionletVolatility"
-    referenceDate: Date
-    cal: Calendar
-    bdc: BusinessDayConvention
-    volatility: float
+    volatility: Union[QuoteHandle, float]
     dayCounter: DayCounter
     type: Optional[VolatilityType] = None
     shift: Optional[float] = None
@@ -5123,10 +5012,10 @@ class ConstantSwaptionVolatility0(BaseModel):
     resource_name: Optional[
         Literal["ConstantSwaptionVolatility"]
     ] = "ConstantSwaptionVolatility"
-    referenceDate: Date
+    settlementDays: float
     cal: Calendar
     bdc: BusinessDayConvention
-    volatility: float
+    volatility: Union[float, QuoteHandle]
     dc: DayCounter
     type: Optional[VolatilityType] = None
     shift: Optional[float] = None
@@ -5136,36 +5025,10 @@ class ConstantSwaptionVolatility1(BaseModel):
     resource_name: Optional[
         Literal["ConstantSwaptionVolatility"]
     ] = "ConstantSwaptionVolatility"
-    settlementDays: float
-    cal: Calendar
-    bdc: BusinessDayConvention
-    volatility: float
-    dc: DayCounter
-    type: Optional[VolatilityType] = None
-    shift: Optional[float] = None
-
-
-class ConstantSwaptionVolatility2(BaseModel):
-    resource_name: Optional[
-        Literal["ConstantSwaptionVolatility"]
-    ] = "ConstantSwaptionVolatility"
     referenceDate: Date
     cal: Calendar
     bdc: BusinessDayConvention
-    volatility: QuoteHandle
-    dc: DayCounter
-    type: Optional[VolatilityType] = None
-    shift: Optional[float] = None
-
-
-class ConstantSwaptionVolatility3(BaseModel):
-    resource_name: Optional[
-        Literal["ConstantSwaptionVolatility"]
-    ] = "ConstantSwaptionVolatility"
-    settlementDays: float
-    cal: Calendar
-    bdc: BusinessDayConvention
-    volatility: QuoteHandle
+    volatility: Union[float, QuoteHandle]
     dc: DayCounter
     type: Optional[VolatilityType] = None
     shift: Optional[float] = None
@@ -6508,18 +6371,13 @@ class ConvertibleFloatingRateBond(BaseModel):
 
 class DepositRateHelper0(BaseModel):
     resource_name: Optional[Literal["DepositRateHelper"]] = "DepositRateHelper"
-    rate: QuoteHandle
-    tenor: Period
-    fixingDays: float
-    calendar: Calendar
-    convention: BusinessDayConvention
-    endOfMonth: bool
-    dayCounter: DayCounter
+    rate: Union[QuoteHandle, float]
+    index: IborIndex
 
 
 class DepositRateHelper1(BaseModel):
     resource_name: Optional[Literal["DepositRateHelper"]] = "DepositRateHelper"
-    rate: float
+    rate: Union[QuoteHandle, float]
     tenor: Period
     fixingDays: float
     calendar: Calendar
@@ -6528,24 +6386,16 @@ class DepositRateHelper1(BaseModel):
     dayCounter: DayCounter
 
 
-class DepositRateHelper2(BaseModel):
-    resource_name: Optional[Literal["DepositRateHelper"]] = "DepositRateHelper"
-    rate: QuoteHandle
-    index: IborIndex
-
-
-class DepositRateHelper3(BaseModel):
-    resource_name: Optional[Literal["DepositRateHelper"]] = "DepositRateHelper"
-    rate: float
-    index: IborIndex
-
-
 class FraRateHelper0(BaseModel):
     resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
-    rate: float
-    immOffsetStart: float
-    immOffsetEnd: float
-    iborIndex: IborIndex
+    rate: Union[float, QuoteHandle]
+    monthsToStart: float
+    monthsToEnd: float
+    fixingDays: float
+    calendar: Calendar
+    convention: BusinessDayConvention
+    endOfMonth: bool
+    dayCounter: DayCounter
     pillar: Optional[PillarChoice] = None
     customPillarDate: Optional[Date] = None
     useIndexedCoupon: Optional[bool] = None
@@ -6553,10 +6403,9 @@ class FraRateHelper0(BaseModel):
 
 class FraRateHelper1(BaseModel):
     resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
-    rate: QuoteHandle
-    immOffsetStart: float
-    immOffsetEnd: float
-    iborIndex: IborIndex
+    rate: Union[float, QuoteHandle]
+    monthsToStart: float
+    index: IborIndex
     pillar: Optional[PillarChoice] = None
     customPillarDate: Optional[Date] = None
     useIndexedCoupon: Optional[bool] = None
@@ -6564,49 +6413,10 @@ class FraRateHelper1(BaseModel):
 
 class FraRateHelper2(BaseModel):
     resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
-    rate: float
-    monthsToStart: float
-    index: IborIndex
-    pillar: Optional[PillarChoice] = None
-    customPillarDate: Optional[Date] = None
-    useIndexedCoupon: Optional[bool] = None
-
-
-class FraRateHelper3(BaseModel):
-    resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
-    rate: QuoteHandle
-    monthsToStart: float
-    index: IborIndex
-    pillar: Optional[PillarChoice] = None
-    customPillarDate: Optional[Date] = None
-    useIndexedCoupon: Optional[bool] = None
-
-
-class FraRateHelper4(BaseModel):
-    resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
-    rate: float
-    monthsToStart: float
-    monthsToEnd: float
-    fixingDays: float
-    calendar: Calendar
-    convention: BusinessDayConvention
-    endOfMonth: bool
-    dayCounter: DayCounter
-    pillar: Optional[PillarChoice] = None
-    customPillarDate: Optional[Date] = None
-    useIndexedCoupon: Optional[bool] = None
-
-
-class FraRateHelper5(BaseModel):
-    resource_name: Optional[Literal["FraRateHelper"]] = "FraRateHelper"
-    rate: QuoteHandle
-    monthsToStart: float
-    monthsToEnd: float
-    fixingDays: float
-    calendar: Calendar
-    convention: BusinessDayConvention
-    endOfMonth: bool
-    dayCounter: DayCounter
+    rate: Union[float, QuoteHandle]
+    immOffsetStart: float
+    immOffsetEnd: float
+    iborIndex: IborIndex
     pillar: Optional[PillarChoice] = None
     customPillarDate: Optional[Date] = None
     useIndexedCoupon: Optional[bool] = None
@@ -6678,56 +6488,28 @@ class FuturesRateHelper5(BaseModel):
 
 class SwapRateHelper0(BaseModel):
     resource_name: Optional[Literal["SwapRateHelper"]] = "SwapRateHelper"
-    rate: float
-    index: SwapIndex
+    rate: Union[float, QuoteHandle]
+    tenor: Period
+    calendar: Calendar
+    fixedFrequency: float
+    fixedConvention: BusinessDayConvention
+    fixedDayCount: DayCounter
+    index: IborIndex
     spread: Optional[QuoteHandle] = None
     fwdStart: Optional[Period] = None
     discountingCurve: Optional[YieldTermStructureHandle] = None
+    settlementDays: Optional[float] = None
     pillar: Optional[PillarChoice] = None
     customPillarDate: Optional[Date] = None
 
 
 class SwapRateHelper1(BaseModel):
     resource_name: Optional[Literal["SwapRateHelper"]] = "SwapRateHelper"
-    rate: QuoteHandle
+    rate: Union[float, QuoteHandle]
     index: SwapIndex
     spread: Optional[QuoteHandle] = None
     fwdStart: Optional[Period] = None
     discountingCurve: Optional[YieldTermStructureHandle] = None
-    pillar: Optional[PillarChoice] = None
-    customPillarDate: Optional[Date] = None
-
-
-class SwapRateHelper2(BaseModel):
-    resource_name: Optional[Literal["SwapRateHelper"]] = "SwapRateHelper"
-    rate: float
-    tenor: Period
-    calendar: Calendar
-    fixedFrequency: float
-    fixedConvention: BusinessDayConvention
-    fixedDayCount: DayCounter
-    index: IborIndex
-    spread: Optional[QuoteHandle] = None
-    fwdStart: Optional[Period] = None
-    discountingCurve: Optional[YieldTermStructureHandle] = None
-    settlementDays: Optional[float] = None
-    pillar: Optional[PillarChoice] = None
-    customPillarDate: Optional[Date] = None
-
-
-class SwapRateHelper3(BaseModel):
-    resource_name: Optional[Literal["SwapRateHelper"]] = "SwapRateHelper"
-    rate: QuoteHandle
-    tenor: Period
-    calendar: Calendar
-    fixedFrequency: float
-    fixedConvention: BusinessDayConvention
-    fixedDayCount: DayCounter
-    index: IborIndex
-    spread: Optional[QuoteHandle] = None
-    fwdStart: Optional[Period] = None
-    discountingCurve: Optional[YieldTermStructureHandle] = None
-    settlementDays: Optional[float] = None
     pillar: Optional[PillarChoice] = None
     customPillarDate: Optional[Date] = None
 
@@ -6824,9 +6606,9 @@ class SofrFutureRateHelper1(BaseModel):
     type: Optional[OvernightIndexFutureNettingType] = None
 
 
-class SpreadCdsHelper0(BaseModel):
+class SpreadCdsHelper(BaseModel):
     resource_name: Optional[Literal["SpreadCdsHelper"]] = "SpreadCdsHelper"
-    spread: float
+    spread: Union[float, QuoteHandle]
     tenor: Period
     settlementDays: int
     calendar: Calendar
@@ -6840,43 +6622,9 @@ class SpreadCdsHelper0(BaseModel):
     paysAtDefaultTime: Optional[bool] = None
 
 
-class SpreadCdsHelper1(BaseModel):
-    resource_name: Optional[Literal["SpreadCdsHelper"]] = "SpreadCdsHelper"
-    spread: QuoteHandle
-    tenor: Period
-    settlementDays: int
-    calendar: Calendar
-    frequency: float
-    convention: BusinessDayConvention
-    rule: DateGenerationRule
-    dayCounter: DayCounter
-    recoveryRate: float
-    discountCurve: YieldTermStructureHandle
-    settlesAccrual: Optional[bool] = None
-    paysAtDefaultTime: Optional[bool] = None
-
-
-class UpfrontCdsHelper0(BaseModel):
+class UpfrontCdsHelper(BaseModel):
     resource_name: Optional[Literal["UpfrontCdsHelper"]] = "UpfrontCdsHelper"
-    upfront: float
-    spread: float
-    tenor: Period
-    settlementDays: int
-    calendar: Calendar
-    frequency: float
-    convention: BusinessDayConvention
-    rule: DateGenerationRule
-    dayCounter: DayCounter
-    recoveryRate: float
-    discountCurve: YieldTermStructureHandle
-    upfrontSettlementDays: Optional[float] = None
-    settlesAccrual: Optional[bool] = None
-    paysAtDefaultTime: Optional[bool] = None
-
-
-class UpfrontCdsHelper1(BaseModel):
-    resource_name: Optional[Literal["UpfrontCdsHelper"]] = "UpfrontCdsHelper"
-    upfront: QuoteHandle
+    upfront: Union[float, QuoteHandle]
     spread: float
     tenor: Period
     settlementDays: int
@@ -6967,7 +6715,7 @@ class FdmSimpleProcess1dMesher(BaseModel):
     mandatoryPoint: Optional[Optional[float]] = None
 
 
-class FdmMesherComposite1(BaseModel):
+class FdmMesherComposite2(BaseModel):
     resource_name: Optional[Literal["FdmMesherComposite"]] = "FdmMesherComposite"
     layout: FdmLinearOpLayout
     mesher: List[Fdm1dMesher]
@@ -7557,58 +7305,16 @@ class AssetSwap(BaseModel):
     parAssetSwap: Optional[bool] = None
 
 
-NinePointLinearOp = Union[NinePointLinearOpBase, SecondOrderMixedDerivativeOp]
-BachelierCapFloorEngine = Union[BachelierCapFloorEngine0, BachelierCapFloorEngine1]
-SwaptionVolatilityMatrix = Union[
-    SwaptionVolatilityMatrix0, SwaptionVolatilityMatrix1, SwaptionVolatilityMatrix2
+GeneralizedBlackScholesProcess = Union[
+    BlackProcess,
+    BlackScholesMertonProcess,
+    BlackScholesProcess,
+    GarmanKohlagenProcess,
+    GeneralizedBlackScholesProcess0,
+    GeneralizedBlackScholesProcess1,
 ]
-CreditDefaultSwap = Union[CreditDefaultSwap0, CreditDefaultSwap1]
-UsdLiborSwapIsdaFixAm = Union[UsdLiborSwapIsdaFixAm0, UsdLiborSwapIsdaFixAm1]
-StrippedOptionletBase = Union[OptionletStripper1]
-ChfLiborSwapIsdaFix = Union[ChfLiborSwapIsdaFix0, ChfLiborSwapIsdaFix1]
-BatesEngine = Union[BatesEngine0, BatesEngine1]
-FixedRateBond = Union[FixedRateBond0, FixedRateBond1, FixedRateBond2]
-SabrSmileSection = Union[SabrSmileSection0, SabrSmileSection1]
-DefaultBoundaryCondition = Union[DirichletBC, NeumannBC]
-Schedule = Union[Schedule0, Schedule1]
-Rounding = Union[
-    CeilingTruncation, ClosestRounding, DownRounding, FloorTruncation, UpRounding
-]
-VanillaOption = Union[EuropeanOption, VanillaOptionBase]
-UsdLiborSwapIsdaFixPm = Union[UsdLiborSwapIsdaFixPm0, UsdLiborSwapIsdaFixPm1]
-HestonProcess = Union[BatesProcess, HestonProcessBase]
-SpreadCdsHelper = Union[SpreadCdsHelper0, SpreadCdsHelper1]
-Bkbm = Union[Bkbm1M, Bkbm2M, Bkbm3M, Bkbm4M, Bkbm5M, Bkbm6M, BkbmBase]
-DepositRateHelper = Union[
-    DepositRateHelper0, DepositRateHelper1, DepositRateHelper2, DepositRateHelper3
-]
-SwapRateHelper = Union[
-    SwapRateHelper0, SwapRateHelper1, SwapRateHelper2, SwapRateHelper3
-]
-CmsCouponPricer = Union[AnalyticHaganPricer, LinearTsrPricer, NumericHaganPricer]
 ConstantOptionletVolatility = Union[
-    ConstantOptionletVolatility0,
-    ConstantOptionletVolatility1,
-    ConstantOptionletVolatility2,
-    ConstantOptionletVolatility3,
-]
-CapFloorTermVolCurve = Union[CapFloorTermVolCurve0, CapFloorTermVolCurve1]
-FraRateHelper = Union[
-    FraRateHelper0,
-    FraRateHelper1,
-    FraRateHelper2,
-    FraRateHelper3,
-    FraRateHelper4,
-    FraRateHelper5,
-]
-SofrFutureRateHelper = Union[SofrFutureRateHelper0, SofrFutureRateHelper1]
-RiskNeutralDensityCalculator = Union[
-    BSMRNDCalculator,
-    CEVRNDCalculator,
-    GBSMRNDCalculator,
-    HestonRNDCalculator,
-    LocalVolRNDCalculator,
-    SquareRootProcessRNDCalculator,
+    ConstantOptionletVolatility0, ConstantOptionletVolatility1
 ]
 FuturesRateHelper = Union[
     FuturesRateHelper0,
@@ -7618,104 +7324,91 @@ FuturesRateHelper = Union[
     FuturesRateHelper4,
     FuturesRateHelper5,
 ]
-BlackConstantVol = Union[
-    BlackConstantVol0, BlackConstantVol1, BlackConstantVol2, BlackConstantVol3
+SofrFutureRateHelper = Union[SofrFutureRateHelper0, SofrFutureRateHelper1]
+TreeCapFloorEngine = Union[TreeCapFloorEngine0, TreeCapFloorEngine1]
+JointCalendar = Union[JointCalendar0, JointCalendar1, JointCalendar2]
+BrownianBridge = Union[BrownianBridge0, BrownianBridge1, BrownianBridge2]
+FdBlackScholesVanillaEngine = Union[
+    FdBlackScholesVanillaEngine0, FdBlackScholesVanillaEngine1
 ]
+FdmCellAveragingInnerValue = Union[FdmLogInnerValue]
+SabrSmileSection = Union[SabrSmileSection0, SabrSmileSection1]
+CmsSpreadCouponPricer = Union[LognormalCmsSpreadPricer]
+EuriborSwapIsdaFixA = Union[EuriborSwapIsdaFixA0, EuriborSwapIsdaFixA1]
 EurLiborSwapIfrFix = Union[EurLiborSwapIfrFix0, EurLiborSwapIfrFix1]
-Bibor = Union[Bibor1M, Bibor1Y, Bibor2M, Bibor3M, Bibor6M, Bibor9M, BiborBase, BiborSW]
-GbpLiborSwapIsdaFix = Union[GbpLiborSwapIsdaFix0, GbpLiborSwapIsdaFix1]
-OptimizationMethod = Union[
-    BFGS,
-    ConjugateGradient,
-    DifferentialEvolution,
-    GaussianSimulatedAnnealing,
-    LevenbergMarquardt,
-    LogNormalSimulatedAnnealing,
-    MirrorGaussianSimulatedAnnealing,
-    Simplex,
-    SteepestDescent,
+InflationTermStructure = Union[YoYInflationTermStructure, ZeroInflationTermStructure]
+NinePointLinearOp = Union[NinePointLinearOpBase, SecondOrderMixedDerivativeOp]
+LocalConstantVol = Union[LocalConstantVol0, LocalConstantVol1]
+CapFloorTermVolSurface = Union[
+    CapFloorTermVolSurface0,
+    CapFloorTermVolSurface1,
+    CapFloorTermVolSurface2,
+    CapFloorTermVolSurface3,
 ]
-GeneralizedBlackScholesProcess = Union[
-    BlackProcess,
-    BlackScholesMertonProcess,
-    BlackScholesProcess,
-    GarmanKohlagenProcess,
-    GeneralizedBlackScholesProcess0,
-    GeneralizedBlackScholesProcess1,
+FdmBoundaryCondition = Union[FdmDirichletBoundary, FdmDiscountDirichletBoundary]
+SwaptionVolatilityMatrix = Union[
+    SwaptionVolatilityMatrix0, SwaptionVolatilityMatrix1, SwaptionVolatilityMatrix2
 ]
+JpyLiborSwapIsdaFixAm = Union[JpyLiborSwapIsdaFixAm0, JpyLiborSwapIsdaFixAm1]
+DoubleBarrierOption = Union[DoubleBarrierOptionBase, QuantoDoubleBarrierOption]
+SwaptionHelper = Union[SwaptionHelper0, SwaptionHelper1, SwaptionHelper2]
+StrikedTypePayoff = Union[
+    AssetOrNothingPayoff,
+    CashOrNothingPayoff,
+    GapPayoff,
+    PercentageStrikePayoff,
+    PlainVanillaPayoff,
+    SuperSharePayoff,
+    VanillaForwardPayoff,
+]
+Euribor365 = Union[
+    Euribor365Base
+]  # , Euribor365_10M, Euribor365_11M, Euribor365_1M, Euribor365_1Y, Euribor365_2M, Euribor365_2W, Euribor365_3M, Euribor365_3W, Euribor365_4M, Euribor365_5M, Euribor365_6M, Euribor365_7M, Euribor365_8M, Euribor365_9M, Euribor365_SW]
+Money = Union[Money0, Money1]
+ConstantParameter = Union[ConstantParameter0, ConstantParameter1]
+FittingMethod = Union[
+    CubicBSplinesFitting,
+    ExponentialSplinesFitting,
+    NelsonSiegelFitting,
+    SimplePolynomialFitting,
+    SvenssonFitting,
+]
+VanillaOption = Union[EuropeanOption, VanillaOptionBase]
+ChfLiborSwapIsdaFix = Union[ChfLiborSwapIsdaFix0, ChfLiborSwapIsdaFix1]
+IborCouponPricer = Union[BlackIborCouponPricer]
+TridiagonalOperator = Union[DMinus, DPlus, DPlusDMinus, DZero, TridiagonalOperatorBase]
+FdHestonVanillaEngine = Union[FdHestonVanillaEngine0, FdHestonVanillaEngine1]
+FdmInnerValueCalculator = Union[FdmLogBasketInnerValue]
+StrippedOptionletBase = Union[OptionletStripper1]
+DailyTenorLibor = Union[CADLiborON, DailyTenorLiborBase, GBPLiborON, USDLiborON]
+UsdLiborSwapIsdaFixAm = Union[UsdLiborSwapIsdaFixAm0, UsdLiborSwapIsdaFixAm1]
+Bbsw = Union[Bbsw1M, Bbsw2M, Bbsw3M, Bbsw4M, Bbsw5M, Bbsw6M, BbswBase]
 TreeCallableFixedRateBondEngine = Union[
     TreeCallableFixedRateBondEngine0, TreeCallableFixedRateBondEngine1
 ]
-FdmMesherComposite = Union[
-    FdmMesherComposite0, FdmMesherComposite1, FdmMesherComposite2, FdmMesherComposite3
+Claim = Union[FaceValueAccrualClaim, FaceValueClaim]
+CreditDefaultSwap = Union[CreditDefaultSwap0, CreditDefaultSwap1]
+TripleBandLinearOp = Union[
+    FirstDerivativeOp, SecondDerivativeOp, TripleBandLinearOpBase
 ]
-ForwardVanillaOption = Union[ForwardVanillaOptionBase, QuantoForwardVanillaOption]
-YoYInflationIndex = Union[YYEUHICP, YYEUHICPXT, YYFRHICP, YYUKRPI, YYUSCPI, YYZACPI]
-FdmInnerValueCalculator = Union[
-    FdmLogBasketInnerValue,
-]
-FlatSmileSection = Union[FlatSmileSection0, FlatSmileSection1]
-FdmLinearOpComposite = Union[
-    Fdm2dBlackScholesOp,
-    FdmBatesOp,
-    FdmBlackScholesFwdOp,
-    FdmBlackScholesOp,
-    FdmCEVOp,
-    FdmDupire1dOp,
-    FdmG2Op,
-    FdmHestonFwdOp,
-    FdmHestonHullWhiteOp,
-    FdmHestonOp,
-    FdmHullWhiteOp,
-    FdmLocalVolFwdOp,
-    FdmOrnsteinUhlenbeckOp,
-    FdmSabrOp,
-    FdmSquareRootFwdOp,
-    FdmZabrOp,
-]
-DoubleBarrierOption = Union[DoubleBarrierOptionBase, QuantoDoubleBarrierOption]
-CmsSpreadCouponPricer = Union[LognormalCmsSpreadPricer]
-Vasicek = Union[HullWhite, VasicekBase]
-Euribor365 = Union[
-    Euribor365Base,
-]
-EuriborSwapIsdaFixA = Union[EuriborSwapIsdaFixA0, EuriborSwapIsdaFixA1]
-FdmBoundaryCondition = Union[FdmDirichletBoundary, FdmDiscountDirichletBoundary]
-Period = Union[Period0, Period1]
-EuriborSwapIfrFix = Union[EuriborSwapIfrFix0, EuriborSwapIfrFix1]
+BlackSwaptionEngine = Union[BlackSwaptionEngine0, BlackSwaptionEngine1]
+FlatHazardRate = Union[FlatHazardRate0, FlatHazardRate1]
+AmortizingFixedRateBond = Union[AmortizingFixedRateBond0, AmortizingFixedRateBond1]
 NoArbSabrInterpolatedSmileSection = Union[
     NoArbSabrInterpolatedSmileSection0, NoArbSabrInterpolatedSmileSection1
 ]
-ConstantSwaptionVolatility = Union[
-    ConstantSwaptionVolatility0,
-    ConstantSwaptionVolatility1,
-    ConstantSwaptionVolatility2,
-    ConstantSwaptionVolatility3,
-]
-TreeSwaptionEngine = Union[
-    TreeSwaptionEngine0, TreeSwaptionEngine1, TreeSwaptionEngine2
-]
-Dividend = Union[FixedDividend, FractionalDividend]
-UpfrontCdsHelper = Union[UpfrontCdsHelper0, UpfrontCdsHelper1]
-FittedBondDiscountCurve = Union[FittedBondDiscountCurve0, FittedBondDiscountCurve1]
-Callability = Union[CallabilityBase, SoftCallability]
-InflationTermStructure = Union[YoYInflationTermStructure, ZeroInflationTermStructure]
-FdHestonVanillaEngine = Union[FdHestonVanillaEngine0, FdHestonVanillaEngine1]
-Forward = Union[FixedRateBondForward, ForwardRateAgreement]
-SwaptionHelper = Union[SwaptionHelper0, SwaptionHelper1, SwaptionHelper2]
-YoYInflationCapFloor = Union[YoYInflationCap, YoYInflationCollar, YoYInflationFloor]
-Concentrating1dMesher = Union[Concentrating1dMesher0, Concentrating1dMesher1]
-EuriborSwapIsdaFixB = Union[EuriborSwapIsdaFixB0, EuriborSwapIsdaFixB1]
-BrownianGeneratorFactory = Union[
-    MTBrownianGeneratorFactory, SobolBrownianGeneratorFactory
-]
-Money = Union[Money0, Money1]
 HestonModel = Union[BatesModel, HestonModelBase]
-Statistics = Union[RiskStatistics]
-FlatForward = Union[FlatForward0, FlatForward1, FlatForward2, FlatForward3]
-Bbsw = Union[Bbsw1M, Bbsw2M, Bbsw3M, Bbsw4M, Bbsw5M, Bbsw6M, BbswBase]
-JpyLiborSwapIsdaFixPm = Union[JpyLiborSwapIsdaFixPm0, JpyLiborSwapIsdaFixPm1]
-EurLiborSwapIsdaFixA = Union[EurLiborSwapIsdaFixA0, EurLiborSwapIsdaFixA1]
+Period = Union[Period0, Period1]
+Concentrating1dMesher = Union[Concentrating1dMesher0, Concentrating1dMesher1]
+Exercise = Union[
+    AmericanExercise,
+    BermudanExercise,
+    EuropeanExercise,
+    ExerciseBase,
+    RebatedExercise,
+    SwingExercise,
+]
+CmsCouponPricer = Union[AnalyticHaganPricer, LinearTsrPricer, NumericHaganPricer]
 EURLibor = Union[
     EURLibor10M,
     EURLibor11M,
@@ -7733,69 +7426,6 @@ EURLibor = Union[
     EURLiborBase,
     EURLiborSW,
 ]
-BlackSwaptionEngine = Union[BlackSwaptionEngine0, BlackSwaptionEngine1]
-IborCouponPricer = Union[BlackIborCouponPricer]
-Seasonality = Union[MultiplicativePriceSeasonality]
-JointCalendar = Union[JointCalendar0, JointCalendar1, JointCalendar2]
-InflationCoupon = Union[CPICoupon]
-GlobalBootstrap = Union[GlobalBootstrap0, GlobalBootstrap1]
-MarkovFunctional = Union[MarkovFunctional0, MarkovFunctional1]
-Claim = Union[FaceValueAccrualClaim, FaceValueClaim]
-TreeCapFloorEngine = Union[TreeCapFloorEngine0, TreeCapFloorEngine1]
-EurLiborSwapIsdaFixB = Union[EurLiborSwapIsdaFixB0, EurLiborSwapIsdaFixB1]
-BrownianBridge = Union[BrownianBridge0, BrownianBridge1, BrownianBridge2]
-MultiAssetOption = Union[BasketOption, EverestOption, HimalayaOption]
-BachelierSwaptionEngine = Union[BachelierSwaptionEngine0, BachelierSwaptionEngine1]
-OvernightIndexedSwap = Union[OvernightIndexedSwap0, OvernightIndexedSwap1]
-Exercise = Union[
-    AmericanExercise,
-    BermudanExercise,
-    EuropeanExercise,
-    ExerciseBase,
-    RebatedExercise,
-    SwingExercise,
-]
-Date = Union[Date0, Date1]
-NoArbSabrSmileSection = Union[NoArbSabrSmileSection0, NoArbSabrSmileSection1]
-AnalyticPTDHestonEngine = Union[
-    AnalyticPTDHestonEngine0, AnalyticPTDHestonEngine1, AnalyticPTDHestonEngine2
-]
-ConstantParameter = Union[ConstantParameter0, ConstantParameter1]
-AmortizingFixedRateBond = Union[AmortizingFixedRateBond0, AmortizingFixedRateBond1]
-Array = Union[Array0, Array1]
-Region = Union[CustomRegion]
-LocalConstantVol = Union[
-    LocalConstantVol0, LocalConstantVol1, LocalConstantVol2, LocalConstantVol3
-]
-OvernightIndex = Union[Aonia, Eonia, FedFunds, Nzocr, OvernightIndexBase, Sofr, Sonia]
-CallableBond = Union[CallableFixedRateBond]
-CapFloor = Union[Cap, Collar, Floor]
-StrikedTypePayoff = Union[
-    AssetOrNothingPayoff,
-    CashOrNothingPayoff,
-    GapPayoff,
-    PercentageStrikePayoff,
-    PlainVanillaPayoff,
-    SuperSharePayoff,
-    VanillaForwardPayoff,
-]
-AverageBasketPayoff = Union[AverageBasketPayoff0, AverageBasketPayoff1]
-AnalyticHestonEngine = Union[
-    AnalyticHestonEngine0, AnalyticHestonEngine1, AnalyticHestonEngine2
-]
-ZeroInflationIndex = Union[
-    EUHICP, EUHICPXT, FRHICP, UKRPI, USCPI, ZACPI, ZeroInflationIndexBase
-]
-Constraint = Union[
-    BoundaryConstraint,
-    CompositeConstraint,
-    NoConstraint,
-    NonhomogeneousBoundaryConstraint,
-    PositiveConstraint,
-]
-BondHelper = Union[BondHelperBase, FixedRateBondHelper]
-FlatHazardRate = Union[FlatHazardRate0, FlatHazardRate1]
-TridiagonalOperator = Union[DMinus, DPlus, DPlusDMinus, DZero, TridiagonalOperatorBase]
 Euribor = Union[
     Euribor10M,
     Euribor11M,
@@ -7814,47 +7444,30 @@ Euribor = Union[
     EuriborBase,
     EuriborSW,
 ]
-FdmCellAveragingInnerValue = Union[FdmLogInnerValue]
-FittingMethod = Union[
-    CubicBSplinesFitting,
-    ExponentialSplinesFitting,
-    NelsonSiegelFitting,
-    SimplePolynomialFitting,
-    SvenssonFitting,
+MarkovFunctional = Union[MarkovFunctional0, MarkovFunctional1]
+GbpLiborSwapIsdaFix = Union[GbpLiborSwapIsdaFix0, GbpLiborSwapIsdaFix1]
+Bibor = Union[Bibor1M, Bibor1Y, Bibor2M, Bibor3M, Bibor6M, Bibor9M, BiborBase, BiborSW]
+CallableBond = Union[CallableFixedRateBond]
+FdmLinearOpComposite = Union[
+    Fdm2dBlackScholesOp,
+    FdmBatesOp,
+    FdmBlackScholesFwdOp,
+    FdmBlackScholesOp,
+    FdmCEVOp,
+    FdmDupire1dOp,
+    FdmG2Op,
+    FdmHestonFwdOp,
+    FdmHestonHullWhiteOp,
+    FdmHestonOp,
+    FdmHullWhiteOp,
+    FdmLocalVolFwdOp,
+    FdmOrnsteinUhlenbeckOp,
+    FdmSabrOp,
+    FdmSquareRootFwdOp,
+    FdmZabrOp,
 ]
-CappedFlooredCoupon = Union[
-    CappedFlooredCmsCoupon,
-    CappedFlooredCmsSpreadCoupon,
-    CappedFlooredCouponBase,
-    CappedFlooredIborCoupon,
-]
-JpyLiborSwapIsdaFixAm = Union[JpyLiborSwapIsdaFixAm0, JpyLiborSwapIsdaFixAm1]
-BlackCapFloorEngine = Union[BlackCapFloorEngine0, BlackCapFloorEngine1]
-LocalVolSurface = Union[LocalVolSurface0, LocalVolSurface1]
-DayCounter = Union[
-    Actual360,
-    Actual365Fixed,
-    ActualActual,
-    Business252,
-    OneDayCounter,
-    SimpleDayCounter,
-    Thirty360,
-]
-DailyTenorLibor = Union[CADLiborON, DailyTenorLiborBase, GBPLiborON, USDLiborON]
-FdBlackScholesVanillaEngine = Union[
-    FdBlackScholesVanillaEngine0, FdBlackScholesVanillaEngine1
-]
-CapFloorTermVolSurface = Union[
-    CapFloorTermVolSurface0,
-    CapFloorTermVolSurface1,
-    CapFloorTermVolSurface2,
-    CapFloorTermVolSurface3,
-]
-TripleBandLinearOp = Union[
-    FirstDerivativeOp, SecondDerivativeOp, TripleBandLinearOpBase
-]
-DeltaVolQuote = Union[DeltaVolQuote0, DeltaVolQuote1]
-Matrix = Union[Matrix0, Matrix1]
+AverageBasketPayoff = Union[AverageBasketPayoff0, AverageBasketPayoff1]
+HestonProcess = Union[BatesProcess, HestonProcessBase]
 Currency = Union[
     ARSCurrency,
     ATSCurrency,
@@ -7927,6 +7540,168 @@ Currency = Union[
     VNDCurrency,
     ZARCurrency,
 ]
+BrownianGeneratorFactory = Union[
+    MTBrownianGeneratorFactory, SobolBrownianGeneratorFactory
+]
+FlatForward = Union[FlatForward0, FlatForward1]
+TreeSwaptionEngine = Union[TreeSwaptionEngine0, TreeSwaptionEngine1]
+DeltaVolQuote = Union[DeltaVolQuote0, DeltaVolQuote1]
+FixedRateBond = Union[FixedRateBond0, FixedRateBond1, FixedRateBond2]
+DefaultProbabilityHelper = Union[SpreadCdsHelper, UpfrontCdsHelper]
+Region = Union[CustomRegion]
+ForwardVanillaOption = Union[ForwardVanillaOptionBase, QuantoForwardVanillaOption]
+FittedBondDiscountCurve = Union[FittedBondDiscountCurve0, FittedBondDiscountCurve1]
+YoYInflationIndex = Union[YYEUHICP, YYEUHICPXT, YYFRHICP, YYUKRPI, YYUSCPI, YYZACPI]
+Dividend = Union[FixedDividend, FractionalDividend]
+EuriborSwapIfrFix = Union[EuriborSwapIfrFix0, EuriborSwapIfrFix1]
+Rounding = Union[
+    CeilingTruncation, ClosestRounding, DownRounding, FloorTruncation, UpRounding
+]
+Array = Union[Array0, Array1]
+OvernightIndexedSwap = Union[OvernightIndexedSwap0, OvernightIndexedSwap1]
+FlatSmileSection = Union[FlatSmileSection0, FlatSmileSection1]
+NoArbSabrSmileSection = Union[NoArbSabrSmileSection0, NoArbSabrSmileSection1]
+FraRateHelper = Union[FraRateHelper0, FraRateHelper1, FraRateHelper2]
+DayCounter = Union[
+    Actual360,
+    Actual365Fixed,
+    ActualActual,
+    Business252,
+    OneDayCounter,
+    SimpleDayCounter,
+    Thirty360,
+]
+Schedule = Union[Schedule0, Schedule1]
+Matrix = Union[Matrix0, Matrix1]
+BlackConstantVol = Union[BlackConstantVol0, BlackConstantVol1]
+DefaultBoundaryCondition = Union[DirichletBC, NeumannBC]
+Constraint = Union[
+    BoundaryConstraint,
+    CompositeConstraint,
+    NoConstraint,
+    NonhomogeneousBoundaryConstraint,
+    PositiveConstraint,
+]
+BondHelper = Union[BondHelperBase, FixedRateBondHelper]
+Callability = Union[CallabilityBase, SoftCallability]
+OvernightIndex = Union[Aonia, Eonia, FedFunds, Nzocr, OvernightIndexBase, Sofr, Sonia]
+OptimizationMethod = Union[
+    BFGS,
+    ConjugateGradient,
+    DifferentialEvolution,
+    GaussianSimulatedAnnealing,
+    LevenbergMarquardt,
+    LogNormalSimulatedAnnealing,
+    MirrorGaussianSimulatedAnnealing,
+    Simplex,
+    SteepestDescent,
+]
+AnalyticPTDHestonEngine = Union[
+    AnalyticPTDHestonEngine0, AnalyticPTDHestonEngine1, AnalyticPTDHestonEngine2
+]
+Seasonality = Union[MultiplicativePriceSeasonality]
+Bkbm = Union[Bkbm1M, Bkbm2M, Bkbm3M, Bkbm4M, Bkbm5M, Bkbm6M, BkbmBase]
+BachelierSwaptionEngine = Union[BachelierSwaptionEngine0, BachelierSwaptionEngine1]
+DepositRateHelper = Union[DepositRateHelper0, DepositRateHelper1]
+InflationCoupon = Union[CPICoupon]
+RiskNeutralDensityCalculator = Union[
+    BSMRNDCalculator,
+    CEVRNDCalculator,
+    GBSMRNDCalculator,
+    HestonRNDCalculator,
+    LocalVolRNDCalculator,
+    SquareRootProcessRNDCalculator,
+]
+Forward = Union[FixedRateBondForward, ForwardRateAgreement]
+JpyLiborSwapIsdaFixPm = Union[JpyLiborSwapIsdaFixPm0, JpyLiborSwapIsdaFixPm1]
+CapFloor = Union[Cap, Collar, Floor]
+CappedFlooredCoupon = Union[
+    CappedFlooredCmsCoupon,
+    CappedFlooredCmsSpreadCoupon,
+    CappedFlooredCouponBase,
+    CappedFlooredIborCoupon,
+]
+ConstantSwaptionVolatility = Union[
+    ConstantSwaptionVolatility0, ConstantSwaptionVolatility1
+]
+FdmMesherComposite = Union[
+    FdmMesherComposite0, FdmMesherComposite1, FdmMesherComposite2
+]
+CapFloorTermVolCurve = Union[CapFloorTermVolCurve0, CapFloorTermVolCurve1]
+SwapRateHelper = Union[SwapRateHelper0, SwapRateHelper1]
+ZeroInflationIndex = Union[
+    EUHICP, EUHICPXT, FRHICP, UKRPI, USCPI, ZACPI, ZeroInflationIndexBase
+]
+YoYInflationCapFloor = Union[YoYInflationCap, YoYInflationCollar, YoYInflationFloor]
+Vasicek = Union[HullWhite, VasicekBase]
+MultiAssetOption = Union[BasketOption, EverestOption, HimalayaOption]
+EurLiborSwapIsdaFixA = Union[EurLiborSwapIsdaFixA0, EurLiborSwapIsdaFixA1]
+GlobalBootstrap = Union[GlobalBootstrap0, GlobalBootstrap1]
+EuriborSwapIsdaFixB = Union[EuriborSwapIsdaFixB0, EuriborSwapIsdaFixB1]
+Statistics = Union[RiskStatistics]
+AnalyticHestonEngine = Union[
+    AnalyticHestonEngine0, AnalyticHestonEngine1, AnalyticHestonEngine2
+]
+EurLiborSwapIsdaFixB = Union[EurLiborSwapIsdaFixB0, EurLiborSwapIsdaFixB1]
+UsdLiborSwapIsdaFixPm = Union[UsdLiborSwapIsdaFixPm0, UsdLiborSwapIsdaFixPm1]
+BatesEngine = Union[BatesEngine0, BatesEngine1]
+SwapIndex = Union[
+    ChfLiborSwapIsdaFix,
+    EurLiborSwapIfrFix,
+    EurLiborSwapIsdaFixA,
+    EurLiborSwapIsdaFixB,
+    EuriborSwapIfrFix,
+    EuriborSwapIsdaFixA,
+    EuriborSwapIsdaFixB,
+    GbpLiborSwapIsdaFix,
+    JpyLiborSwapIsdaFixAm,
+    JpyLiborSwapIsdaFixPm,
+    OvernightIndexedSwapIndex,
+    SwapIndexBase,
+    UsdLiborSwapIsdaFixAm,
+    UsdLiborSwapIsdaFixPm,
+]
+SwaptionVolatilityDiscrete = Union[
+    SwaptionVolCube1, SwaptionVolCube2, SwaptionVolatilityMatrix
+]
+FloatingRateCouponPricer = Union[
+    CmsCouponPricer, CmsSpreadCouponPricer, IborCouponPricer
+]
+IborIndex = Union[
+    AUDLibor,
+    Bbsw,
+    Bibor,
+    Bkbm,
+    CADLibor,
+    CHFLibor,
+    Cdor,
+    DKKLibor,
+    DailyTenorLibor,
+    EURLibor,
+    Euribor,
+    Euribor365,
+    GBPLibor,
+    IborIndexBase,
+    JPYLibor,
+    Jibar,
+    Libor,
+    Mosprime,
+    NZDLibor,
+    OvernightIndex,
+    Pribor,
+    Robor,
+    SEKLibor,
+    Shibor,
+    THBFIX,
+    TRLibor,
+    Tibor,
+    USDLibor,
+    Wibor,
+    Zibor,
+]
+FloatingRateCoupon = Union[
+    CappedFlooredCoupon, CmsCoupon, CmsSpreadCoupon, IborCoupon, OvernightIndexedCoupon
+]
 StochasticProcess = Union[
     ExtOUWithJumpsProcess,
     G2ForwardProcess,
@@ -7937,11 +7712,36 @@ StochasticProcess = Union[
     KlugeExtOUProcess,
     StochasticProcessArray,
 ]
-FloatingRateCoupon = Union[
-    CappedFlooredCoupon, CmsCoupon, CmsSpreadCoupon, IborCoupon, OvernightIndexedCoupon
+Swap = Union[
+    AssetSwap,
+    CPISwap,
+    FloatFloatSwap,
+    NonstandardSwap,
+    OvernightIndexedSwap,
+    SwapBase,
+    VanillaSwap,
+    YearOnYearInflationSwap,
+    ZeroCouponInflationSwap,
 ]
+Gaussian1dModel = Union[Gsr, MarkovFunctional]
 DefaultProbabilityTermStructure = Union[FlatHazardRate]
-CapFloorTermVolatilityStructure = Union[CapFloorTermVolCurve, CapFloorTermVolSurface]
+InflationIndex = Union[YoYInflationIndex, ZeroInflationIndex]
+FdmLinearOp = Union[
+    FdmLinearOpComposite, NinePointLinearOp, NthOrderDerivativeOp, TripleBandLinearOp
+]
+YieldTermStructure = Union[
+    CubicInterpolatedZeroCurve,
+    DefaultLogCubicInterpolatedZeroCurve,
+    FittedBondDiscountCurve,
+    FlatForward,
+    ForwardSpreadedTermStructure,
+    ImpliedTermStructure,
+    LogLinearInterpolatedZeroCurve,
+    MonotonicCubicInterpolatedZeroCurve,
+    SplineCubicInterpolatedZeroCurve,
+    ZeroCurve,
+    ZeroSpreadedTermStructure,
+]
 Calendar = Union[
     Argentina,
     Australia,
@@ -7986,28 +7786,27 @@ Calendar = Union[
     UnitedStates,
     WeekendsOnly,
 ]
-DefaultProbabilityHelper = Union[SpreadCdsHelper, UpfrontCdsHelper]
-FdmMesher = Union[FdmMesherComposite]
-LocalVolTermStructure = Union[
-    AndreasenHugeLocalVolAdapter, LocalConstantVol, LocalVolSurface
-]
+Parameter = Union[ConstantParameter, NullParameter, PiecewiseConstantParameter]
 OvernightIndexFutureRateHelper = Union[
     OvernightIndexFutureRateHelperBase, SofrFutureRateHelper
 ]
-TypePayoff = Union[StrikedTypePayoff]
-OptionletVolatilityStructure = Union[
-    ConstantOptionletVolatility, StrippedOptionletAdapter
+StochasticProcess1D = Union[
+    ExtendedOrnsteinUhlenbeckProcess,
+    GeneralizedBlackScholesProcess,
+    GeometricBrownianMotionProcess,
+    GsrProcess,
+    HullWhiteForwardProcess,
+    HullWhiteProcess,
+    Merton76Process,
+    OrnsteinUhlenbeckProcess,
+    VarianceGammaProcess,
 ]
-Swap = Union[
-    AssetSwap,
-    CPISwap,
-    FloatFloatSwap,
-    NonstandardSwap,
-    OvernightIndexedSwap,
-    SwapBase,
-    VanillaSwap,
-    YearOnYearInflationSwap,
-    ZeroCouponInflationSwap,
+Quote = Union[DeltaVolQuote, SimpleQuote]
+BlackVolTermStructure = Union[
+    AndreasenHugeVolatilityAdapter,
+    BlackConstantVol,
+    BlackVarianceCurve,
+    HestonBlackVolSurface,
 ]
 Fdm1dMesher = Union[
     Concentrating1dMesher,
@@ -8022,18 +7821,21 @@ Fdm1dMesher = Union[
     Predefined1dMesher,
     Uniform1dMesher,
 ]
-Quote = Union[DeltaVolQuote, SimpleQuote]
-StochasticProcess1D = Union[
-    ExtendedOrnsteinUhlenbeckProcess,
-    GeneralizedBlackScholesProcess,
-    GeometricBrownianMotionProcess,
-    GsrProcess,
-    HullWhiteForwardProcess,
-    HullWhiteProcess,
-    Merton76Process,
-    OrnsteinUhlenbeckProcess,
-    VarianceGammaProcess,
+BlackCalibrationHelper = Union[CapHelper, HestonModelHelper, SwaptionHelper]
+CapFloorTermVolatilityStructure = Union[CapFloorTermVolCurve, CapFloorTermVolSurface]
+TypePayoff = Union[StrikedTypePayoff]
+OneAssetOption = Union[
+    BarrierOption,
+    ContinuousAveragingAsianOption,
+    DiscreteAveragingAsianOption,
+    DividendVanillaOption,
+    DoubleBarrierOption,
+    ForwardVanillaOption,
+    QuantoVanillaOption,
+    VanillaOption,
+    VanillaSwingOption,
 ]
+FdmMesher = Union[FdmMesherComposite]
 Bond = Union[
     AmortizingFixedRateBond,
     AmortizingFloatingRateBond,
@@ -8049,59 +7851,9 @@ Bond = Union[
     FloatingRateBond,
     ZeroCouponBond,
 ]
-Gaussian1dModel = Union[Gsr, MarkovFunctional]
-IborIndex = Union[
-    AUDLibor,
-    Bbsw,
-    Bibor,
-    Bkbm,
-    CADLibor,
-    CHFLibor,
-    Cdor,
-    DKKLibor,
-    DailyTenorLibor,
-    EURLibor,
-    Euribor,
-    Euribor365,
-    GBPLibor,
-    IborIndexBase,
-    JPYLibor,
-    Jibar,
-    Libor,
-    Mosprime,
-    NZDLibor,
-    OvernightIndex,
-    Pribor,
-    Robor,
-    SEKLibor,
-    Shibor,
-    THBFIX,
-    TRLibor,
-    Tibor,
-    USDLibor,
-    Wibor,
-    Zibor,
+OptionletVolatilityStructure = Union[
+    ConstantOptionletVolatility, StrippedOptionletAdapter
 ]
-SwaptionVolatilityDiscrete = Union[
-    SwaptionVolCube1, SwaptionVolCube2, SwaptionVolatilityMatrix
-]
-FloatingRateCouponPricer = Union[
-    CmsCouponPricer, CmsSpreadCouponPricer, IborCouponPricer
-]
-BlackVolTermStructure = Union[
-    AndreasenHugeVolatilityAdapter,
-    BlackConstantVol,
-    BlackVarianceCurve,
-    HestonBlackVolSurface,
-]
-SmileSection = Union[
-    FlatSmileSection,
-    KahaleSmileSection,
-    NoArbSabrInterpolatedSmileSection,
-    NoArbSabrSmileSection,
-    SabrSmileSection,
-]
-Parameter = Union[ConstantParameter, NullParameter, PiecewiseConstantParameter]
 PricingEngine = Union[
     AnalyticBarrierEngine,
     AnalyticBinaryBarrierEngine,
@@ -8184,63 +7936,29 @@ PricingEngine = Union[
     VarianceGammaEngine,
     WulinYongDoubleBarrierEngine,
 ]
-SwapIndex = Union[
-    ChfLiborSwapIsdaFix,
-    EurLiborSwapIfrFix,
-    EurLiborSwapIsdaFixA,
-    EurLiborSwapIsdaFixB,
-    EuriborSwapIfrFix,
-    EuriborSwapIsdaFixA,
-    EuriborSwapIsdaFixB,
-    GbpLiborSwapIsdaFix,
-    JpyLiborSwapIsdaFixAm,
-    JpyLiborSwapIsdaFixPm,
-    OvernightIndexedSwapIndex,
-    SwapIndexBase,
-    UsdLiborSwapIsdaFixAm,
-    UsdLiborSwapIsdaFixPm,
-]
-OneAssetOption = Union[
-    BarrierOption,
-    ContinuousAveragingAsianOption,
-    DiscreteAveragingAsianOption,
-    DividendVanillaOption,
-    DoubleBarrierOption,
-    ForwardVanillaOption,
-    QuantoVanillaOption,
-    VanillaOption,
-    VanillaSwingOption,
-]
-OneFactorAffineModel = Union[Vasicek]
-YieldTermStructure = Union[
-    CubicInterpolatedZeroCurve,
-    DefaultLogCubicInterpolatedZeroCurve,
-    FittedBondDiscountCurve,
-    FlatForward,
-    ForwardSpreadedTermStructure,
-    ImpliedTermStructure,
-    LogLinearInterpolatedZeroCurve,
-    MonotonicCubicInterpolatedZeroCurve,
-    SplineCubicInterpolatedZeroCurve,
-    ZeroCurve,
-    ZeroSpreadedTermStructure,
-]
-InflationIndex = Union[YoYInflationIndex, ZeroInflationIndex]
-BlackCalibrationHelper = Union[CapHelper, HestonModelHelper, SwaptionHelper]
 BasketPayoff = Union[
     AverageBasketPayoff, MaxBasketPayoff, MinBasketPayoff, SpreadBasketPayoff
 ]
-FdmLinearOp = Union[
-    FdmLinearOpComposite, NinePointLinearOp, NthOrderDerivativeOp, TripleBandLinearOp
+SmileSection = Union[
+    FlatSmileSection,
+    KahaleSmileSection,
+    NoArbSabrInterpolatedSmileSection,
+    NoArbSabrSmileSection,
+    SabrSmileSection,
 ]
+LocalVolTermStructure = Union[
+    AndreasenHugeLocalVolAdapter, LocalConstantVol, LocalVolSurface
+]
+OneFactorAffineModel = Union[Vasicek]
+Payoff = Union[BasketPayoff, TypePayoff]
+Coupon = Union[FixedRateCoupon, FloatingRateCoupon, InflationCoupon]
+CalibrationHelper = Union[BlackCalibrationHelper]
 ShortRateModel = Union[BlackKarasinski, G2, OneFactorAffineModel]
 SwaptionVolatilityStructure = Union[
     ConstantSwaptionVolatility, SwaptionVolatilityDiscrete
 ]
-InterestRateIndex = Union[IborIndex, SwapIndex, SwapSpreadIndex]
 Option = Union[CdsOption, OneAssetOption, Swaption]
-Payoff = Union[BasketPayoff, TypePayoff]
-CalibrationHelper = Union[BlackCalibrationHelper]
+InterestRateIndex = Union[IborIndex, SwapIndex, SwapSpreadIndex]
 RateHelper = Union[
     BondHelper,
     DatedOISRateHelper,
@@ -8252,12 +7970,18 @@ RateHelper = Union[
     OvernightIndexFutureRateHelper,
     SwapRateHelper,
 ]
-Coupon = Union[FixedRateCoupon, FloatingRateCoupon, InflationCoupon]
+VolatilityTermStructure = Union[
+    BlackVolTermStructure,
+    CapFloorTermVolatilityStructure,
+    LocalVolTermStructure,
+    OptionletVolatilityStructure,
+    SwaptionVolatilityStructure,
+]
+Index = Union[InflationIndex, InterestRateIndex]
+CashFlow = Union[AmortizingPayment, Coupon, Dividend, Redemption, SimpleCashFlow]
 CalibratedModel = Union[
     GJRGARCHModel, HestonModel, PiecewiseTimeDependentHestonModel, ShortRateModel
 ]
-CashFlow = Union[AmortizingPayment, Coupon, Dividend, Redemption, SimpleCashFlow]
-Index = Union[InflationIndex, InterestRateIndex]
 Instrument = Union[
     Bond,
     CompositeInstrument,
@@ -8269,13 +7993,6 @@ Instrument = Union[
     Stock,
     Swap,
     YoYInflationCapFloor,
-]
-VolatilityTermStructure = Union[
-    BlackVolTermStructure,
-    CapFloorTermVolatilityStructure,
-    LocalVolTermStructure,
-    OptionletVolatilityStructure,
-    SwaptionVolatilityStructure,
 ]
 TermStructure = Union[
     DefaultProbabilityTermStructure,
@@ -8298,6 +8015,7 @@ Observable = Union[
     TermStructure,
     TermStructureConsistentModel,
 ]
+
 
 AUDLibor.update_forward_refs()
 ActualActual.update_forward_refs()
@@ -8348,8 +8066,6 @@ BkbmBase.update_forward_refs()
 BlackCalculator.update_forward_refs()
 BlackConstantVol0.update_forward_refs()
 BlackConstantVol1.update_forward_refs()
-BlackConstantVol2.update_forward_refs()
-BlackConstantVol3.update_forward_refs()
 BlackSwaptionEngine0.update_forward_refs()
 BlackVarianceCurve.update_forward_refs()
 BlackVolTermStructureHandle.update_forward_refs()
@@ -8392,14 +8108,10 @@ Collar.update_forward_refs()
 CompositeConstraint.update_forward_refs()
 ConstantOptionletVolatility0.update_forward_refs()
 ConstantOptionletVolatility1.update_forward_refs()
-ConstantOptionletVolatility2.update_forward_refs()
-ConstantOptionletVolatility3.update_forward_refs()
 ConstantParameter0.update_forward_refs()
 ConstantParameter1.update_forward_refs()
 ConstantSwaptionVolatility0.update_forward_refs()
 ConstantSwaptionVolatility1.update_forward_refs()
-ConstantSwaptionVolatility2.update_forward_refs()
-ConstantSwaptionVolatility3.update_forward_refs()
 ContinuousArithmeticAsianLevyEngine.update_forward_refs()
 ContinuousAveragingAsianOption.update_forward_refs()
 ConvertibleFixedCouponBond.update_forward_refs()
@@ -8419,8 +8131,6 @@ DefaultProbabilityTermStructureHandle.update_forward_refs()
 DeltaVolQuoteHandle.update_forward_refs()
 DepositRateHelper0.update_forward_refs()
 DepositRateHelper1.update_forward_refs()
-DepositRateHelper2.update_forward_refs()
-DepositRateHelper3.update_forward_refs()
 DiscountingSwapEngine.update_forward_refs()
 DiscreteAveragingAsianOption.update_forward_refs()
 DividendVanillaOption.update_forward_refs()
@@ -8496,7 +8206,6 @@ FdmLogInnerValue.update_forward_refs()
 FdmMesherComposite0.update_forward_refs()
 FdmMesherComposite1.update_forward_refs()
 FdmMesherComposite2.update_forward_refs()
-FdmMesherComposite3.update_forward_refs()
 FdmOrnsteinUhlenbeckOp.update_forward_refs()
 FdmQuantoHelper.update_forward_refs()
 FdmSabrOp.update_forward_refs()
@@ -8517,8 +8226,6 @@ FixedRateBondHelper.update_forward_refs()
 FixedRateCoupon.update_forward_refs()
 FlatForward0.update_forward_refs()
 FlatForward1.update_forward_refs()
-FlatForward2.update_forward_refs()
-FlatForward3.update_forward_refs()
 FlatHazardRate0.update_forward_refs()
 FlatHazardRate1.update_forward_refs()
 FlatSmileSection0.update_forward_refs()
@@ -8533,9 +8240,6 @@ ForwardVanillaOptionBase.update_forward_refs()
 FraRateHelper0.update_forward_refs()
 FraRateHelper1.update_forward_refs()
 FraRateHelper2.update_forward_refs()
-FraRateHelper3.update_forward_refs()
-FraRateHelper4.update_forward_refs()
-FraRateHelper5.update_forward_refs()
 FractionalDividend.update_forward_refs()
 FuturesRateHelper0.update_forward_refs()
 FuturesRateHelper1.update_forward_refs()
@@ -8585,8 +8289,6 @@ KahaleSmileSection.update_forward_refs()
 Libor.update_forward_refs()
 LocalConstantVol0.update_forward_refs()
 LocalConstantVol1.update_forward_refs()
-LocalConstantVol2.update_forward_refs()
-LocalConstantVol3.update_forward_refs()
 LocalVolRNDCalculator.update_forward_refs()
 LocalVolTermStructureHandle.update_forward_refs()
 LogLinearInterpolatedZeroCurve.update_forward_refs()
@@ -8683,8 +8385,6 @@ SofrFutureRateHelper1.update_forward_refs()
 SoftCallability.update_forward_refs()
 SplineCubicInterpolatedZeroCurve.update_forward_refs()
 SpreadBasketPayoff.update_forward_refs()
-SpreadCdsHelper0.update_forward_refs()
-SpreadCdsHelper1.update_forward_refs()
 StochasticProcessArray.update_forward_refs()
 StrippedOptionletAdapter.update_forward_refs()
 StulzEngine.update_forward_refs()
@@ -8693,8 +8393,6 @@ SwapBase.update_forward_refs()
 SwapIndexBase.update_forward_refs()
 SwapRateHelper0.update_forward_refs()
 SwapRateHelper1.update_forward_refs()
-SwapRateHelper2.update_forward_refs()
-SwapRateHelper3.update_forward_refs()
 SwapSpreadIndex.update_forward_refs()
 Swaption.update_forward_refs()
 SwaptionHelper0.update_forward_refs()
@@ -8716,12 +8414,9 @@ TreeCallableFixedRateBondEngine1.update_forward_refs()
 TreeCapFloorEngine0.update_forward_refs()
 TreeCapFloorEngine1.update_forward_refs()
 TreeSwaptionEngine1.update_forward_refs()
-TreeSwaptionEngine2.update_forward_refs()
 TridiagonalOperatorBase.update_forward_refs()
 TripleBandLinearOpBase.update_forward_refs()
 USDLibor.update_forward_refs()
-UpfrontCdsHelper0.update_forward_refs()
-UpfrontCdsHelper1.update_forward_refs()
 UsdLiborSwapIsdaFixAm0.update_forward_refs()
 UsdLiborSwapIsdaFixAm1.update_forward_refs()
 UsdLiborSwapIsdaFixPm0.update_forward_refs()
