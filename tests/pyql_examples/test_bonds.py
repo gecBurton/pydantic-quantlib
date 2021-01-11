@@ -48,7 +48,7 @@ bond = pql.FixedRateBond2(
 # discounting_term_structure = pql.YieldTermStructure(relinkable=True)
 #
 #
-flat_term_structure = pql.FlatForward0(
+flat_term_structure = pql.FlatForward1(
     settlementDays=1,
     calendar=pql.NullCalendar(),
     forward=0.044,

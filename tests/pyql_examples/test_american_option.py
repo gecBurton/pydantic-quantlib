@@ -23,7 +23,7 @@ maturity = pql.Date0(d=4, m=1, y=2022)
 daycounter = pql.Actual365Fixed()
 
 
-risk_free_rate = pql.FlatForward2(
+risk_free_rate = pql.FlatForward0(
     referenceDate=settlement_date, forward=0.06, dayCounter=daycounter
 )
 
@@ -33,10 +33,10 @@ payoff = pql.PlainVanillaPayoff(type=pql.OptionType.Put, strike=40)
 
 # market data
 underlying = pql.SimpleQuote(value=36)
-volatility = pql.BlackConstantVol0(
+volatility = pql.BlackConstantVol1(
     referenceDate=todays_date, c=pql.TARGET(), volatility=0.20, dayCounter=daycounter,
 )
-dividend_yield = pql.FlatForward2(
+dividend_yield = pql.FlatForward0(
     referenceDate=settlement_date, forward=0.00, dayCounter=daycounter
 )
 

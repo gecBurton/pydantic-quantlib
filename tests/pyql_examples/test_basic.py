@@ -28,19 +28,19 @@ underlyingH = pql.QuoteHandle(value=pql.SimpleQuote(value=underlying))
 
 # bootstrap the yield/dividend/vol curves
 flat_term_structure = pql.YieldTermStructureHandle(
-    value=pql.FlatForward2(
+    value=pql.FlatForward0(
         referenceDate=settlement_date, forward=risk_free_rate, dayCounter=daycounter
     )
 )
 
 flat_dividend_ts = pql.YieldTermStructureHandle(
-    value=pql.FlatForward2(
+    value=pql.FlatForward0(
         referenceDate=settlement_date, forward=0.01, dayCounter=daycounter
     )
 )
 
 flat_vol_ts = pql.BlackVolTermStructureHandle(
-    value=pql.BlackConstantVol0(
+    value=pql.BlackConstantVol1(
         referenceDate=settlement_date,
         c=calendar,
         volatility=volatility,
