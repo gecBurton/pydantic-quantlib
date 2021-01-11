@@ -4,8 +4,9 @@ from enum import Enum
 from typing import List, Literal, Optional, Union
 
 import QuantLib as ql
-from core import BaseModel
 from pydantic import Field, conint
+
+from .core import BaseModel
 
 
 class Frequency(Enum):
@@ -6586,8 +6587,8 @@ class OvernightIndexFutureRateHelperBase(BaseModel):
 class SofrFutureRateHelper0(BaseModel):
     resource_name: Optional[Literal["SofrFutureRateHelper"]] = "SofrFutureRateHelper"
     price: float
-    referenceMonth: conint(ge=1, le=12)
-    referenceYear: conint(ge=1900, le=2999)
+    referenceMonth: conint(ge=1, le=12)  # type: ignore
+    referenceYear: conint(ge=1900, le=2999)  # type: ignore
     referenceFreq: float
     index: OvernightIndex
     convexityAdjustment: Optional[float] = None
@@ -6597,8 +6598,8 @@ class SofrFutureRateHelper0(BaseModel):
 class SofrFutureRateHelper1(BaseModel):
     resource_name: Optional[Literal["SofrFutureRateHelper"]] = "SofrFutureRateHelper"
     price: QuoteHandle
-    referenceMonth: conint(ge=1, le=12)
-    referenceYear: conint(ge=1900, le=2999)
+    referenceMonth: conint(ge=1, le=12)  # type: ignore
+    referenceYear: conint(ge=1900, le=2999)  # type: ignore
     referenceFreq: float
     index: OvernightIndex
     convexityAdjustment: Optional[QuoteHandle] = None

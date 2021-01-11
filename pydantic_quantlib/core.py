@@ -41,6 +41,9 @@ class BaseModel(_BaseModel):
         if isinstance(attr, Enum):
             # extract integer value of Enum
             return attr.value
+        if isinstance(attr, Enum):
+            # extract integer value of Enum
+            return attr.value
 
         # else no conversion required
         return attr
